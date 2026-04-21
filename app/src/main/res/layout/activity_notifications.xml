@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="64dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageButton
+             android:layout_height="40dp"
+             android:layout_width="40dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Notifications" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:visibility="gone"
+             android:textSize="16sp"
+             android:fontFamily="@font/inter_medium"
+             android:textColor="#CCFFFFFF"
+             android:id="@+id/btn_mark_all_read"
+             android:text="Mark all read" />
+
+    </LinearLayout>
+
+    <View
+         android:layout_height="1dp"
+         android:layout_width="match_parent"
+         android:background="@color/divider" />
+
+    <LinearLayout
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:gravity="center"
+         android:orientation="vertical"
+         android:paddingBottom="80dp">
+
+        <ImageView
+             android:layout_height="96dp"
+             android:layout_width="96dp"
+             android:src="@drawable/ic_notification"
+             android:contentDescription="No notifications"
+             android:background="@drawable/bg_stat_card"
+             android:padding="20dp"
+             android:tint="@color/text_tertiary" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:gravity="center"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/text_primary"
+             android:layout_marginTop="20dp"
+             android:text="You’re all caught up" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="260dp"
+             android:gravity="center"
+             android:textSize="16sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="@color/text_secondary"
+             android:layout_marginTop="8dp"
+             android:lineSpacingMultiplier="1.4"
+             android:text="New chapters, comments, and updates from authors you follow will appear here." />
+
+    </LinearLayout>
+
+</LinearLayout>

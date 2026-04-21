@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:orientation="vertical"
+     android:paddingBottom="12dp"
+     android:paddingHorizontal="18dp"
+     android:paddingTop="14dp">
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:orientation="horizontal">
+
+        <ImageView
+             android:layout_height="40dp"
+             android:layout_width="40dp"
+             android:scaleType="centerCrop"
+             android:contentDescription="Reviewer avatar"
+             android:background="@drawable/profile_default"
+             android:id="@+id/slide_avatar" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:orientation="vertical"
+             android:layout_marginStart="10dp"
+             android:layout_weight="1">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:gravity="center_vertical"
+                 android:orientation="horizontal">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:ellipsize="end"
+                     android:textSize="16sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:maxLines="1"
+                     android:id="@+id/slide_display_name" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:background="@drawable/bg_rank_bookworm"
+                     android:paddingVertical="2dp"
+                     android:textSize="10sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="#2E7D32"
+                     android:layout_marginStart="6dp"
+                     android:paddingHorizontal="7dp"
+                     android:id="@+id/slide_rank_badge" />
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="12sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="1dp"
+                 android:maxLines="1"
+                 android:id="@+id/slide_username" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:gravity="center_vertical"
+             android:orientation="horizontal"
+             android:id="@+id/slide_star_row">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:ellipsize="end"
+         android:textSize="16sp"
+         android:fontFamily="@font/inter_regular"
+         android:textColor="?attr/colorOnSurface"
+         android:lineSpacingMultiplier="1.5"
+         android:maxLines="3"
+         android:id="@+id/slide_review_text" />
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:orientation="horizontal"
+         android:layout_marginTop="10dp">
+
+        <ImageView
+             android:layout_height="10dp"
+             android:layout_width="10dp"
+             android:src="@drawable/ic_book_open"
+             android:scaleType="fitCenter"
+             android:contentDescription="Book"
+             android:tint="@color/primary" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:ellipsize="end"
+             android:textSize="12sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/primary"
+             android:layout_marginStart="5dp"
+             android:maxLines="1"
+             android:layout_weight="1"
+             android:id="@+id/slide_novel_title" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:background="@drawable/bg_chip_inactive"
+             android:paddingVertical="3dp"
+             android:textSize="10sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="@color/text_secondary"
+             android:paddingHorizontal="8dp"
+             android:id="@+id/slide_genre" />
+
+    </LinearLayout>
+
+</LinearLayout>

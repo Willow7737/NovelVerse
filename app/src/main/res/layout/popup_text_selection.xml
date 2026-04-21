@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Text selection popup — matches reference image:
+    • Horizontal layout: [Comment] | [Share]
+    • Dark rounded pill body
+    • 1dp vertical divider between actions
+    • 14dp downward triangle tip at bottom center (speech bubble tail)
+    • 14dp bottom padding to leave room for the tail without clipping
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+    <!-- Pill body containing the two actions -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_text_selection_popup_body"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:elevation="8dp">
+
+        <!-- Comment action -->
+        <LinearLayout
+            android:id="@+id/btn_action_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_comment"
+                android:tint="#FFFFFFFF"
+                android:layout_marginEnd="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comment"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="#FFFFFFFF" />
+        </LinearLayout>
+
+        <!-- Vertical divider -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#4DFFFFFF"
+            android:layout_marginVertical="10dp" />
+
+        <!-- Share action -->
+        <LinearLayout
+            android:id="@+id/btn_action_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_share"
+                android:tint="#FFFFFFFF"
+                android:layout_marginEnd="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="#FFFFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Downward-pointing triangle tail -->
+    <View
+        android:layout_width="14dp"
+        android:layout_height="8dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_popup_tail_down" />
+
+</LinearLayout>

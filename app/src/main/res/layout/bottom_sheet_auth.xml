@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Drag handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/bg_drag_handle" />
+
+    <!-- Lock icon circle -->
+    <FrameLayout
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_icon_circle_primary">
+        <ImageView
+            android:id="@+id/auth_sheet_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:src="@drawable/ic_lock"
+            android:tint="?attr/colorIconTintPrimary" />
+    </FrameLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/auth_sheet_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/inter_semibold"
+        android:gravity="center"
+        android:text="Sign in to continue"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="22sp" />
+
+    <!-- Body -->
+    <TextView
+        android:id="@+id/auth_sheet_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:text="Create a free account to access your library, track reading progress, and get personalised picks."
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="15sp" />
+
+    <!-- Sign In button -->
+    <Button
+        android:id="@+id/auth_sheet_btn_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_btn_squircle_primary"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <!-- Create Account button -->
+    <Button
+        android:id="@+id/auth_sheet_btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_btn_squircle_secondary"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Create Free Account"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="15sp" />
+
+    <!-- Dismiss link -->
+    <TextView
+        android:id="@+id/auth_sheet_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Continue browsing"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="64dp"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:id="@+id/rank_number" />
+
+    <ImageView
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Avatar"
+        android:background="@drawable/bg_avatar_circle"
+        android:layout_marginHorizontal="12dp"
+        android:id="@+id/user_avatar" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:ellipsize="end"
+        android:textSize="15sp"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="?attr/colorOnSurface"
+        android:maxLines="1"
+        android:layout_weight="1"
+        android:id="@+id/display_name" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="15sp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="?attr/colorPrimary"
+        android:id="@+id/score_text" />
+
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable-night/bg_btn_primary.xml — Rose-red, same as light mode. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#E8395A" />
+    <corners android:radius="100dp" />
+</shape>

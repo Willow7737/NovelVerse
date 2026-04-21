@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/text_disabled</item>
+        <item name="colorControlActivated">@color/warning</item>
+    </style>
+
+
+    <style name="TextAppearance.NovelVerse.TabText" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/inter_semibold</item>
+    </style>
+
+</resources>

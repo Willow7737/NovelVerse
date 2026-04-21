@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Info -->
+    <string name="app_name">NovelVerse</string>
+    <string name="app_tagline">Read. Create. Discover.</string>
+
+    <!-- Notification Channels -->
+    <string name="channel_general">General</string>
+    <string name="channel_general_desc">General app notifications</string>
+    <string name="channel_new_chapters">New Chapters</string>
+    <string name="channel_new_chapters_desc">Notifications for new chapter releases</string>
+    <string name="channel_social">Social</string>
+    <string name="channel_social_desc">Comments, replies, and social interactions</string>
+    <string name="channel_promotions">Promotions</string>
+    <string name="channel_promotions_desc">Special offers and promotions</string>
+    <string name="default_notification_channel_id">general_notifications</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_author">Author</string>
+    <string name="nav_write">Write</string>
+    <string name="nav_admin">Admin</string>
+
+    <!-- Auth -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="logout">Logout</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="username">Username</string>
+    <string name="display_name">Display Name</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="send_reset_link">Send Reset Link</string>
+    <string name="continue_as_guest">Continue as Guest</string>
+    <string name="or_continue_with">Or continue with</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="sign_up_now">Sign up now</string>
+    <string name="sign_in_now">Sign in now</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="verification_sent">Verification email sent!</string>
+
+    <!-- Validation -->
+    <string name="error_invalid_email">Please enter a valid email</string>
+    <string name="error_invalid_password">Password must be at least 8 characters</string>
+    <string name="error_passwords_dont_match">Passwords don\'t match</string>
+    <string name="error_invalid_username">Username must be 3-20 characters</string>
+    <string name="error_field_required">This field is required</string>
+
+    <!-- Home -->
+    <string name="featured">Featured</string>
+    <string name="trending">Trending</string>
+    <string name="new_releases">New Releases</string>
+    <string name="completed">Completed</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="continue_reading">Continue Reading</string>
+    <string name="for_you">For You</string>
+    <string name="top_spenders">Top Spenders</string>
+    <string name="genres">Genres</string>
+    <string name="see_all">See All</string>
+
+    <!-- Novel -->
+    <string name="novel_details">Novel Details</string>
+    <string name="chapters">Chapters</string>
+    <string name="characters">Characters</string>
+    <string name="comments">Comments</string>
+    <string name="about">About</string>
+    <string name="read">Read</string>
+    <string name="continue_reading_btn">Continue</string>
+    <string name="add_to_library">Add to Library</string>
+    <string name="remove_from_library">Remove</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="report">Report</string>
+    <string name="rate">Rate</string>
+    <string name="write_review">Write a Review</string>
+    <string name="total_chapters">%d Chapters</string>
+    <string name="chapter_count">%d chapters</string>
+    <string name="views_format">%s views</string>
+    <string name="by_author">by %s</string>
+    <string name="published_on">Published %s</string>
+    <string name="updated_on">Updated %s</string>
+    <string name="age_rating">Age Rating: %s</string>
+    <string name="content_warning">Content Warning: %s</string>
+    <string name="license">License: %s</string>
+
+    <!-- Chapter -->
+    <string name="chapter">Chapter %d</string>
+    <string name="chapter_title_format">Chapter %1$d: %2$s</string>
+    <string name="next_chapter">Next Chapter</string>
+    <string name="previous_chapter">Previous Chapter</string>
+    <string name="chapter_list">Chapter List</string>
+    <string name="chapter_locked">Locked</string>
+    <string name="chapter_free">Free</string>
+    <string name="unlock_chapter">Unlock Chapter</string>
+    <string name="unlock_with_points">Unlock with %d points</string>
+    <string name="unlock_with_money">Unlock for $%.2f</string>
+
+    <!-- Reader -->
+    <string name="reader_settings">Reader Settings</string>
+    <string name="font_size">Font Size</string>
+    <string name="line_spacing">Line Spacing</string>
+    <string name="theme">Theme</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_sepia">Sepia</string>
+    <string name="auto_scroll">Auto Scroll</string>
+    <string name="scroll_speed">Scroll Speed</string>
+    <string name="text_to_speech">Text to Speech</string>
+    <string name="tts_play">Play</string>
+    <string name="tts_pause">Pause</string>
+    <string name="tts_stop">Stop</string>
+    <string name="tts_speed">TTS Speed</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="add_note">Add Note</string>
+    <string name="highlight">Highlight</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="translate">Translate</string>
+    <string name="copy">Copy</string>
+
+    <!-- Library -->
+    <string name="my_library">My Library</string>
+    <string name="reading">Reading</string>
+    <string name="completed_books">Completed</string>
+    <string name="plan_to_read">Plan to Read</string>
+    <string name="on_hold">On Hold</string>
+    <string name="dropped">Dropped</string>
+    <string name="favorites">Favorites</string>
+    <string name="downloads">Downloads</string>
+    <string name="history">History</string>
+    <string name="no_books_in_library">No books in your library</string>
+    <string name="start_exploring">Start exploring to find your next read!</string>
+    <string name="last_read">Last read %s</string>
+    <string name="progress_format">%d%% complete</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search novels, authors, genres…</string>
+    <string name="search_results">Search Results</string>
+    <string name="no_results">No results found</string>
+    <string name="try_different_search">Try a different search term</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="clear_history">Clear History</string>
+    <string name="filters">Filters</string>
+    <string name="sort_by">Sort By</string>
+    <string name="filter_genre">Genre</string>
+    <string name="filter_status">Status</string>
+    <string name="filter_rating">Rating</string>
+    <string name="filter_price">Price</string>
+    <string name="filter_language">Language</string>
+    <string name="filter_word_count">Word Count</string>
+    <string name="apply_filters">Apply Filters</string>
+    <string name="reset_filters">Reset</string>
+
+    <!-- Profile -->
+    <string name="my_profile">My Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="reading_stats">Reading Stats</string>
+    <string name="achievements">Achievements</string>
+    <string name="settings">Settings</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="about_app">About</string>
+    <string name="version">Version %s</string>
+    <string name="points_balance">%d Points</string>
+    <string name="total_spent">Total Spent: $%.2f</string>
+    <string name="member_since">Member since %s</string>
+    <string name="followers">%d Followers</string>
+    <string name="following">%d Following</string>
+
+    <!-- Settings -->
+    <string name="account_settings">Account</string>
+    <string name="reading_settings">Reading</string>
+    <string name="notification_settings">Notifications</string>
+    <string name="privacy_settings">Privacy</string>
+    <string name="theme_settings">Appearance</string>
+    <string name="language">Language</string>
+    <string name="change_password">Change Password</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="export_data">Export My Data</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="email_notifications">Email Notifications</string>
+    <string name="marketing_emails">Marketing Emails</string>
+    <string name="new_chapter_notifications">New Chapter Alerts</string>
+    <string name="social_notifications">Social Interactions</string>
+    <string name="profile_visibility">Profile Visibility</string>
+    <string name="public_profile">Public</string>
+    <string name="private_profile">Private</string>
+
+    <!-- Author Dashboard -->
+    <string name="author_dashboard">Author Dashboard</string>
+    <string name="my_novels">My Novels</string>
+    <string name="create_novel">Create Novel</string>
+    <string name="edit_novel">Edit Novel</string>
+    <string name="analytics">Analytics</string>
+    <string name="earnings">Earnings</string>
+    <string name="manage_characters">Manage Characters</string>
+    <string name="schedule_release">Schedule Release</string>
+    <string name="novel_title">Novel Title</string>
+    <string name="novel_description">Description</string>
+    <string name="select_genres">Select Genres</string>
+    <string name="select_tags">Add Tags</string>
+    <string name="upload_cover">Upload Cover</string>
+    <string name="pricing">Pricing</string>
+    <string name="free">Free</string>
+    <string name="paid">Paid</string>
+    <string name="freemium">Freemium</string>
+    <string name="price">Price</string>
+    <string name="points_cost">Points Cost</string>
+    <string name="age_rating_label">Age Rating</string>
+    <string name="content_warnings_label">Content Warnings</string>
+    <string name="license_type">License Type</string>
+    <string name="save_draft">Save Draft</string>
+    <string name="publish">Publish</string>
+    <string name="schedule">Schedule</string>
+    <string name="add_chapter">Add Chapter</string>
+    <string name="edit_chapter">Edit Chapter</string>
+    <string name="chapter_content">Chapter Content</string>
+    <string name="chapter_notes">Author Notes</string>
+    <string name="mark_as_free">Mark as Free</string>
+    <string name="word_count_format">%d words</string>
+    <string name="autosave_enabled">Autosave enabled</string>
+    <string name="version_history">Version History</string>
+    <string name="preview">Preview</string>
+    <string name="total_views">%d views</string>
+    <string name="total_earnings">$%.2f earned</string>
+    <string name="reader_retention">Reader Retention</string>
+    <string name="demographics">Demographics</string>
+
+    <!-- Points & Payment -->
+    <string name="point_store">Point Store</string>
+    <string name="buy_points">Buy Points</string>
+    <string name="points_package_format">%d Points</string>
+    <string name="points_bonus">+%d bonus</string>
+    <string name="purchase_points">Purchase for $%.2f</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="premium">Premium</string>
+    <string name="vip">VIP</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="manage_subscription">Manage Subscription</string>
+    <string name="subscription_benefits">Subscription Benefits</string>
+    <string name="ad_free">Ad-free reading</string>
+    <string name="early_access">Early access to chapters</string>
+    <string name="exclusive_content">Exclusive content</string>
+    <string name="premium_badge">Premium badge</string>
+    <string name="tip_author">Tip Author</string>
+    <string name="enter_tip_amount">Enter tip amount</string>
+    <string name="promo_code">Promo Code</string>
+    <string name="enter_promo_code">Enter promo code</string>
+    <string name="redeem">Redeem</string>
+    <string name="daily_checkin">Daily Check-in</string>
+    <string name="checkin_reward">+%d points</string>
+    <string name="already_checked_in">Already checked in today!</string>
+
+    <!-- Social -->
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="followers_list">Followers</string>
+    <string name="following_list">Following</string>
+    <string name="reading_lists">Reading Lists</string>
+    <string name="create_list">Create List</string>
+    <string name="list_name">List Name</string>
+    <string name="list_description">Description (optional)</string>
+    <string name="make_public">Make Public</string>
+    <string name="reading_groups">Reading Groups</string>
+    <string name="create_group">Create Group</string>
+    <string name="join_group">Join Group</string>
+    <string name="leave_group">Leave Group</string>
+    <string name="group_chat">Group Chat</string>
+    <string name="type_message">Type a message…</string>
+    <string name="send">Send</string>
+    <string name="like">Like</string>
+    <string name="reply">Reply</string>
+    <string name="more_replies">%d more replies</string>
+    <string name="view_replies">View Replies</string>
+    <string name="hide_replies">Hide Replies</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="report_comment">Report Comment</string>
+    <string name="block_user">Block User</string>
+
+    <!-- Admin -->
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="content_moderation">Content Moderation</string>
+    <string name="user_management">User Management</string>
+    <string name="reports_queue">Reports</string>
+    <string name="pending_approval">Pending Approval</string>
+    <string name="approved">Approved</string>
+    <string name="rejected">Rejected</string>
+    <string name="ban_user">Ban User</string>
+    <string name="unban_user">Unban User</string>
+    <string name="feature_novel">Feature Novel</string>
+    <string name="generate_promo_code">Generate Promo Code</string>
+    <string name="app_configuration">App Configuration</string>
+    <string name="system_stats">System Statistics</string>
+
+    <!-- Gamification -->
+    <string name="reading_streak">Reading Streak</string>
+    <string name="streak_days">%d day streak!</string>
+    <string name="longest_streak">Longest: %d days</string>
+    <string name="achievement_unlocked">Achievement Unlocked!</string>
+    <string name="reading_challenge">Reading Challenge</string>
+    <string name="challenges">Challenges</string>
+    <string name="badges">Badges</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="rank">#%d</string>
+
+    <!-- Offline -->
+    <string name="offline_mode">Offline Mode</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="check_connection">Please check your connection</string>
+    <string name="retry">Retry</string>
+    <string name="sync_pending">Sync pending…</string>
+    <string name="sync_complete">Sync complete</string>
+    <string name="download_complete">Download complete</string>
+    <string name="download_failed">Download failed</string>
+    <string name="insufficient_storage">Insufficient storage</string>
+
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_server">Server error. Please try again later.</string>
+    <string name="error_unauthorized">Please log in to continue.</string>
+    <string name="error_forbidden">You don\'t have permission to do this.</string>
+    <string name="error_not_found">Not found.</string>
+    <string name="error_timeout">Request timed out. Please try again.</string>
+    <string name="error_purchase_failed">Purchase failed. Please try again.</string>
+    <string name="error_insufficient_points">Insufficient points</string>
+    <string name="error_already_purchased">Already purchased</string>
+    <string name="error_content_locked">Content locked</string>
+
+    <!-- Success -->
+    <string name="success_saved">Saved successfully</string>
+    <string name="success_published">Published successfully</string>
+    <string name="success_purchased">Purchase successful</string>
+    <string name="success_added_to_library">Added to library</string>
+    <string name="success_removed">Removed successfully</string>
+    <string name="success_followed">Now following</string>
+    <string name="success_unfollowed">Unfollowed</string>
+    <string name="success_reported">Report submitted</string>
+    <string name="success_comment_posted">Comment posted</string>
+
+    <!-- Actions -->
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="confirm">Confirm</string>
+    <string name="loading">Loading…</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="pull_to_refresh">Pull to refresh</string>
+    <string name="view_more">View More</string>
+    <string name="show_less">Show Less</string>
+    <string name="read_more">Read More</string>
+
+    <!-- Content Description -->
+    <string name="cd_navigate_back">Navigate back</string>
+    <string name="cd_close">Close</string>
+    <string name="cd_menu">Menu</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_filter">Filter</string>
+    <string name="cd_sort">Sort</string>
+    <string name="cd_bookmark">Bookmark</string>
+    <string name="cd_share">Share</string>
+    <string name="cd_more_options">More options</string>
+    <string name="cd_user_avatar">User avatar</string>
+    <string name="cd_novel_cover">Novel cover</string>
+    <string name="cd_character_avatar">Character avatar</string>
+    <string name="cd_play_audio">Play audio</string>
+    <string name="cd_pause_audio">Pause audio</string>
+    <string name="cd_settings">Settings</string>
+
+    <!-- Time -->
+    <string name="just_now">Just now</string>
+    <string name="minutes_ago">%d min ago</string>
+    <string name="hours_ago">%d hours ago</string>
+    <string name="days_ago">%d days ago</string>
+    <string name="weeks_ago">%d weeks ago</string>
+    <string name="months_ago">%d months ago</string>
+    <string name="years_ago">%d years ago</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Discover Amazing Stories</string>
+    <string name="onboarding_desc_1">Explore thousands of novels from talented authors around the world</string>
+    <string name="onboarding_title_2">Read Anywhere, Anytime</string>
+    <string name="onboarding_desc_2">Download novels and read offline. Your progress syncs across devices</string>
+    <string name="onboarding_title_3">Become an Author</string>
+    <string name="onboarding_desc_3">Write and publish your own stories. Build your fanbase and earn</string>
+    <string name="onboarding_title_4">Join the Community</string>
+    <string name="onboarding_desc_4">Connect with readers and authors. Share your thoughts and discover new favorites</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+
+    <!-- Legal -->
+    <string name="accept_terms">I agree to the Terms of Service and Privacy Policy</string>
+    <string name="must_accept_terms">You must accept the terms to continue</string>
+    <string name="dmca_notice">DMCA Takedown Notice</string>
+    <string name="copyright_infringement">Report Copyright Infringement</string>
+    <string name="age_confirmation">I confirm that I am %d years or older</string>
+    <string name="mature_content_warning">This novel contains mature content</string>
+   
+
+    <!-- ── Navigation / section buttons ───────────────────────────── -->
+    <string name="view_all">View all</string>
+    <string name="challenges_week">This Week\'s Challenges</string>
+
+    <!-- ── Continue Reading ────────────────────────────────────────── -->
+    <string name="continue_reading_empty">Start reading a novel to see it here</string>
+    <string name="continue_reading_cta">Explore novels</string>
+
+    <!-- ── Novel detail ─────────────────────────────────────────────── -->
+    <string name="sort_oldest_first">Oldest first</string>
+    <string name="sort_newest_first">Newest first</string>
+    <string name="chapters_label">Chapters</string>
+    <string name="synopsis_label">Synopsis</string>
+    <string name="submit_review">Submit Review</string>
+    <string name="review_hint">Share your thoughts (optional)…</string>
+    <string name="review_submitted">Review submitted! ⭐</string>
+    <string name="author_badge">Author</string>
+
+    <!-- ── Reader ───────────────────────────────────────────────────── -->
+    <string name="chapter_label">Chapter %1$d of %2$d</string>
+    <string name="reading_time">~%d min read</string>
+    <string name="reading_settings_title">Reading Settings</string>
+    <string name="font_size_label">Font Size</string>
+    <string name="line_spacing_label">Line Spacing</string>
+    <string name="last_chapter_msg">Last chapter reached</string>
+    <string name="first_chapter_msg">Already at first chapter</string>
+    <string name="bookmark_saved">Bookmark saved</string>
+
+    <!-- ── Library tabs ─────────────────────────────────────────────── -->
+    <string name="tab_reading">Reading</string>
+    <string name="tab_completed">Completed</string>
+    <string name="tab_plan_to_read">Plan to Read</string>
+    <string name="tab_favorites">Favorites</string>
+    <string name="tab_downloads">Downloads</string>
+    <string name="library_empty_reading">Nothing in progress</string>
+    <string name="library_empty_reading_sub">Novels you\'re reading will appear here</string>
+    <string name="library_empty_completed">No completed novels</string>
+    <string name="library_empty_completed_sub">Finish a novel and it\'ll show up here</string>
+    <string name="library_empty_plan">Your reading list is empty</string>
+    <string name="library_empty_plan_sub">Save novels for later and find them here</string>
+    <string name="library_empty_favorites">No favorites yet</string>
+    <string name="library_empty_favorites_sub">Tap the heart on any novel to add it</string>
+    <string name="library_empty_downloads">No downloads</string>
+    <string name="library_empty_downloads_sub">Download novels to read offline</string>
+
+    <!-- ── My Works filter chips ────────────────────────────────────── -->
+    <string name="filter_all">All</string>
+    <string name="filter_published">Published</string>
+    <string name="filter_draft">Draft</string>
+    <string name="filter_completed">Completed</string>
+
+    <!-- ── Daily Check-In ───────────────────────────────────────────── -->
+    <string name="checkin_title">Daily Check-In</string>
+    <string name="checkin_claim">Claim 5 Points</string>
+    <string name="checkin_claimed">Claimed ✓</string>
+    <string name="checkin_already">Already claimed</string>
+    <string name="checkin_tomorrow">Come back tomorrow!</string>
+    <string name="checkin_points_label">+5 pts</string>
+
+    <!-- ── Settings section headers ─────────────────────────────────── -->
+    <string name="settings_account">ACCOUNT</string>
+    <string name="settings_reading">READING</string>
+    <string name="settings_notifications">NOTIFICATIONS</string>
+    <string name="settings_privacy">PRIVACY</string>
+    <string name="settings_app">APP</string>
+
+    <!-- ── Error / empty states ─────────────────────────────────────── -->
+    <string name="error_not_logged_in">Sign in required</string>
+    <string name="error_submit_failed">Submit failed</string>
+
+    <!-- ── Novel list dedicated page ────────────────────────────────── -->
+    <string name="section_trending">Trending</string>
+    <string name="section_new_releases">New Releases</string>
+    <string name="section_for_you">For You</string>
+    <string name="section_continue">Continue Reading</string>
+
+    <!-- ── Review / rating ──────────────────────────────────────────── -->
+    <string name="rating_label">Your Rating</string>
+    <string name="rating_new">New</string>
+    <string name="reviews_title">Write a Review</string>
+    <string name="reviews_subtitle">How was this novel?</string>
+
+    <!-- ── Share card ───────────────────────────────────────────────── -->
+    <string name="share_prefix">Read on NovelVerse</string>
+    <string name="share_body">Reading "%s" on NovelVerse!</string>
+
+    <!-- ── Gamification ─────────────────────────────────────────────── -->
+    <string name="achievement_unlocked_label">Achievement Unlocked!</string>
+    <string name="achievement_label_xp">+%d XP</string>
+    <string name="achievement_label_ink">+%d Ink</string>
+    <string name="achievement_label_quill">+%d Quill</string>
+    <string name="currency_ink">Ink</string>
+    <string name="currency_quill">Quill</string>
+    <string name="insufficient_ink">Not enough Ink</string>
+    <string name="insufficient_quill">Not enough Quill</string>
+    <string name="level_format">Level %d</string>
+    <string name="xp_format">%,d / %,d XP</string>
+    <string name="level_up_title">Level Up!</string>
+    <string name="level_up_message">You\'ve reached Level %d!</string>
+    <string name="perk_badge_slot_2">2nd badge slot unlocked!</string>
+    <string name="perk_badge_slot_3">3rd badge slot + animated avatars unlocked!</string>
+    <string name="perk_veteran">Veteran title + exclusive theme unlocked!</string>
+    <string name="next_level_hint_10">Level 10 unlocks 2nd badge slot</string>
+    <string name="next_level_hint_25">Level 25 unlocks 3rd slot + animated avatars</string>
+    <string name="next_level_hint_50">Level 50 unlocks Veteran title + exclusive theme</string>
+    <string name="max_level_hint">Maximum perks unlocked \uD83C\uDF96</string>
+    <string name="streak_day_format">%d day streak</string>
+    <string name="streak_longest">Longest streak: %d days</string>
+    <string name="streak_frozen">Streak frozen ❄️</string>
+    <string name="streak_broken">Streak reset \uD83D\uDC94</string>
+    <string name="freeze_cost_ink">Freeze (50 Ink)</string>
+    <string name="freeze_free">Free Freeze</string>
+    <string name="freeze_none_left">No free freezes left this month</string>
+    <string name="shield_cost_quill">Shield Recovery (150 Quill)</string>
+    <string name="shield_free">Free Shield Recovery</string>
+    <string name="shield_applied">Streak restored! \uD83D\uDEE1</string>
+    <string name="achievements_title_gam">Achievements</string>
+    <string name="achievements_unlocked_count">%d / 28 Unlocked</string>
+    <string name="achievement_progress">%d / %d</string>
+    <string name="achievement_locked_desc">---</string>
+    <string name="rarity_common">Common</string>
+    <string name="rarity_rare">Rare</string>
+    <string name="rarity_epic">Epic</string>
+    <string name="rarity_legendary">Legendary</string>
+    <string name="tab_stats">Stats</string>
+    <string name="tab_achievements">Achievements</string>
+    <string name="tab_collection">Collection</string>
+    <string name="equipped_badges">Equipped Badges</string>
+    <string name="avatar_frames_label">Avatar Frames</string>
+    <string name="profile_themes_label">Profile Themes</string>
+    <string name="follow_author">Follow Author</string>
+    <string name="following_author">Following ✓</string>
+    <string name="follow_success">Now following!</string>
+    <string name="review_too_short">Review must be at least 50 characters</string>
+
+</resources>

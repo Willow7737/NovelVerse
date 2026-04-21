@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="20dp"
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="#1A1A2E">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <!-- Burst effect behind badge -->
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="16dp">
+
+            <ImageView
+                android:id="@+id/levelup_burst_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="Level up burst" />
+
+            <ImageView
+                android:id="@+id/levelup_badge_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:contentDescription="Level badge" />
+
+        </FrameLayout>
+
+        <!-- Text -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⬆ LEVEL UP"
+                android:textSize="10sp"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="#FFD700"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:id="@+id/levelup_level_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="#F0F0FF"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/levelup_perk_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="#9090C0"
+                android:layout_marginTop="3dp" />
+
+        </LinearLayout>
+
+        <!-- XP star -->
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_star"
+            android:tint="#FFD700"
+            android:scaleType="fitCenter"
+            android:contentDescription="XP" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

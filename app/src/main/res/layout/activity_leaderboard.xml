@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Leaderboard" />
+
+        <ImageView
+             android:layout_height="28dp"
+             android:layout_width="28dp"
+             android:src="@drawable/ic_leaderboard"
+             android:contentDescription="Leaderboard"
+             android:tint="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <com.google.android.material.tabs.TabLayout
+         android:layout_height="48dp"
+         android:layout_width="match_parent"
+         android:background="?attr/colorSurface"
+         app:tabMode="fixed"
+         app:tabIndicatorColor="@color/primary"
+         app:tabGravity="fill"
+         app:tabTextColor="@color/text_secondary"
+         app:tabSelectedTextColor="@color/primary"
+         android:id="@+id/leaderboard_tabs">
+
+        <com.google.android.material.tabs.TabItem
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:text="Weekly" />
+
+        <com.google.android.material.tabs.TabItem
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:text="All-Time" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+         android:layout_height="0dp"
+         android:layout_width="match_parent"
+         android:clipToPadding="false"
+         android:layout_weight="1"
+         android:id="@+id/leaderboard_recycler"
+         android:paddingTop="8dp" />
+
+    <LinearLayout
+         android:layout_height="64dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:elevation="8dp"
+         android:orientation="horizontal"
+         android:paddingHorizontal="16dp"
+         android:id="@+id/your_rank_card">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textSize="15sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/primary"
+             android:id="@+id/your_rank_text"
+             android:text="You · #— · 0 chapters" />
+
+    </LinearLayout>
+
+</LinearLayout>

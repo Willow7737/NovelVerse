@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Achievement Card Item — vertical layout
+  Structure: icon badge (centred) → title + rarity chip → description
+             → progress bar → rewards → unlock date
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_achievement_card"
+    android:layout_marginHorizontal="14dp"
+    android:layout_marginVertical="7dp"
+    android:paddingHorizontal="18dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="18dp">
+
+    <!-- ── Badge frame (icon + rarity bg + locked overlay) ── -->
+    <FrameLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="14dp">
+
+        <!-- Rarity-tinted background (tinted via code) -->
+        <ImageView
+            android:id="@+id/card_bg_rarity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Rarity background" />
+
+        <!-- Achievement badge PNG -->
+        <ImageView
+            android:id="@+id/achievement_badge"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:contentDescription="Achievement badge" />
+
+        <!-- Locked dimming overlay -->
+        <View
+            android:id="@+id/locked_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000"
+            android:visibility="gone" />
+
+        <!-- Lock icon -->
+        <ImageView
+            android:id="@+id/locked_icon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_lock"
+            android:tint="#CCFFFFFF"
+            android:contentDescription="Locked"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- Title + rarity chip row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/achievement_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurface"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/rarity_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_pill_primary"
+            android:text="COMMON" />
+
+    </LinearLayout>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/achievement_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:layout_marginBottom="10dp"
+        android:maxLines="3"
+        android:lineSpacingMultiplier="1.35" />
+
+    <!-- Progress bar row -->
+    <LinearLayout
+        android:id="@+id/progress_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/achievement_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="0"
+            android:progressTint="@color/primary"
+            android:progressBackgroundTint="@color/divider" />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:text="0/10" />
+
+    </LinearLayout>
+
+    <!-- Rewards row: XP · Ink · Quill -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:id="@+id/reward_xp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/primary"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:id="@+id/reward_ink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:id="@+id/reward_quill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="#FFD700"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Unlock date -->
+    <TextView
+        android:id="@+id/unlocked_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:visibility="gone" />
+
+</LinearLayout>

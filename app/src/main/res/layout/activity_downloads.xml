@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Downloads" />
+
+        <ImageView
+             android:layout_height="40dp"
+             android:layout_width="40dp"
+             android:src="@drawable/ic_more_vert"
+             android:contentDescription="Manage"
+             android:padding="8dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_manage" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="@color/white"
+         android:elevation="1dp"
+         android:padding="16dp"
+         android:orientation="vertical">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_marginBottom="10dp"
+             android:gravity="center_vertical"
+             android:orientation="horizontal">
+
+            <ImageView
+                 android:layout_height="20dp"
+                 android:layout_width="20dp"
+                 android:src="@drawable/ic_download"
+                 android:contentDescription="Storage"
+                 android:tint="@color/primary" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="0dp"
+                 android:textSize="15sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_primary"
+                 android:layout_marginStart="10dp"
+                 android:layout_weight="1"
+                 android:text="Device Storage" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="13sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="@color/text_tertiary"
+                 android:text="0 MB used" />
+
+        </LinearLayout>
+
+        <ProgressBar
+             android:layout_height="6dp"
+             android:layout_width="match_parent"
+             android:max="100"
+             android:progressBackgroundTint="@color/divider"
+             android:progressTint="@color/primary"
+             android:progress="0"
+             />
+
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:gravity="center"
+         android:orientation="vertical"
+         android:paddingBottom="60dp">
+
+        <ImageView
+             android:layout_height="80dp"
+             android:layout_width="80dp"
+             android:src="@drawable/ic_download"
+             android:contentDescription="No downloads"
+             android:alpha="0.5"
+             android:tint="@color/text_tertiary" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:gravity="center"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/text_primary"
+             android:layout_marginTop="20dp"
+             android:text="No downloads yet" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="240dp"
+             android:gravity="center"
+             android:textSize="15sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="@color/text_secondary"
+             android:layout_marginTop="10dp"
+             android:lineSpacingMultiplier="1.5"
+             android:text="Save novels for offline reading. Tap the download icon on any chapter to get started." />
+
+        <TextView
+             android:layout_height="48dp"
+             android:layout_width="wrap_content"
+             android:gravity="center"
+             android:background="@drawable/bg_btn_primary"
+             android:textSize="15sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorSurface"
+             android:layout_marginTop="24dp"
+             android:paddingHorizontal="28dp"
+             android:id="@+id/btn_browse"
+             android:text="Browse Novels" />
+
+    </LinearLayout>
+
+</LinearLayout>

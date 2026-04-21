@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:id="@+id/legal_title"
+             android:text="Legal" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="14dp"
+         android:paddingTop="10dp">
+
+        <TextView
+             android:layout_height="40dp"
+             android:layout_width="0dp"
+             android:layout_marginEnd="6dp"
+             android:gravity="center"
+             android:background="@drawable/bg_btn_primary"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorSurface"
+             android:layout_weight="1"
+             android:id="@+id/tab_privacy"
+             android:text="Privacy Policy" />
+
+        <TextView
+             android:layout_height="40dp"
+             android:layout_width="0dp"
+             android:gravity="center"
+             android:background="@drawable/bg_surface_card"
+             android:elevation="1dp"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="@color/text_secondary"
+             android:layout_weight="1"
+             android:id="@+id/tab_terms"
+             android:text="Terms of Service" />
+
+    </LinearLayout>
+
+    <View
+         android:layout_height="1dp"
+         android:layout_width="match_parent"
+         android:background="@color/divider" />
+
+    <ScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:padding="20dp"
+             android:orientation="vertical"
+             android:paddingBottom="48dp">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:textSize="15sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="@color/text_secondary"
+                 android:lineSpacingMultiplier="1.6"
+                 android:id="@+id/legal_content"
+                 android:text="Loading..." />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

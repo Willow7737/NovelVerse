@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Help and Support" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingBottom="40dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:background="@drawable/bg_writer_card"
+                 android:padding="28dp"
+                 android:layout_margin="16dp"
+                 android:orientation="vertical">
+
+                <ImageView
+                     android:layout_height="48dp"
+                     android:layout_width="48dp"
+                     android:src="@drawable/ic_shield"
+                     android:contentDescription="Support"
+                     android:tint="?attr/colorSurface" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:gravity="center"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:layout_marginTop="12dp"
+                     android:text="How can we help?" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:gravity="center"
+                     android:textSize="14sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:textColor="#DDFFFFFF"
+                     android:layout_marginTop="6dp"
+                     android:text="Search our help centre or get in touch with the team." />
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="8dp"
+                 android:layout_marginHorizontal="16dp"
+                 android:textSize="12sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="8dp"
+                 android:letterSpacing="0.12"
+                 android:text="FREQUENTLY ASKED" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="vertical">
+
+                <LinearLayout
+                     android:layout_height="56dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:background="?android:attr/selectableItemBackground"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/faq_reading">
+
+                    <ImageView
+                         android:layout_height="20dp"
+                         android:layout_width="20dp"
+                         android:src="@drawable/ic_book_open"
+                         android:contentDescription="Reading"
+                         android:tint="@color/primary" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_primary"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1"
+                         android:text="How do I read offline?" />
+
+                    <ImageView
+                         android:layout_height="18dp"
+                         android:layout_width="18dp"
+                         android:src="@drawable/ic_arrow_right"
+                         android:contentDescription="Open"
+                         android:tint="@color/text_tertiary" />
+
+                </LinearLayout>
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <LinearLayout
+                     android:layout_height="56dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:background="?android:attr/selectableItemBackground"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/faq_subscription">
+
+                    <ImageView
+                         android:layout_height="20dp"
+                         android:layout_width="20dp"
+                         android:src="@drawable/ic_crown"
+                         android:contentDescription="Subscription"
+                         android:tint="@color/warning" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_primary"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1"
+                         android:text="Managing my subscription" />
+
+                    <ImageView
+                         android:layout_height="18dp"
+                         android:layout_width="18dp"
+                         android:src="@drawable/ic_arrow_right"
+                         android:contentDescription="Open"
+                         android:tint="@color/text_tertiary" />
+
+                </LinearLayout>
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <LinearLayout
+                     android:layout_height="56dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:background="?android:attr/selectableItemBackground"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/faq_account">
+
+                    <ImageView
+                         android:layout_height="20dp"
+                         android:layout_width="20dp"
+                         android:src="@drawable/ic_lock"
+                         android:contentDescription="Account"
+                         android:tint="@color/accent" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_primary"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1"
+                         android:text="Account and password issues" />
+
+                    <ImageView
+                         android:layout_height="18dp"
+                         android:layout_width="18dp"
+                         android:src="@drawable/ic_arrow_right"
+                         android:contentDescription="Open"
+                         android:tint="@color/text_tertiary" />
+
+                </LinearLayout>
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <LinearLayout
+                     android:layout_height="56dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:background="?android:attr/selectableItemBackground"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/faq_points">
+
+                    <ImageView
+                         android:layout_height="20dp"
+                         android:layout_width="20dp"
+                         android:src="@drawable/ic_coins"
+                         android:contentDescription="Points"
+                         android:tint="@color/points" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_primary"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1"
+                         android:text="How do points work?" />
+
+                    <ImageView
+                         android:layout_height="18dp"
+                         android:layout_width="18dp"
+                         android:src="@drawable/ic_arrow_right"
+                         android:contentDescription="Open"
+                         android:tint="@color/text_tertiary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="8dp"
+                 android:layout_marginHorizontal="16dp"
+                 android:textSize="12sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="24dp"
+                 android:letterSpacing="0.12"
+                 android:text="CONTACT US" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="vertical">
+
+                <LinearLayout
+                     android:layout_height="60dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:background="?android:attr/selectableItemBackground"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/contact_email">
+
+                    <ImageView
+                         android:layout_height="22dp"
+                         android:layout_width="22dp"
+                         android:src="@drawable/ic_document"
+                         android:contentDescription="Email"
+                         android:tint="@color/primary" />
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:orientation="vertical"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1">
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="16sp"
+                             android:fontFamily="@font/inter_semibold"
+                             android:textColor="@color/text_primary"
+                             android:text="Email Support" />
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="13sp"
+                             android:fontFamily="@font/inter_regular"
+                             android:textColor="@color/text_tertiary"
+                             android:text="support@novelverse.app" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                         android:layout_height="18dp"
+                         android:layout_width="18dp"
+                         android:src="@drawable/ic_arrow_right"
+                         android:contentDescription="Open"
+                         android:tint="@color/text_tertiary" />
+
+                </LinearLayout>
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <LinearLayout
+                     android:layout_height="60dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:background="?android:attr/selectableItemBackground"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/contact_report">
+
+                    <ImageView
+                         android:layout_height="22dp"
+                         android:layout_width="22dp"
+                         android:src="@drawable/ic_flag"
+                         android:contentDescription="Report"
+                         android:tint="@color/error" />
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:orientation="vertical"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1">
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="16sp"
+                             android:fontFamily="@font/inter_semibold"
+                             android:textColor="@color/text_primary"
+                             android:text="Report a Problem" />
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="13sp"
+                             android:fontFamily="@font/inter_regular"
+                             android:textColor="@color/text_tertiary"
+                             android:text="Bugs, crashes, content issues" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                         android:layout_height="18dp"
+                         android:layout_width="18dp"
+                         android:src="@drawable/ic_arrow_right"
+                         android:contentDescription="Open"
+                         android:tint="@color/text_tertiary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:gravity="center"
+                 android:textSize="12sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="32dp"
+                 android:layout_gravity="center_horizontal"
+                 android:text="NovelVerse v1.0.0" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="200dp"
+     android:layout_marginEnd="12dp"
+     android:background="@drawable/bg_surface_card"
+     android:elevation="2dp"
+     android:padding="14dp"
+     android:orientation="vertical">
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:ellipsize="end"
+         android:textSize="14sp"
+         android:fontFamily="@font/inter_semibold"
+         android:textColor="@color/text_primary"
+         android:maxLines="2"
+         android:id="@+id/challenge_title" />
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:ellipsize="end"
+         android:textSize="12sp"
+         android:fontFamily="@font/inter_regular"
+         android:textColor="@color/text_secondary"
+         android:layout_marginTop="4dp"
+         android:maxLines="2"
+         android:id="@+id/challenge_description" />
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:orientation="horizontal"
+         android:layout_marginTop="10dp">
+
+        <ImageView
+             android:layout_height="20dp"
+             android:layout_width="20dp"
+             android:src="@drawable/ic_badge_first_chapter"
+             android:layout_marginEnd="4dp"
+             android:contentDescription="Badge"
+             android:id="@+id/challenge_badge_icon" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textSize="13sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/warning"
+             android:id="@+id/challenge_reward_pts" />
+
+    </LinearLayout>
+
+    <ProgressBar
+         android:layout_height="6dp"
+         android:layout_width="match_parent"
+         android:max="100"
+         style="@android:style/Widget.ProgressBar.Horizontal"
+         android:layout_marginTop="10dp"
+         android:progress="0"
+         android:id="@+id/challenge_progress_bar" />
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:textSize="11sp"
+         android:fontFamily="@font/inter_regular"
+         android:textColor="@color/text_tertiary"
+         android:layout_marginTop="4dp"
+         android:id="@+id/challenge_progress_text" />
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:textSize="11sp"
+         android:fontFamily="@font/inter_regular"
+         android:textColor="@color/text_tertiary"
+         android:layout_marginTop="2dp"
+         android:id="@+id/challenge_expiry" />
+
+</LinearLayout>

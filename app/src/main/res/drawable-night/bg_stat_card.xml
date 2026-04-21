@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable-night/bg_stat_card.xml — Dark mode: iOS second-level #3A3A3C -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#3A3A3C" />
+    <corners android:radius="24dp" />
+</shape>

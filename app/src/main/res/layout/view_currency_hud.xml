@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Merged into CurrencyHudView via inflate(..., this, true) -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Ink section -->
+    <ImageView
+        android:id="@+id/ink_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="Ink" />
+
+    <TextView
+        android:id="@+id/ink_balance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="?attr/colorOnSurface"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="14dp"
+        android:text="0" />
+
+    <!-- Quill section -->
+    <ImageView
+        android:id="@+id/quill_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="Quill" />
+
+    <TextView
+        android:id="@+id/quill_balance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="#FFD700"
+        android:layout_marginStart="4dp"
+        android:text="0" />
+
+</merge>

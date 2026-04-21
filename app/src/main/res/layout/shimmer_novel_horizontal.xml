@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="220dp"
+     android:layout_width="140dp"
+     android:layout_marginEnd="12dp"
+     android:padding="8dp"
+     android:orientation="vertical">
+
+    <!-- Cover image placeholder — 8dp corners to match real novel card -->
+    <com.novelverse.app.presentation.common.views.ShimmerView
+         android:layout_height="160dp"
+         android:layout_width="match_parent"
+         app:shimmerCornerRadius="8dp" />
+
+    <!-- Title line -->
+    <com.novelverse.app.presentation.common.views.ShimmerView
+         android:layout_height="12dp"
+         android:layout_width="match_parent"
+         android:layout_marginTop="10dp" />
+
+    <!-- Subtitle line -->
+    <com.novelverse.app.presentation.common.views.ShimmerView
+         android:layout_height="12dp"
+         android:layout_width="80dp"
+         android:layout_marginTop="7dp" />
+
+    <!-- Metadata line -->
+    <com.novelverse.app.presentation.common.views.ShimmerView
+         android:layout_height="10dp"
+         android:layout_width="100dp"
+         android:layout_marginTop="7dp" />
+
+</LinearLayout>

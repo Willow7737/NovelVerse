@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  bg_profile_banner.xml — Same in light AND dark mode.
+  Rose-red → deep berry gradient matching the brand primary.
+  Webnovel-inspired: rich, warm, editorial feel.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#8C1828"
+        android:centerColor="#C02040"
+        android:endColor="#6A1048"
+        android:type="linear"
+        android:angle="135" />
+</shape>

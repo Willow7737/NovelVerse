@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textButtonStyle" format="reference" />
+    <!-- Custom theme attributes for NovelVerse -->
+    <attr name="colorSurfaceCardStroke" format="color" />
+    <attr name="colorSurfaceCardSecondary" format="color" />
+    <attr name="colorSurfaceCardTertiary" format="color" />
+    <attr name="colorDragHandle" format="color" />
+    <attr name="colorIconBgTint" format="color" />
+    <attr name="colorIconTintPrimary" format="color" />
+    <attr name="colorButtonSecondaryBg" format="color" />
+    <attr name="colorChipInactiveBg" format="color" />
+    <attr name="colorChipInactiveStroke" format="color" />
+    <attr name="colorSearchBarBg" format="color" />
+
+    <declare-styleable name="ShimmerView">
+        <!-- Fixed corner radius in dp. Omit (or set to -1) for the default pill shape. -->
+        <attr name="shimmerCornerRadius" format="dimension" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovelVerse — Bluesky Redesign Preview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --blue: #0085FF;
+    --blue-light: #5EB3FF;
+    --blue-tint: #F3F9FF;
+    --blue-dim: #DFF0FF;
+    --text-primary: #11131A;
+    --text-secondary: #687787;
+    --text-tertiary: #96A6B6;
+    --border: #E3E8ED;
+    --bg: #FFFFFF;
+    --surface: #F8FAFB;
+    --green: #20BC07;
+    --amber: #F59E0B;
+    --red: #E53E3E;
+    --purple: #9B59B6;
+    --pink: #FF6B9D;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #F0F4F8;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+  }
+
+  h1.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
+  .page-subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  /* Phone frame */
+  .phone-grid {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .phone-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .phone {
+    width: 320px;
+    height: 640px;
+    background: var(--bg);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 
+      0 0 0 8px #1A1A2E,
+      0 0 0 10px #2D2D4A,
+      0 32px 64px rgba(0,0,0,0.25),
+      0 8px 16px rgba(0,0,0,0.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 32px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+  .status-right { display: flex; gap: 5px; align-items: center; }
+
+  /* App bar */
+  .app-bar {
+    height: 52px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .app-bar-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    flex: 1;
+  }
+  .icon-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: #F3F4F6;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .icon-btn svg { width: 16px; height: 16px; stroke: var(--text-secondary); fill: none; stroke-width: 2; }
+
+  /* Scrollable content */
+  .screen-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+  .section-link {
+    font-size: 13px;
+    color: var(--blue);
+    font-weight: 400;
+  }
+
+  /* Genre pills */
+  .pills-row {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px;
+    overflow: hidden;
+    margin-bottom: 2px;
+  }
+  .pill {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex; align-items: center; gap: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .pill.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+  .pill-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* Novel cards horizontal */
+  .cards-row {
+    display: flex;
+    gap: 12px;
+    padding: 0 16px;
+    overflow: hidden;
+  }
+  .novel-card {
+    flex-shrink: 0;
+    width: 110px;
+    cursor: pointer;
+  }
+  .novel-cover {
+    width: 110px;
+    height: 155px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .novel-cover-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 8px;
+  }
+  .genre-badge {
+    font-size: 9px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 6px;
+    border-radius: 100px;
+    backdrop-filter: blur(4px);
+  }
+  .novel-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 3px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .novel-author {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 3px;
+  }
+  .novel-stars {
+    display: flex; gap: 2px;
+  }
+  .star { color: var(--amber); font-size: 9px; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 18px 0 0;
+  }
+
+  /* Bottom nav */
+  .bottom-nav {
+    height: 72px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .floating-nav {
+    width: 240px;
+    height: 52px;
+    background: #13131F;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .nav-item {
+    width: 48px; height: 36px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .nav-item.active { background: #3B9EFF; }
+  .nav-item svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.5); fill: none; stroke-width: 2; }
+  .nav-item.active svg { stroke: #fff; }
+
+  /* ── SEARCH SCREEN ── */
+  .search-bar-wrap {
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .search-bar {
+    height: 40px;
+    background: #F3F4F6;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 8px;
+  }
+  .search-bar svg { width: 15px; height: 15px; stroke: var(--text-tertiary); fill: none; stroke-width: 2; }
+  .search-placeholder { font-size: 13px; color: var(--text-tertiary); }
+  .tab-row {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .tab {
+    flex: 1;
+    height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+  }
+  .tab.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+
+  /* Search results - list style */
+  .result-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+    cursor: pointer;
+  }
+  .result-cover {
+    width: 44px; height: 60px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .result-meta { flex: 1; min-width: 0; }
+  .result-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .result-author { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .result-genre { font-size: 11px; color: var(--blue); margin-top: 3px; }
+
+  /* ── PROFILE SCREEN ── */
+  .profile-header {
+    padding: 20px 16px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .profile-top-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .profile-name { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+  .profile-handle { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .profile-badge {
+    display: inline-block;
+    margin-top: 6px;
+    background: var(--blue-dim);
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 100px;
+  }
+  .edit-btn {
+    margin-left: auto;
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex; align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .profile-bio {
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .stats-row {
+    display: flex;
+    margin-top: 16px;
+  }
+  .stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+  }
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 28px;
+    background: var(--border);
+  }
+  .stat-num { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+  .stat-label { font-size: 11px; color: var(--text-secondary); }
+  .menu-row {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 14px;
+    cursor: pointer;
+  }
+  .menu-icon { width: 18px; height: 18px; stroke: var(--text-secondary); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .menu-label { flex: 1; font-size: 14px; color: var(--text-primary); }
+  .menu-chevron { width: 14px; height: 14px; stroke: var(--text-tertiary); fill: none; stroke-width: 2; }
+  .menu-row.danger .menu-icon, .menu-row.danger .menu-label { stroke: var(--red); color: var(--red); }
+
+  /* ── NOVEL DETAIL SCREEN ── */
+  .novel-hero {
+    height: 220px;
+    background: linear-gradient(180deg, #F0F4F8 0%, #E8EDF2 100%);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+  .novel-hero-cover {
+    width: 100px;
+    height: 145px;
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+  .hero-back {
+    position: absolute;
+    top: 12px; left: 12px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .novel-info { padding: 14px 16px 0; }
+  .novel-detail-title { font-size: 19px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+  .novel-detail-author { font-size: 13px; color: var(--blue); margin-top: 3px; }
+  .novel-detail-stats {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .stat-dot { font-size: 12px; color: var(--text-tertiary); }
+  .stat-text { font-size: 12px; color: var(--text-secondary); }
+  .genre-chips-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .genre-chip {
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex; align-items: center;
+  }
+  .novel-synopsis { font-size: 12px; color: var(--text-primary); line-height: 1.6; padding: 14px 16px 0; }
+  .detail-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: 12px;
+    background: var(--bg);
+  }
+  .icon-outline-btn {
+    width: 40px; height: 40px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .icon-outline-btn svg { width: 16px; height: 16px; stroke: var(--text-secondary); fill: none; stroke-width: 2; }
+  .read-btn {
+    flex: 1;
+    height: 42px;
+    background: var(--blue);
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+  }
+  .next-btn {
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  /* Gradient covers for demo */
+  .cover-romance { background: linear-gradient(135deg, #FF6B9D 0%, #C8315E 100%); }
+  .cover-fantasy { background: linear-gradient(135deg, #9B59B6 0%, #6C3483 100%); }
+  .cover-scifi   { background: linear-gradient(135deg, #3498DB 0%, #1A5276 100%); }
+  .cover-mystery { background: linear-gradient(135deg, #E74C3C 0%, #922B21 100%); }
+  .cover-horror  { background: linear-gradient(135deg, #2C3E50 0%, #1A252F 100%); }
+  .cover-adventure { background: linear-gradient(135deg, #27AE60 0%, #1E8449 100%); }
+  .cover-thriller { background: linear-gradient(135deg, #F39C12 0%, #D68910 100%); }
+  .cover-drama  { background: linear-gradient(135deg, #E67E22 0%, #A04000 100%); }
+  .cover-default { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+  /* Color guide */
+  .color-guide {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .color-guide h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; letter-spacing: -0.3px; }
+  .color-swatches { display: flex; gap: 12px; flex-wrap: wrap; }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .swatch-circle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  }
+  .swatch-name { font-size: 11px; color: var(--text-secondary); font-weight: 500; text-align: center; }
+  .swatch-hex { font-size: 10px; color: var(--text-tertiary); font-family: monospace; }
+
+  /* Changes list */
+  .changes-list {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .changes-list h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
+  .change-section { margin-bottom: 20px; }
+  .change-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .change-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  .change-item:last-child { border-bottom: none; }
+  .change-check { color: var(--green); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<div>
+  <h1 class="page-title">NovelVerse — Bluesky Redesign</h1>
+  <p class="page-subtitle">Complete interface overhaul inspired by Bluesky's clean, open design language</p>
+</div>
+
+<!-- PHONE SCREENS -->
+<div class="phone-grid">
+
+  <!-- HOME -->
+  <div class="phone-wrap">
+    <span class="phone-label">Home</span>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right">
+          <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="3" width="2" height="7" rx="1" fill="#11131A"/><rect x="3" y="2" width="2" height="8" rx="1" fill="#11131A"/><rect x="6" y="0" width="2" height="10" rx="1" fill="#11131A"/><rect x="9" y="1" width="2" height="9" rx="1" fill="#11131A" opacity="0.3"/><rect x="12" y="2" width="2" height="8" rx="1" fill="#11131A" opacity="0.3"/></svg>
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2.5L10 6.5L12 4.5C11 1.5 8.5 0 6 0C3.5 0 1 1.5 0 4.5L2 6.5L6 2.5Z" fill="#11131A"/></svg>
+          🔋
+        </div>
+      </div>
+      <div class="app-bar">
+        <span class="app-bar-title">NovelVerse</span>
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+      </div>
+      <div class="screen-content" style="overflow-y:auto">
+        <!-- Pills -->
+        <div class="pills-row" style="margin-top:14px">
+          <div class="pill active">All</div>
+          <div class="pill"><span class="pill-dot" style="background:#FF6B9D"></span>Romance</div>
+          <div class="pill"><span class="pill-dot" style="background:#9B59B6"></span>Fantasy</div>
+          <div class="pill"><span class="pill-dot" style="background:#3498DB"></span>Sci-Fi</div>
+        </div>
+
+        <!-- Featured -->
+        <div class="section-header">
+          <span class="section-title">Featured</span>
+          <span class="section-link">View all</span>
+        </div>
+        <div class="cards-row">
+          <div class="novel-card">
+            <div class="novel-cover cover-romance">
+              <div class="novel-cover-inner">
+                <span class="genre-badge">Romance</span>
+              </div>
+            </div>
+            <div class="novel-title">Hearts in the Rain</div>
+            <div class="novel-author">Elena Marsh</div>
+            <div class="novel-stars">★★★★★</div>
+          </div>
+          <div class="novel-card">
+            <div class="novel-cover cover-fantasy">
+              <div class="novel-cover-inner">
+                <span class="genre-badge">Fantasy</span>
+              </div>
+            </div>
+            <div class="novel-title">The Crystal Crown</div>
+            <div class="novel-author">D. Ashworth</div>
+            <div class="novel-stars">★★★★☆</div>
+          </div>
+          <div class="novel-card">
+            <div class="novel-cover cover-scifi">
+              <div class="novel-cover-inner">
+                <span class="genre-badge">Sci-Fi</span>
+              </div>
+            </div>
+            <div class="novel-title">Orbit Zero</div>
+            <div class="novel-author">K. Vance</div>
+            <div class="novel-stars">★★★★★</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Trending -->
+        <div class="section-header">
+          <span class="section-title">Trending Now</span>
+          <span class="section-link">View all</span>
+        </div>
+        <div class="cards-row">
+          <div class="novel-card">
+            <div class="novel-cover cover-mystery">
+              <div class="novel-cover-inner">
+                <span class="genre-badge">Mystery</span>
+              </div>
+            </div>
+            <div class="novel-title">The Last Witness</div>
+            <div class="novel-author">J. Carver</div>
+            <div class="novel-stars">★★★★☆</div>
+          </div>
+          <div class="novel-card">
+            <div class="novel-cover cover-adventure">
+              <div class="novel-cover-inner">
+                <span class="genre-badge">Adventure</span>
+              </div>
+            </div>
+            <div class="novel-title">Jungle Call</div>
+            <div class="novel-author">M. Ross</div>
+            <div class="novel-stars">★★★★★</div>
+          </div>
+          <div class="novel-card">
+            <div class="novel-cover cover-thriller">
+              <div class="novel-cover-inner">
+                <span class="genre-badge">Thriller</span>
+              </div>
+            </div>
+            <div class="novel-title">Cold Signal</div>
+            <div class="novel-author">P. Nguyen</div>
+            <div class="novel-stars">★★★★☆</div>
+          </div>
+        </div>
+        <div style="height: 80px;"></div>
+      </div>
+      <div class="bottom-nav">
+        <div class="floating-nav">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="phone-wrap">
+    <span class="phone-label">Search</span>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right">🔋</div>
+      </div>
+      <div class="search-bar-wrap">
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span class="search-placeholder">Search novels, authors, genres…</span>
+        </div>
+      </div>
+      <div class="tab-row">
+        <div class="tab active">Novels</div>
+        <div class="tab">Authors</div>
+        <div class="tab">Genres</div>
+      </div>
+      <div class="screen-content" style="overflow-y:auto">
+        <div class="result-row">
+          <div class="result-cover cover-romance" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">Hearts in the Rain</div>
+            <div class="result-author">Elena Marsh</div>
+            <div class="result-genre">Romance · 4.9 ★</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-cover cover-fantasy" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">The Crystal Crown</div>
+            <div class="result-author">D. Ashworth</div>
+            <div class="result-genre">Fantasy · 4.7 ★</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-cover cover-mystery" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">The Last Witness</div>
+            <div class="result-author">J. Carver</div>
+            <div class="result-genre">Mystery · 4.5 ★</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-cover cover-scifi" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">Orbit Zero</div>
+            <div class="result-author">K. Vance</div>
+            <div class="result-genre">Sci-Fi · 4.8 ★</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-cover cover-thriller" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">Cold Signal</div>
+            <div class="result-author">P. Nguyen</div>
+            <div class="result-genre">Thriller · 4.4 ★</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-cover cover-adventure" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">Jungle Call</div>
+            <div class="result-author">M. Ross</div>
+            <div class="result-genre">Adventure · 4.6 ★</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-cover cover-horror" style="border-radius:5px"></div>
+          <div class="result-meta">
+            <div class="result-title">The Dark Hollow</div>
+            <div class="result-author">S. Blackwood</div>
+            <div class="result-genre">Horror · 4.3 ★</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="floating-nav">
+          <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVEL DETAIL -->
+  <div class="phone-wrap">
+    <span class="phone-label">Novel Detail</span>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><div class="status-right">🔋</div></div>
+      <div class="screen-content" style="overflow-y:auto; flex:1">
+        <div class="novel-hero">
+          <div class="hero-back">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#11131A" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <div class="novel-hero-cover cover-romance"></div>
+        </div>
+        <div class="novel-info">
+          <div class="novel-detail-title">Hearts in the Rain</div>
+          <div class="novel-detail-author">Elena Marsh</div>
+          <div class="novel-detail-stats">
+            <span class="stat-text">142K views</span>
+            <span class="stat-dot">·</span>
+            <span class="stat-text">38 chapters</span>
+            <span class="stat-dot">·</span>
+            <span class="stat-text">4.9 ★</span>
+          </div>
+          <div class="genre-chips-row">
+            <div class="genre-chip">Romance</div>
+            <div class="genre-chip">Drama</div>
+            <div class="genre-chip">Completed</div>
+          </div>
+        </div>
+        <div class="divider" style="margin-top:12px"></div>
+        <div class="novel-synopsis">
+          Two strangers. One rainy night. A lifetime of secrets. When Chloe misses the last train home, she finds shelter in a small café where she meets the mysterious and brooding Ethan...
+        </div>
+        <div style="height:70px"></div>
+      </div>
+      <div class="detail-cta">
+        <div class="icon-outline-btn">
+          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="icon-outline-btn">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#F59E0B"/></svg>
+        </div>
+        <div class="read-btn">Start Reading</div>
+        <div class="next-btn">⬇ Next 10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="phone-wrap">
+    <span class="phone-label">Profile</span>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><div class="status-right">🔋</div></div>
+      <div class="app-bar">
+        <span class="app-bar-title">Profile</span>
+      </div>
+      <div class="screen-content" style="overflow-y:auto">
+        <div class="profile-header">
+          <div class="profile-top-row">
+            <div class="avatar">AJ</div>
+            <div style="flex:1">
+              <div class="profile-name">Alex Johnson</div>
+              <div class="profile-handle">@alexreads</div>
+              <div class="profile-badge">Reader</div>
+            </div>
+            <div class="edit-btn">Edit</div>
+          </div>
+          <div class="profile-bio">Passionate reader & occasional writer. Always looking for the next great story 📚</div>
+          <div class="stats-row">
+            <div class="stat-item">
+              <span class="stat-num">12</span>
+              <span class="stat-label">Reading</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">87</span>
+              <span class="stat-label">Library</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">14</span>
+              <span class="stat-label">Day streak</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-row">
+          <svg class="menu-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="menu-label">Settings</span>
+          <svg class="menu-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="menu-row">
+          <svg class="menu-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="menu-label">Downloads</span>
+          <svg class="menu-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="menu-row">
+          <svg class="menu-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20v-1a7 7 0 0 1 14 0v1"/></svg>
+          <span class="menu-label">Achievements</span>
+          <svg class="menu-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="menu-row">
+          <svg class="menu-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span class="menu-label">Help &amp; Feedback</span>
+          <svg class="menu-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="menu-row danger">
+          <svg class="menu-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="menu-label">Sign out</span>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- COLOR GUIDE -->
+<div class="color-guide">
+  <h2>Bluesky Design Tokens Applied</h2>
+  <div class="color-swatches">
+    <div class="swatch"><div class="swatch-circle" style="background:#0085FF"></div><div class="swatch-name">Primary</div><div class="swatch-hex">#0085FF</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#5EB3FF"></div><div class="swatch-name">Primary Light</div><div class="swatch-hex">#5EB3FF</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#DFF0FF"></div><div class="swatch-name">Blue Tint</div><div class="swatch-hex">#DFF0FF</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#11131A"></div><div class="swatch-name">Text Primary</div><div class="swatch-hex">#11131A</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#687787"></div><div class="swatch-name">Text Secondary</div><div class="swatch-hex">#687787</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#96A6B6"></div><div class="swatch-name">Text Tertiary</div><div class="swatch-hex">#96A6B6</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#E3E8ED"></div><div class="swatch-name">Border/Divider</div><div class="swatch-hex">#E3E8ED</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#F3F9FF"></div><div class="swatch-name">Surface Variant</div><div class="swatch-hex">#F3F9FF</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#20BC07"></div><div class="swatch-name">Success</div><div class="swatch-hex">#20BC07</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#E53E3E"></div><div class="swatch-name">Error</div><div class="swatch-hex">#E53E3E</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#F59E0B"></div><div class="swatch-name">Warning/Points</div><div class="swatch-hex">#F59E0B</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#13131F"></div><div class="swatch-name">Nav Dark</div><div class="swatch-hex">#13131F</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#161E27"></div><div class="swatch-name">Dark BG</div><div class="swatch-hex">#161E27</div></div>
+    <div class="swatch"><div class="swatch-circle" style="background:#1E2937"></div><div class="swatch-name">Dark Surface</div><div class="swatch-hex">#1E2937</div></div>
+  </div>
+</div>
+
+<!-- CHANGES LOG -->
+<div class="changes-list">
+  <h2>What Was Changed</h2>
+
+  <div class="change-section">
+    <div class="change-section-title">Colors & Tokens</div>
+    <div class="change-item"><span class="change-check">✓</span>Primary replaced: Indigo #6366F1 → Bluesky Blue #0085FF across entire app</div>
+    <div class="change-item"><span class="change-check">✓</span>Secondary color unified to same blue family (removed pink #EC4899)</div>
+    <div class="change-item"><span class="change-check">✓</span>Background changed: Slate-grey #F4F5F9 → Pure white #FFFFFF</div>
+    <div class="change-item"><span class="change-check">✓</span>Dark mode: Deep navy #161E27 / #1E2937 (Bluesky's actual dark palette)</div>
+    <div class="change-item"><span class="change-check">✓</span>Text colors: #11131A primary, #687787 secondary, #96A6B6 tertiary (Bluesky exact)</div>
+    <div class="change-item"><span class="change-check">✓</span>Border/divider: 1dp hairline at #E3E8ED everywhere (Bluesky signature)</div>
+    <div class="change-item"><span class="change-check">✓</span>Splash screen: Dark gradient → clean white with blue spinner</div>
+  </div>
+
+  <div class="change-section">
+    <div class="change-section-title">Drawables</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_btn_primary: Indigo → Bluesky Blue #0085FF pill</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_btn_surface: Dark rounded → white with hairline border pill</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_chip_active: Indigo filled → Bluesky blue pill</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_chip_inactive: Dark card → white with hairline border</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_header_gradient: Purple-pink gradient → plain white #FFFFFF</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_home_screen: Dark gradient overlay → pure white</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_search_bar: Slate #F1F5F9 square → light grey #F3F4F6 pill shape</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_surface_card: Plain white → white + hairline border (Bluesky card)</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_icon_btn_white: Transparent → subtle #F3F4F6 circle</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_role_badge: → Light blue #DFF0FF with blue text</div>
+    <div class="change-item"><span class="change-check">✓</span>bg_banner: Dark surface #1E2937 with blue left-accent bar</div>
+    <div class="change-item"><span class="change-check">✓</span>Genre card gradients: Softened to subtle tinted whites</div>
+  </div>
+
+  <div class="change-section">
+    <div class="change-section-title">Layouts Fully Redesigned</div>
+    <div class="change-item"><span class="change-check">✓</span>activity_home.xml — White header, dark icons, hairline border</div>
+    <div class="change-item"><span class="change-check">✓</span>fragment_home.xml — White bg, section dividers as hairlines, "See all" links in blue</div>
+    <div class="change-item"><span class="change-check">✓</span>fragment_profile.xml — Bluesky-style: avatar + name row, stats inline, menu rows</div>
+    <div class="change-item"><span class="change-check">✓</span>fragment_search.xml — Pill search bar, blue tab underline, white list results</div>
+    <div class="change-item"><span class="change-check">✓</span>fragment_library.xml — White header, blue underline tab indicator</div>
+    <div class="change-item"><span class="change-check">✓</span>fragment_notifications.xml — Clean white header with hairline</div>
+    <div class="change-item"><span class="change-check">✓</span>fragment_login.xml — Bluesky auth: logo + form + blue pill CTA</div>
+    <div class="change-item"><span class="change-check">✓</span>activity_novel_detail.xml — Clean hero area, no dark gradient overlay</div>
+    <div class="change-item"><span class="change-check">✓</span>activity_search.xml — White header with pill search</div>
+    <div class="change-item"><span class="change-check">✓</span>activity_splash.xml — White background with blue progress indicator</div>
+    <div class="change-item"><span class="change-check">✓</span>item_novel_horizontal.xml — Borderless flat card, clean typography</div>
+    <div class="change-item"><span class="change-check">✓</span>item_novel_grid.xml — Same treatment for grid layout</div>
+    <div class="change-item"><span class="change-check">✓</span>item_settings_row.xml — Bluesky 52dp row: icon + label + chevron</div>
+    <div class="change-item"><span class="change-check">✓</span>item_leaderboard_row.xml — Clean list row with avatar</div>
+    <div class="change-item"><span class="change-check">✓</span>item_genre_card.xml — Borderless pill genre tags</div>
+    <div class="change-item"><span class="change-check">✓</span>view_banner.xml — White card with blue left-accent bar</div>
+    <div class="change-item"><span class="change-check">✓</span>view_daily_checkin.xml — Light blue tint surface</div>
+    <div class="change-item"><span class="change-check">✓</span>view_achievement_toast.xml — White card with blue accent</div>
+  </div>
+
+  <div class="change-section">
+    <div class="change-section-title">All Other Activities (Header Fix)</div>
+    <div class="change-item"><span class="change-check">✓</span>17 activities updated: gradient headers → white + hairline + dark text/icons</div>
+    <div class="change-item"><span class="change-check">✓</span>Includes: Settings, Edit Profile, Downloads, Leaderboard, My Works, Novel Manager, Notifications, Point Store, Reading Prefs, Author Analytics, Chapter Editor, Novel Editor, Admin Dashboard, Help, Legal, WebView, Subscription</div>
+  </div>
+
+  <div class="change-section">
+    <div class="change-section-title">Themes & Styles</div>
+    <div class="change-item"><span class="change-check">✓</span>Button cornerRadius: 12dp → 100dp (full pill, Bluesky style)</div>
+    <div class="change-item"><span class="change-check">✓</span>Card elevation: 2dp → 0dp + hairline strokeWidth 1dp</div>
+    <div name="change-item"><span class="change-check">✓</span>Tab indicator: default → 2dp blue underline</div>
+    <div class="change-item"><span class="change-check">✓</span>Status bar: Dark → transparent with light icons on white bg</div>
+    <div class="change-item"><span class="change-check">✓</span>Splash theme: Dark → white background</div>
+    <div class="change-item"><span class="change-check">✓</span>Bottom nav: Preserved exactly as requested 🤝</div>
+  </div>
+</div>
+
+</body>
+</html>

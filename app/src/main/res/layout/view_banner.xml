@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_banner"
+    android:elevation="12dp"
+    android:paddingVertical="14dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:id="@+id/banner_root">
+
+    <View
+        android:layout_height="36dp"
+        android:layout_width="3dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bg_btn_primary"
+        android:id="@+id/banner_accent" />
+
+    <ImageView
+        android:layout_height="24dp"
+        android:layout_width="24dp"
+        android:layout_marginEnd="12dp"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_error"
+        android:id="@+id/banner_icon" />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/banner_title"
+            tools:text="Success"
+            android:maxLines="1"
+            android:id="@+id/banner_title" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/banner_message"
+            android:layout_marginTop="2dp"
+            android:lineSpacingMultiplier="1.3"
+            tools:text="Your changes have been saved."
+            android:maxLines="2"
+            android:id="@+id/banner_message" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_height="36dp"
+        android:layout_width="3dp"
+        android:visibility="gone"
+        android:max="100"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginStart="10dp"
+        android:progress="100"
+        android:progressDrawable="@drawable/banner_progress_vertical"
+        android:id="@+id/banner_progress" />
+
+    <ImageView
+        android:layout_height="28dp"
+        android:layout_width="28dp"
+        android:src="@drawable/ic_close"
+        android:contentDescription="Dismiss"
+        android:alpha="0.5"
+        android:padding="4dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/banner_dismiss" />
+
+</LinearLayout>

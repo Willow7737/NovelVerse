@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  color/chip_text_color.xml
+  Active: white text on rose-red fill
+  Inactive: mid-grey text on dark chip — iOS secondary label
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="#FFFFFF" />
+    <item android:color="#ABABAF" />
+</selector>

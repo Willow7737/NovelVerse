@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:paddingVertical="12dp"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginBottom="10dp"
+         android:gravity="center_vertical"
+         android:orientation="horizontal"
+         android:paddingHorizontal="16dp">
+
+        <com.novelverse.app.presentation.common.views.ShimmerView
+             android:layout_height="18dp"
+             android:layout_width="140dp" />
+
+        <View
+             android:layout_height="1dp"
+             android:layout_width="0dp"
+             android:layout_weight="1" />
+
+        <com.novelverse.app.presentation.common.views.ShimmerView
+             android:layout_height="14dp"
+             android:layout_width="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:orientation="horizontal"
+         android:paddingHorizontal="16dp">
+
+        <include
+             layout="@layout/shimmer_novel_horizontal" />
+
+        <include
+             layout="@layout/shimmer_novel_horizontal" />
+
+        <include
+             layout="@layout/shimmer_novel_horizontal" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/reader_background_light">
+
+    <!-- Scrollable content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/reader_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="72dp"
+            android:paddingBottom="120dp"
+            android:paddingHorizontal="20dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp">
+
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:id="@+id/skeleton_chapter_title"
+                    android:layout_width="200dp"
+                    android:layout_height="24dp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/chapter_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/reader_text_light"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/skeleton_content_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="match_parent" android:layout_height="14dp" android:layout_marginBottom="10dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="match_parent" android:layout_height="14dp" android:layout_marginBottom="10dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="240dp" android:layout_height="14dp" android:layout_marginBottom="24dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="match_parent" android:layout_height="14dp" android:layout_marginBottom="10dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="match_parent" android:layout_height="14dp" android:layout_marginBottom="10dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="180dp" android:layout_height="14dp" android:layout_marginBottom="24dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="match_parent" android:layout_height="14dp" android:layout_marginBottom="10dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="match_parent" android:layout_height="14dp" android:layout_marginBottom="10dp" />
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:layout_width="200dp" android:layout_height="14dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/chapter_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/reader_text_light"
+                android:textSize="17sp"
+                android:fontFamily="@font/inter_regular"
+                android:lineSpacingMultiplier="1.6"
+                android:breakStrategy="simple"
+                android:hyphenationFrequency="none"
+                android:textIsSelectable="true"
+                android:textSelectHandle="@drawable/ic_caret"
+                android:textSelectHandleLeft="@drawable/ic_caret"
+                android:textSelectHandleRight="@drawable/ic_caret"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Paged mode -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/reader_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/reader_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:background="?attr/colorSurface"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_icon_btn_white"
+            android:src="@drawable/ic_back"
+            android:padding="10dp"
+            android:tint="@color/text_secondary"
+            android:contentDescription="Back" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10dp">
+
+            <com.novelverse.app.presentation.common.views.ShimmerView
+                android:id="@+id/skeleton_novel_title"
+                android:layout_width="140dp"
+                android:layout_height="16dp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/reader_novel_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter_semibold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <com.novelverse.app.presentation.common.views.CurrencyHudView
+            android:id="@+id/reader_currency_hud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btn_reader_tts"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_icon_btn_white"
+            android:src="@drawable/ic_play_circle"
+            android:padding="10dp"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="Read aloud" />
+
+        <ImageView
+            android:id="@+id/btn_reader_settings"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_icon_btn_white"
+            android:src="@drawable/ic_gear"
+            android:padding="10dp"
+            android:contentDescription="Reader settings" />
+    </LinearLayout>
+
+    <!-- Bottom bar -->
+    <LinearLayout
+        android:id="@+id/reader_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="?attr/colorSurface"
+        android:elevation="4dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%"
+                android:textColor="@color/text_tertiary"
+                android:textSize="13sp"
+                android:layout_marginEnd="10dp" />
+
+            <SeekBar
+                android:id="@+id/reader_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="100" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/btn_prev_chapter"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_chapter_nav_inactive"
+                android:src="@drawable/ic_arrow_left"
+                android:padding="12dp"
+                android:contentDescription="Previous chapter" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.novelverse.app.presentation.common.views.ShimmerView
+                    android:id="@+id/skeleton_chapter_label"
+                    android:layout_width="120dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/chapter_number_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Chapter 1 of 1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="8dp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/btn_next_chapter"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_chapter_nav_inactive"
+                android:src="@drawable/ic_arrow_right"
+                android:padding="12dp"
+                android:contentDescription="Next chapter" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         DRAGGABLE TTS MINI FAB  –  Horizontal compact pill
+         [cover] [▶/‖] [✕]
+         ═══════════════════════════════════════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/tts_mini_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_reader_fab_horizontal"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:elevation="12dp"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="6dp"
+        android:visibility="gone">
+
+        <!-- Squircle cover inside the FAB -->
+        <FrameLayout
+            android:id="@+id/fab_cover_container"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_fab_cover_squircle"
+            android:clipToOutline="true"
+            android:outlineProvider="background">
+
+            <ImageView
+                android:id="@+id/fab_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_cover_placeholder_default" />
+        </FrameLayout>
+
+        <!-- Play / Pause -->
+        <ImageView
+            android:id="@+id/fab_play_pause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_play"
+            android:padding="10dp"
+            android:tint="#EEFFFFFF"
+            android:background="@drawable/bg_tts_play_btn"
+            android:layout_marginHorizontal="4dp"
+            android:contentDescription="Play or pause" />
+
+        <!-- Close -->
+        <ImageView
+            android:id="@+id/fab_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_close"
+            android:padding="8dp"
+            android:tint="#66FFFFFF"
+            android:layout_marginStart="2dp"
+            android:contentDescription="Stop and dismiss" />
+
+    </LinearLayout>
+
+</FrameLayout>

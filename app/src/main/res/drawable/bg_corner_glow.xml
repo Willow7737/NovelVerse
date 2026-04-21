@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Diagonal top-left corner glow: blue → pink → transparent.
+     Radial type with center at (0,0) means the colour radiates from the corner
+     and is fully transparent by ~40-45% of the screen width — covering ≈ 15-20%
+     of the total screen area as a soft diagonal wash. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="55%p"
+        android:centerX="0.0"
+        android:centerY="0.0"
+        android:startColor="#260070CC"
+        android:centerColor="#16C850A0"
+        android:endColor="#00F0F4FF" />
+</shape>

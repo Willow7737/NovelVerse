@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Solid circle, anchored so the tip sits at the start of selection -->
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M12,4 A8,8 0 1,0 12,20 A8,8 0 1,0 12,4 Z" />
+</vector>

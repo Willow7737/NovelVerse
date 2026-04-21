@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:id="@+id/editor_toolbar_title"
+             android:text="New Novel" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:layout_marginEnd="8dp"
+             android:background="@drawable/bg_btn_surface"
+             android:paddingVertical="8dp"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/primary"
+             android:paddingHorizontal="14dp"
+             android:id="@+id/btn_save_draft"
+             android:text="Draft" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:background="@drawable/bg_btn_primary"
+             android:paddingVertical="8dp"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorSurface"
+             android:paddingHorizontal="14dp"
+             android:id="@+id/btn_publish"
+             android:text="Publish" />
+
+    </LinearLayout>
+
+    <View
+         android:layout_height="1dp"
+         android:layout_width="match_parent"
+         android:background="@color/divider" />
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:padding="14dp"
+             android:orientation="vertical"
+             android:paddingBottom="40dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="10dp"
+                 android:background="@drawable/bg_surface_card"
+                 android:gravity="center_vertical"
+                 android:elevation="1dp"
+                 android:padding="16dp"
+                 android:orientation="horizontal">
+
+                <FrameLayout
+                     android:layout_height="110dp"
+                     android:layout_width="80dp"
+                     android:background="@drawable/bg_search_bar"
+                     android:id="@+id/btn_upload_cover">
+
+                    <ImageView
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"
+                         android:src="@drawable/img_placeholder_cover"
+                         android:scaleType="centerCrop"
+                         android:contentDescription="Cover"
+                         android:id="@+id/cover_preview" />
+
+                    <ImageView
+                         android:layout_height="28dp"
+                         android:layout_width="28dp"
+                         android:src="@drawable/ic_add"
+                         android:contentDescription="Add cover"
+                         android:background="@drawable/bg_btn_primary"
+                         android:layout_margin="6dp"
+                         android:padding="5dp"
+                         android:tint="?attr/colorSurface"
+                         android:layout_gravity="bottom|end" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:orientation="vertical"
+                     android:layout_marginStart="14dp"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/text_primary"
+                         android:text="Cover Image" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_secondary"
+                         android:layout_marginTop="4dp"
+                         android:lineSpacingMultiplier="1.4"
+                         android:text="Tap the cover to upload.\nRecommended: 800x1100px" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="4dp"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_medium"
+                 android:textColor="@color/text_secondary"
+                 android:text="Title" />
+
+            <EditText
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="12dp"
+                 android:background="@drawable/bg_surface_card"
+                 android:hint="Enter novel title"
+                 android:elevation="1dp"
+                 android:textSize="17sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:singleLine="true"
+                 android:paddingHorizontal="14dp"
+                 android:id="@+id/novel_title_input" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="4dp"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_medium"
+                 android:textColor="@color/text_secondary"
+                 android:text="Synopsis" />
+
+            <EditText
+                 android:layout_height="120dp"
+                 android:layout_width="match_parent"
+                 android:elevation="1dp"
+                 android:textSize="16sp"
+                 android:layout_marginBottom="12dp"
+                 android:background="@drawable/bg_surface_card"
+                 android:gravity="top"
+                 android:hint="Describe your novel..."
+                 android:paddingVertical="12dp"
+                 android:fontFamily="@font/inter_regular"
+                 android:paddingHorizontal="14dp"
+                 android:maxLines="6"
+                 android:id="@+id/novel_desc_input" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="4dp"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_medium"
+                 android:textColor="@color/text_secondary"
+                 android:text="Genres" />
+
+            <LinearLayout
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="12dp"
+                 android:background="@drawable/bg_surface_card"
+                 android:gravity="center_vertical"
+                 android:elevation="1dp"
+                 android:paddingHorizontal="14dp"
+                 android:id="@+id/genre_picker_container">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:textSize="16sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:textColor="@color/text_tertiary"
+                     android:layout_weight="1"
+                     android:id="@+id/genre_display_text"
+                     android:text="Select genres" />
+
+                <ImageView
+                     android:layout_height="20dp"
+                     android:layout_width="20dp"
+                     android:src="@drawable/ic_arrow_right"
+                     android:contentDescription="Pick genres"
+                     android:tint="@color/text_tertiary" />
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="4dp"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_medium"
+                 android:textColor="@color/text_secondary"
+                 android:text="Pricing Model" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="12dp"
+                 android:orientation="horizontal">
+
+                <TextView
+                     android:layout_height="44dp"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="6dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_btn_primary"
+                     android:textSize="15sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorSurface"
+                     android:layout_weight="1"
+                     android:id="@+id/price_free"
+                     android:text="Free" />
+
+                <TextView
+                     android:layout_height="44dp"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="6dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:textSize="15sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:textColor="@color/text_primary"
+                     android:layout_weight="1"
+                     android:id="@+id/price_paid"
+                     android:text="Paid" />
+
+                <TextView
+                     android:layout_height="44dp"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:textSize="15sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:textColor="@color/text_primary"
+                     android:layout_weight="1"
+                     android:id="@+id/price_freemium"
+                     android:text="Freemium" />
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="4dp"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_medium"
+                 android:textColor="@color/text_secondary"
+                 android:text="Age Rating" />
+
+            <Spinner
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="12dp"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:paddingHorizontal="14dp"
+                 android:id="@+id/age_rating_spinner">
+
+            </Spinner>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

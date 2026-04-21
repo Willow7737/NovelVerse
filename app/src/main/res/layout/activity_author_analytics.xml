@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Analytics" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="#CCFFFFFF"
+             android:id="@+id/txt_period"
+             android:text="Last 30 days" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingBottom="40dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:padding="14dp"
+                 android:orientation="horizontal">
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="8dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_writer_card"
+                     android:padding="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="28sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="?attr/colorOnSurface"
+                         android:id="@+id/stat_total_views"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="#AAFFFFFF"
+                         android:layout_marginTop="4dp"
+                         android:text="Total Views" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:padding="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="28sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/primary"
+                         android:id="@+id/stat_total_reads"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:layout_marginTop="4dp"
+                         android:text="Readers" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:orientation="horizontal"
+                 android:paddingHorizontal="14dp">
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="8dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:padding="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="24sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/secondary"
+                         android:id="@+id/stat_followers"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:layout_marginTop="4dp"
+                         android:text="Followers" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="8dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:padding="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="24sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/error"
+                         android:id="@+id/stat_likes"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:layout_marginTop="4dp"
+                         android:text="Likes" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:padding="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="24sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/accent"
+                         android:id="@+id/stat_comments"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:layout_marginTop="4dp"
+                         android:text="Comments" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_margin="14dp"
+                 android:padding="16dp"
+                 android:orientation="horizontal">
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_secondary"
+                         android:text="Total Earnings" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="26sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/warning"
+                         android:layout_marginTop="4dp"
+                         android:id="@+id/stat_earnings"
+                         android:text="$0.00" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="@color/text_secondary"
+                         android:text="Available Payout" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="26sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/success"
+                         android:layout_marginTop="4dp"
+                         android:id="@+id/stat_payout"
+                         android:text="$0.00" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="8dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:textSize="12sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="8dp"
+                 android:letterSpacing="0.12"
+                 android:text="NOVELS PERFORMANCE" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="vertical"
+                 android:id="@+id/novels_list">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

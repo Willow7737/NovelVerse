@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/splash_logo"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_logo"
+            android:contentDescription="NovelVerse logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NovelVerse"
+            android:textSize="24sp"
+            android:fontFamily="@font/pogonia_semibold"
+            android:textColor="?attr/colorOnSurface"
+            android:letterSpacing="-0.01"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+    <!-- Bluesky-style bottom progress indicator -->
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="60dp"
+        android:indeterminateTint="#0085FF" />
+</FrameLayout>

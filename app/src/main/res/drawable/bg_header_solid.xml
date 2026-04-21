@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  bg_header_solid.xml
+  Toolbar/AppBar background. Transparent so the charcoal + top-splash
+  gradient of bg_app_main remains visible behind it.
+  Replaces the old #FFFFFF solid that blocked the background.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#00000000" />
+</shape>

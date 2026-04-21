@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Point Store" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:gravity="center_vertical"
+             android:background="@drawable/bg_btn_surface"
+             android:paddingVertical="7dp"
+             android:orientation="horizontal"
+             android:paddingHorizontal="12dp">
+
+            <ImageView
+                 android:layout_height="16dp"
+                 android:layout_width="16dp"
+                 android:src="@drawable/ic_coins"
+                 android:contentDescription="Points"
+                 android:layout_marginEnd="6dp"
+                 android:tint="@color/points" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/points"
+                 android:id="@+id/current_balance"
+                 android:text="0 pts" />
+
+        </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingBottom="40dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center_vertical"
+                 android:background="@drawable/bg_writer_card"
+                 android:layout_marginHorizontal="14dp"
+                 android:padding="16dp"
+                 android:orientation="horizontal"
+                 android:layout_marginTop="14dp"
+                 android:id="@+id/checkin_banner">
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="?attr/colorOnSurface"
+                         android:text="Daily Check-in" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="#DDFFFFFF"
+                         android:layout_marginTop="2dp"
+                         android:text="Come back every day for bonus points" />
+
+                </LinearLayout>
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:background="@drawable/bg_btn_surface"
+                     android:paddingVertical="9dp"
+                     android:textSize="14sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="@color/primary"
+                     android:paddingHorizontal="16dp"
+                     android:id="@+id/btn_checkin"
+                     android:text="+10 pts" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center_vertical"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:padding="14dp"
+                 android:orientation="horizontal"
+                 android:layout_marginTop="10dp">
+
+                <EditText
+                     android:layout_height="46dp"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="10dp"
+                     android:background="@drawable/bg_search_bar"
+                     android:hint="Enter promo code"
+                     android:textSize="15sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:singleLine="true"
+                     android:paddingHorizontal="14dp"
+                     android:layout_weight="1"
+                     android:id="@+id/promo_input" />
+
+                <TextView
+                     android:layout_height="46dp"
+                     android:layout_width="wrap_content"
+                     android:gravity="center"
+                     android:background="@drawable/bg_btn_primary"
+                     android:textSize="15sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorSurface"
+                     android:paddingHorizontal="18dp"
+                     android:id="@+id/btn_redeem"
+                     android:text="Redeem" />
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="8dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:textSize="18sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_primary"
+                 android:layout_marginTop="20dp"
+                 android:text="Buy Points" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:orientation="vertical"
+                 android:paddingHorizontal="14dp"
+                 android:id="@+id/packages_container">
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:textSize="15sp"
+                 android:fontFamily="@font/inter_medium"
+                 android:textColor="@color/primary"
+                 android:layout_marginTop="14dp"
+                 android:id="@+id/btn_transaction_history"
+                 android:text="View Transaction History" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

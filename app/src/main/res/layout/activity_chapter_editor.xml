@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <EditText
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:background="@android:color/transparent"
+             android:hint="Chapter title"
+             android:textColorHint="@color/text_tertiary"
+             android:textSize="17sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:singleLine="true"
+             android:layout_marginStart="10dp"
+             android:layout_weight="1"
+             android:id="@+id/chapter_title_input" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:layout_marginEnd="8dp"
+             android:background="@drawable/bg_btn_surface"
+             android:paddingVertical="8dp"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/primary"
+             android:paddingHorizontal="14dp"
+             android:id="@+id/btn_save_chapter"
+             android:text="Save" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:background="@drawable/bg_btn_primary"
+             android:paddingVertical="8dp"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:paddingHorizontal="14dp"
+             android:id="@+id/btn_publish_chapter"
+             android:text="Publish" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <LinearLayout
+         android:layout_height="36dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="@color/surface_input"
+         android:orientation="horizontal"
+         android:paddingHorizontal="16dp">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="13sp"
+             android:textColor="@color/text_tertiary"
+             android:layout_weight="1"
+             android:id="@+id/word_count"
+             android:text="0 words" />
+
+        <TextView
+             android:id="@+id/read_time"
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textSize="13sp"
+             android:textColor="@color/text_tertiary"
+             android:layout_marginEnd="12dp"
+             android:text="1 min read" />
+
+        <CheckBox
+             android:id="@+id/chapter_free_check"
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:text="Free"
+             android:textSize="13sp"
+             android:textColor="@color/text_secondary"
+             android:checked="true"
+             android:layout_marginEnd="4dp" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textSize="13sp"
+             android:textColor="@color/accent"
+             android:id="@+id/autosave_status"
+             android:text="Autosave on" />
+
+    </LinearLayout>
+
+    <View
+         android:layout_height="1dp"
+         android:layout_width="match_parent"
+         android:background="@color/divider" />
+
+    <ScrollView
+         android:layout_height="0dp"
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+         android:overScrollMode="never"
+         android:scrollbars="none"
+         android:fillViewport="false">
+
+        <EditText
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:padding="20dp"
+             android:minHeight="400dp"
+             android:textSize="18sp"
+             android:textColor="?attr/colorOnSurface"
+             android:background="@android:color/transparent"
+             android:gravity="top"
+             android:hint="Start writing your chapter here..."
+             android:textColorHint="@color/text_disabled"
+             android:fontFamily="@font/inter_regular"
+             android:lineSpacingMultiplier="1.7"
+             android:id="@+id/chapter_content_input" />
+
+    </ScrollView>
+
+    <LinearLayout
+         android:layout_height="48dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="@color/surface_input"
+         android:elevation="4dp"
+         android:orientation="horizontal"
+         android:paddingHorizontal="8dp">
+
+        <ImageView
+             android:layout_height="40dp"
+             android:layout_width="40dp"
+             android:src="@drawable/ic_format_bold"
+             android:contentDescription="Bold"
+             android:padding="8dp"
+             android:id="@+id/fmt_bold" />
+
+        <ImageView
+             android:layout_height="40dp"
+             android:layout_width="40dp"
+             android:src="@drawable/ic_format_italic"
+             android:contentDescription="Italic"
+             android:padding="8dp"
+             android:id="@+id/fmt_italic" />
+
+        <View
+             android:layout_height="24dp"
+             android:layout_width="1dp"
+             android:background="@color/divider"
+             android:layout_marginHorizontal="4dp" />
+
+        <ImageView
+             android:layout_height="40dp"
+             android:layout_width="40dp"
+             android:src="@drawable/ic_edit"
+             android:contentDescription="Author note"
+             android:padding="8dp"
+             android:id="@+id/fmt_note" />
+
+        <View
+             android:layout_height="1dp"
+             android:layout_width="0dp"
+             android:layout_weight="1" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:background="@drawable/bg_chip_inactive"
+             android:paddingVertical="6dp"
+             android:textSize="13sp"
+             android:fontFamily="@font/inter_medium"
+             android:textColor="@color/text_secondary"
+             android:paddingHorizontal="12dp"
+             android:id="@+id/chapter_pricing_label"
+             android:text="Free chapter" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Active mode/alignment button — dark mode: blue-tinted with blue border -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#1A3450" />
+    <stroke android:width="1.5dp" android:color="#5EB3FF" />
+    <corners android:radius="12dp" />
+</shape>

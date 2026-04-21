@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  bg_checkin_gradient.xml — Daily check-in / streak card gradient.
+  Rose-red to deep berry — warm, motivating, on-brand.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#E8395A"
+        android:endColor="#8C1848"
+        android:angle="135"
+        android:type="linear" />
+    <corners android:radius="20dp" />
+</shape>

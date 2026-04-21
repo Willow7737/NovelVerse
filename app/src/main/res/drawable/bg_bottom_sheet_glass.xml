@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  bg_bottom_sheet_glass.xml — Glassmorphism container for bottom sheets.
+
+  Visual layers:
+    1. Semi-transparent charcoal fill   (~85% opacity) — the "frosted" base
+    2. Very faint white interior fill   (frosting layer, barely visible)
+    3. Thin white stroke on outer edge  (specular glass highlight)
+
+  The actual background blur behind this view requires programmatic setup:
+    if (Build.VERSION.SDK_INT >= 31) {
+        dialog.window?.setBackgroundBlurRadius(24)
+        dialog.window?.addFlags(FLAG_BLUR_BEHIND)
+    }
+  Without this call the sheet still looks good — just without the blur effect.
+
+  Place this file in BOTH drawable/ and drawable-night/
+  (same file — the sheet is always dark glass regardless of mode).
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Layer 1: Frosted charcoal fill — semi-transparent -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#E0141416" />
+            <corners
+                android:topLeftRadius="28dp"
+                android:topRightRadius="28dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+
+    <!-- Layer 2: Frosting shimmer — very subtle white overlay -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0CFFFFFF" />
+            <corners
+                android:topLeftRadius="28dp"
+                android:topRightRadius="28dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+
+    <!-- Layer 3: Specular glass edge — thin white stroke, top only -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="#1EFFFFFF" />
+            <solid android:color="#00000000" />
+            <corners
+                android:topLeftRadius="28dp"
+                android:topRightRadius="28dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+
+</layer-list>

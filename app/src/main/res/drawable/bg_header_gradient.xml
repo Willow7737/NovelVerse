@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  bg_header_gradient.xml
+  Subtle dark-to-transparent scrim applied behind header text so white
+  text stays readable over the colourful top-splash gradient.
+  Top is slightly darkened, fades to transparent by 40% down.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#66000000"
+        android:endColor="#00000000"
+        android:angle="270"
+        android:type="linear" />
+</shape>

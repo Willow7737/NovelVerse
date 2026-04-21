@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--
+      Dark-mode overrides.
+      Background remains #141416 charcoal — windowBackground uses the SAME
+      bg_app_main drawable (the night variant is identical to the day version).
+      Only colorSurface (cards) and colorOnSurface (card text) change.
+    -->
+    <style name="Theme.NovelVerse" parent="Theme.Material3.Dark.NoActionBar">
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryContainer">@color/icon_bg_tint</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorOnPrimaryContainer">@color/primary_light</item>
+
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryContainer">@color/surface_variant</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+
+        <item name="colorTertiary">@color/accent</item>
+        <item name="colorOnTertiary">@color/on_accent</item>
+
+        <!-- ── Background — charcoal, unchanged ── -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@drawable/bg_app_main</item>
+
+        <!-- ── Surface — iOS dark elevated cards ── -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+
+        <!-- ── Text on background — white (charcoal bg, same as light) ── -->
+        <item name="colorOnBackground">@color/text_primary</item>
+
+        <!-- ── Text on surface — white (dark cards in dark mode) ── -->
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+
+        <item name="colorError">@color/error</item>
+        <item name="colorErrorContainer">@color/error_light</item>
+        <item name="colorOnError">@color/white</item>
+
+        <item name="colorOutline">@color/border</item>
+
+        <!-- ── Status bar — always dark (charcoal bg) ── -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <!-- ── Shapes & Components (inherited from light theme) ── -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.NovelVerse.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.NovelVerse.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.NovelVerse.LargeComponent</item>
+        <item name="materialButtonStyle">@style/Widget.NovelVerse.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.NovelVerse.Button.Outlined</item>
+        <item name="textButtonStyle">@style/Widget.NovelVerse.Button.Text</item>
+        <item name="materialCardViewStyle">@style/Widget.NovelVerse.Card</item>
+        <item name="textInputStyle">@style/Widget.NovelVerse.TextInput</item>
+        <item name="bottomNavigationStyle">@style/Widget.NovelVerse.BottomNav</item>
+        <item name="toolbarStyle">@style/Widget.NovelVerse.Toolbar</item>
+        <item name="tabStyle">@style/Widget.NovelVerse.Tab</item>
+        <item name="chipStyle">@style/Widget.NovelVerse.Chip</item>
+        <item name="snackbarStyle">@style/Widget.NovelVerse.Snackbar</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.NovelVerse.BottomSheet.Dark</item>
+
+        <!-- ── Custom Attributes ── -->
+        <item name="colorSurfaceCardStroke">@color/surface_card_stroke</item>
+        <item name="colorSurfaceCardSecondary">@color/surface_card_secondary</item>
+        <item name="colorSurfaceCardTertiary">@color/surface_card_tertiary</item>
+        <item name="colorDragHandle">@color/drag_handle</item>
+        <item name="colorIconBgTint">@color/icon_bg_tint</item>
+        <item name="colorIconTintPrimary">@color/icon_tint_primary</item>
+        <item name="colorButtonSecondaryBg">@color/button_secondary_bg</item>
+        <item name="colorChipInactiveBg">@color/chip_inactive_bg</item>
+        <item name="colorChipInactiveStroke">@color/chip_inactive_stroke</item>
+        <item name="colorSearchBarBg">@color/search_bar_bg</item>
+    </style>
+
+    <!-- Glassmorphism bottom sheet — dark variant -->
+    <style name="Theme.NovelVerse.BottomSheet.Dark" parent="Theme.Material3.Dark.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.NovelVerse.BottomSheet</item>
+        <item name="android:windowBlurBehindEnabled" tools:targetApi="s">true</item>
+        <item name="android:windowBlurBehindRadius" tools:targetApi="s">24dp</item>
+       
+    </style>
+
+    <!-- Splash — dark mode -->
+    <style name="Theme.NovelVerse.Splash" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="colorSurface">@color/background</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+    </style>
+
+    <!--
+      BottomSheetTheme — backward-compat alias.
+      Your Java code calls: new BottomSheetDialog(context, R.style.BottomSheetTheme)
+      This alias keeps that working while delegating to the glass bottom sheet style.
+    -->
+    <style name="BottomSheetTheme" parent="Theme.NovelVerse.BottomSheet.Dark">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.NovelVerse.BottomSheet" />
+
+</resources>

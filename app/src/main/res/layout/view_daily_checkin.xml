@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Daily Check-In card — compact gradient pill at top of home feed.
+  FIX: btn_claim_checkin now starts VISIBLE (was gone — never appeared).
+  Added btn_watch_ad for explicit ad-reward flow.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/daily_checkin_card"
+    android:tag="daily_checkin_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="14dp"
+    android:layout_marginBottom="2dp"
+    android:background="@drawable/bg_checkin_gradient"
+    android:clipToOutline="true">
+
+    <!-- Main row: icon | streak text | reward amount | claim button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="14dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="10dp">
+
+        <!-- Calendar icon -->
+        <ImageView
+            android:id="@+id/checkin_calendar_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_streak_flame"
+            android:tint="?attr/colorSurface"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="Daily check-in" />
+
+        <!-- Day streak label -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/checkin_streak_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day 1 streak"
+                android:textSize="13sp"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="?attr/colorSurface" />
+
+            <TextView
+                android:id="@+id/checkin_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily reading bonus"
+                android:textSize="11sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="#CCFFFFFF"
+                android:layout_marginTop="1dp" />
+
+        </LinearLayout>
+
+        <!-- Ink icon -->
+        <ImageView
+            android:id="@+id/checkin_ink_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_coins"
+            android:tint="@color/warning"
+            android:layout_marginEnd="4dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="Ink" />
+
+        <!-- Ink reward amount -->
+        <TextView
+            android:id="@+id/checkin_reward_text"
+            android:tag="checkin_reward_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+5 Ink"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/warning"
+            android:layout_marginEnd="10dp" />
+
+        <!-- Claim button — FIX: was gone, now visible; code toggles it -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_claim_checkin"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Claim"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter_semibold"
+            android:backgroundTint="?attr/colorSurface"
+            android:textColor="@color/primary"
+            android:minWidth="0dp"
+            android:paddingHorizontal="12dp"
+            android:visibility="visible"
+            app:cornerRadius="100dp" />
+
+    </LinearLayout>
+
+    <!-- Watch Ad row — visible only when claim is done and ad is available -->
+    <LinearLayout
+        android:id="@+id/checkin_ad_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="14dp"
+        android:paddingBottom="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Watch an ad for bonus points"
+            android:textSize="11sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="#CCFFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_watch_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:text="Watch Ad +50"
+            android:textSize="11sp"
+            android:fontFamily="@font/inter_semibold"
+            android:backgroundTint="@color/warning"
+            android:textColor="#000000"
+            android:minWidth="0dp"
+            android:paddingHorizontal="10dp"
+            app:cornerRadius="100dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

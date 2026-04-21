@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Drag handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_drag_handle" />
+
+    <!-- Live preview card -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_reader_section"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/settings_preview_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The night was dark and full of stories — a reader lost in worlds only words could build."
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="?attr/colorOnSurface"
+            android:lineSpacingMultiplier="1.6"
+            android:maxLines="3"
+            android:ellipsize="end" />
+    </FrameLayout>
+
+    <!-- Panel container -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="290dp">
+
+        <!-- PANEL 0: Text / Typography -->
+        <ScrollView android:id="@+id/panel_text"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:maxHeight="360dp" android:scrollbars="none" android:visibility="visible">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingBottom="8dp">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="FONT SIZE" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="18dp">
+                    <TextView android:layout_width="24dp" android:layout_height="wrap_content"
+                        android:text="A" android:textSize="11sp" android:fontFamily="@font/inter_regular"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+                    <com.novelverse.app.presentation.common.views.ReaderSliderView
+                        android:id="@+id/slider_font_size" android:layout_width="0dp"
+                        android:layout_height="44dp" android:layout_weight="1" android:layout_marginHorizontal="8dp" />
+                    <TextView android:layout_width="24dp" android:layout_height="wrap_content"
+                        android:text="A" android:textSize="20sp" android:fontFamily="@font/inter_regular"
+                        android:textColor="?attr/colorOnSurfaceVariant" android:gravity="end" />
+                </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="LINE SPACING" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <com.novelverse.app.presentation.common.views.ReaderSliderView
+                    android:id="@+id/slider_line_spacing" android:layout_width="match_parent"
+                    android:layout_height="44dp" android:layout_marginBottom="18dp" />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="PARAGRAPH SPACING" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <com.novelverse.app.presentation.common.views.ReaderSliderView
+                    android:id="@+id/slider_paragraph_spacing" android:layout_width="match_parent"
+                    android:layout_height="44dp" android:layout_marginBottom="18dp" />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="LETTER SPACING" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <com.novelverse.app.presentation.common.views.ReaderSliderView
+                    android:id="@+id/slider_letter_spacing" android:layout_width="match_parent"
+                    android:layout_height="44dp" android:layout_marginBottom="18dp" />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="FONT" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:scrollbars="none" android:layout_marginBottom="18dp">
+                    <LinearLayout android:id="@+id/font_chip_group"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- PANEL 1: Display -->
+        <ScrollView android:id="@+id/panel_display"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:maxHeight="360dp" android:scrollbars="none" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingBottom="8dp">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="THEME" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="10dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="20dp">
+                    <LinearLayout android:id="@+id/theme_btn_light"
+                        android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1"
+                        android:layout_marginEnd="6dp" android:orientation="vertical" android:gravity="center"
+                        android:background="@drawable/bg_theme_btn_light">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="☀" android:textSize="18sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Light" android:textSize="11sp" android:textColor="#0F172A"
+                            android:fontFamily="@font/inter_medium" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/theme_btn_dark"
+                        android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1"
+                        android:layout_marginEnd="6dp" android:orientation="vertical" android:gravity="center"
+                        android:background="@drawable/bg_theme_btn_dark">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="🌙" android:textSize="18sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Dark" android:textSize="11sp" android:textColor="#E8F0F8"
+                            android:fontFamily="@font/inter_medium" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/theme_btn_sepia"
+                        android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1"
+                        android:layout_marginEnd="6dp" android:orientation="vertical" android:gravity="center"
+                        android:background="@drawable/bg_theme_btn_sepia">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="🍂" android:textSize="18sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Sepia" android:textSize="11sp" android:textColor="#5B4636"
+                            android:fontFamily="@font/inter_medium" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/theme_btn_amoled"
+                        android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1"
+                        android:orientation="vertical" android:gravity="center"
+                        android:background="@drawable/bg_theme_btn_dark">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="⚫" android:textSize="18sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Amoled" android:textSize="10sp" android:textColor="#E8F0F8"
+                            android:fontFamily="@font/inter_medium" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="BRIGHTNESS" android:textSize="11sp"
+                        android:fontFamily="@font/inter_semibold" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:letterSpacing="0.1" />
+                    <TextView android:id="@+id/btn_follow_brightness"
+                        android:layout_width="wrap_content" android:layout_height="30dp"
+                        android:paddingHorizontal="12dp" android:gravity="center"
+                        android:text="Auto" android:textSize="12sp" android:fontFamily="@font/inter_medium"
+                        android:textColor="@color/primary" android:background="@drawable/bg_font_chip_active" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_brightness" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="8dp" android:alpha="0.4" />
+                    <com.novelverse.app.presentation.common.views.ReaderSliderView
+                        android:id="@+id/slider_brightness" android:layout_width="0dp"
+                        android:layout_height="44dp" android:layout_weight="1"
+                        android:layout_marginHorizontal="4dp" />
+                    <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                        android:src="@drawable/ic_brightness" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:background="@drawable/bg_reader_section" android:paddingHorizontal="14dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_brightness" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="12dp" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Keep Screen On"
+                        android:textSize="14sp" android:fontFamily="@font/inter_medium"
+                        android:textColor="?attr/colorOnSurface" />
+                    <Switch android:id="@+id/toggle_keep_screen_on"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- PANEL 2: Layout -->
+        <ScrollView android:id="@+id/panel_layout"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:maxHeight="360dp" android:scrollbars="none" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingBottom="8dp">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="READING MODE" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="10dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="22dp">
+                    <LinearLayout android:id="@+id/mode_btn_scroll"
+                        android:layout_width="0dp" android:layout_height="64dp" android:layout_weight="1"
+                        android:layout_marginEnd="8dp" android:orientation="vertical" android:gravity="center"
+                        android:background="@drawable/bg_mode_btn_active">
+                        <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                            android:src="@drawable/ic_book_open" android:tint="?attr/colorPrimary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Scroll" android:textSize="12sp" android:textColor="?attr/colorPrimary"
+                            android:fontFamily="@font/inter_semibold" android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/mode_btn_paged"
+                        android:layout_width="0dp" android:layout_height="64dp" android:layout_weight="1"
+                        android:orientation="vertical" android:gravity="center"
+                        android:background="@drawable/bg_mode_btn">
+                        <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                            android:src="@drawable/ic_paged_mode" android:tint="?attr/colorOnSurfaceVariant" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Paged" android:textSize="12sp"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="@font/inter_semibold" android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="ALIGNMENT" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="22dp">
+                    <TextView android:id="@+id/btn_align_left"
+                        android:layout_width="0dp" android:layout_height="44dp"
+                        android:layout_weight="1" android:layout_marginEnd="6dp"
+                        android:gravity="center" android:text="Left" android:textSize="14sp"
+                        android:fontFamily="@font/inter_medium" android:background="@drawable/bg_mode_btn_active" />
+                    <TextView android:id="@+id/btn_align_justify"
+                        android:layout_width="0dp" android:layout_height="44dp"
+                        android:layout_weight="1" android:gravity="center"
+                        android:text="Justify" android:textSize="14sp"
+                        android:fontFamily="@font/inter_medium" android:background="@drawable/bg_mode_btn" />
+                </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="SIDE MARGINS" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                    android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="22dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_layout_margin" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="8dp" android:alpha="0.4" />
+                    <com.novelverse.app.presentation.common.views.ReaderSliderView
+                        android:id="@+id/slider_side_margin" android:layout_width="0dp"
+                        android:layout_height="44dp" android:layout_weight="1"
+                        android:layout_marginHorizontal="4dp" />
+                    <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                        android:src="@drawable/ic_layout_margin" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- PANEL 3: Automation -->
+        <ScrollView android:id="@+id/panel_automation"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:maxHeight="360dp" android:scrollbars="none" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingBottom="8dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:background="@drawable/bg_reader_section" android:paddingHorizontal="14dp"
+                    android:layout_marginBottom="12dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_auto_scroll" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="12dp" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Auto-Scroll"
+                        android:textSize="14sp" android:fontFamily="@font/inter_medium"
+                        android:textColor="?attr/colorOnSurface" />
+                    <Switch android:id="@+id/toggle_auto_scroll"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/auto_scroll_speed_container"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:layout_marginBottom="18dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="SCROLL SPEED" android:textSize="11sp" android:fontFamily="@font/inter_semibold"
+                        android:textColor="?attr/colorOnSurfaceVariant" android:letterSpacing="0.1"
+                        android:layout_marginBottom="8dp" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="28dp" android:layout_height="wrap_content"
+                            android:text="🐢" android:textSize="16sp" />
+                        <com.novelverse.app.presentation.common.views.ReaderSliderView
+                            android:id="@+id/slider_auto_scroll_speed" android:layout_width="0dp"
+                            android:layout_height="44dp" android:layout_weight="1"
+                            android:layout_marginHorizontal="8dp" />
+                        <TextView android:layout_width="28dp" android:layout_height="wrap_content"
+                            android:text="🚀" android:textSize="16sp" android:gravity="end" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:background="@drawable/bg_reader_section" android:paddingHorizontal="14dp"
+                    android:layout_marginBottom="10dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_volume" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="12dp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Volume Key Navigation" android:textSize="14sp"
+                            android:fontFamily="@font/inter_medium" android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Flip chapters with volume keys" android:textSize="12sp"
+                            android:fontFamily="@font/inter_regular" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <Switch android:id="@+id/toggle_volume_flip"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:background="@drawable/bg_reader_section" android:paddingHorizontal="14dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_eye" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="12dp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Edge Tap Navigation" android:textSize="14sp"
+                            android:fontFamily="@font/inter_medium" android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Tap screen edges to flip chapters" android:textSize="12sp"
+                            android:fontFamily="@font/inter_regular" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <Switch android:id="@+id/toggle_tap_zone"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- PANEL 4: Accessibility -->
+        <ScrollView android:id="@+id/panel_access"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:maxHeight="360dp" android:scrollbars="none" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingBottom="8dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:background="@drawable/bg_reader_section" android:paddingHorizontal="14dp"
+                    android:paddingVertical="14dp" android:layout_marginBottom="10dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_dyslexia_font" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="12dp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Dyslexia-Friendly Font" android:textSize="14sp"
+                            android:fontFamily="@font/inter_medium" android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Uses OpenDyslexic typeface" android:textSize="12sp"
+                            android:fontFamily="@font/inter_regular" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <Switch android:id="@+id/toggle_dyslexia"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:background="@drawable/bg_reader_section" android:paddingHorizontal="14dp">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                        android:src="@drawable/ic_biometric" android:tint="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="12dp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Biometric Chapter Lock" android:textSize="14sp"
+                            android:fontFamily="@font/inter_medium" android:textColor="?attr/colorOnSurface" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Fingerprint for premium chapters" android:textSize="12sp"
+                            android:fontFamily="@font/inter_regular" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <Switch android:id="@+id/toggle_biometric"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <!-- Bottom Tab Bar -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="?attr/colorSurfaceVariant" android:layout_marginTop="8dp" />
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <LinearLayout android:id="@+id/tab_text" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center"
+            android:background="?attr/selectableItemBackground">
+            <ImageView android:id="@+id/tab_icon_text" android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_text_aa" android:tint="?attr/colorPrimary" />
+            <View android:id="@+id/tab_dot_text" android:layout_width="4dp" android:layout_height="4dp"
+                android:layout_marginTop="3dp" android:background="@drawable/bg_reader_tab_indicator" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/tab_display" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center"
+            android:background="?attr/selectableItemBackground">
+            <ImageView android:id="@+id/tab_icon_display" android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_brightness" android:tint="?attr/colorOnSurfaceVariant" />
+            <View android:id="@+id/tab_dot_display" android:layout_width="4dp" android:layout_height="4dp"
+                android:layout_marginTop="3dp" android:background="@drawable/bg_reader_tab_indicator"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/tab_layout_btn" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center"
+            android:background="?attr/selectableItemBackground">
+            <ImageView android:id="@+id/tab_icon_layout" android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_layout_margin" android:tint="?attr/colorOnSurfaceVariant" />
+            <View android:id="@+id/tab_dot_layout" android:layout_width="4dp" android:layout_height="4dp"
+                android:layout_marginTop="3dp" android:background="@drawable/bg_reader_tab_indicator"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/tab_automation" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center"
+            android:background="?attr/selectableItemBackground">
+            <ImageView android:id="@+id/tab_icon_automation" android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_auto_scroll" android:tint="?attr/colorOnSurfaceVariant" />
+            <View android:id="@+id/tab_dot_automation" android:layout_width="4dp" android:layout_height="4dp"
+                android:layout_marginTop="3dp" android:background="@drawable/bg_reader_tab_indicator"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/tab_access" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center"
+            android:background="?attr/selectableItemBackground">
+            <ImageView android:id="@+id/tab_icon_access" android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_accessibility" android:tint="?attr/colorOnSurfaceVariant" />
+            <View android:id="@+id/tab_dot_access" android:layout_width="4dp" android:layout_height="4dp"
+                android:layout_marginTop="3dp" android:background="@drawable/bg_reader_tab_indicator"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="20dp" />
+</LinearLayout>

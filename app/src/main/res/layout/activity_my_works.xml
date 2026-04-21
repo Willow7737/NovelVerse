@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorSurface">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:background="?attr/colorSurface">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_icon_btn_white"
+            android:src="@drawable/ic_back"
+            android:tint="?attr/colorOnSurfaceVariant"
+            android:padding="10dp"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="My Works"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_semibold" />
+
+        <TextView
+            android:id="@+id/btn_new_novel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_surface"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="+ New"
+            android:textColor="@color/primary"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_semibold" />
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <!-- Filter chips -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="10dp"
+        android:background="?attr/colorSurface">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/filter_all"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="All"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_semibold"
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_chip_active" />
+
+            <TextView
+                android:id="@+id/filter_published"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="Published"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_chip_inactive" />
+
+            <TextView
+                android:id="@+id/filter_draft"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="Drafts"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_chip_inactive" />
+
+            <TextView
+                android:id="@+id/filter_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="Completed"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/bg_chip_inactive" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Novel list -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/novels_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:paddingBottom="40dp" />
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Empty state (toggled in code) -->
+    <LinearLayout
+        android:id="@+id/empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="40dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_document"
+            android:tint="@color/text_tertiary"
+            android:contentDescription="No novels" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="No novels here yet"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tap + New to start writing your first novel."
+            android:textColor="@color/text_secondary"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4" />
+    </LinearLayout>
+</LinearLayout>

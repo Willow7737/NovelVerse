@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  drawable-night/bg_profile_banner.xml
+  Intentionally same as day — brand gradient doesn't switch with mode.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#8C1828"
+        android:centerColor="#C02040"
+        android:endColor="#6A1048"
+        android:type="linear"
+        android:angle="135" />
+</shape>

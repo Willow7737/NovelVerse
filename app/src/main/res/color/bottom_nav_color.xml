@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  color/bottom_nav_color.xml
+  Nav icons sit on the always-dark charcoal/glass background.
+  Active: white (clean, iPhone-style)
+  Inactive: mid-grey (muted, iOS look)
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#FFFFFF" android:state_checked="true" />
+    <item android:color="#636366" />
+</selector>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  color/chip_stroke_color.xml
+  Active: transparent (filled chips don't need a border)
+  Inactive: subtle grey border visible on charcoal bg
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="#00000000" />
+    <item android:color="#48484A" />
+</selector>

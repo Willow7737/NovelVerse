@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  bg_home_screen.xml
+  The screen container should be fully transparent so the charcoal +
+  top-splash window background (bg_app_main) bleeds through.
+  Do NOT use a solid surface colour here — that would cover the splash.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#00000000" />
+</shape>

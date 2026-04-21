@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_top_rounded_section_card">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/page_library_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false" />
+
+    <!-- Empty state -->
+    <LinearLayout
+        android:id="@+id/page_library_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="80dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/img_empty_library"
+            android:alpha="0.6"
+            android:contentDescription="Empty library" />
+
+        <TextView
+            android:id="@+id/page_library_empty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="19sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurface"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/page_library_empty_subtitle"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4" />
+
+        <TextView
+            android:id="@+id/page_library_empty_cta"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_primary"
+            android:paddingHorizontal="28dp"
+            android:text="Browse Novels"
+            android:textColor="?attr/colorSurface"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_semibold" />
+
+    </LinearLayout>
+
+</FrameLayout>

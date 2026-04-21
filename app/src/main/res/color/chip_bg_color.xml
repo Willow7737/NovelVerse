@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  color/chip_bg_color.xml
+  Chips sit on the always-dark charcoal background — inactive is always dark.
+  Active: rose-red fill.
+  Inactive: iOS dark elevated #2C2C2E.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="#E8395A" />
+    <item android:color="#2C2C2E" />
+</selector>

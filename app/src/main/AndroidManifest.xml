@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Storage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <!-- Notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Foreground Service (for TTS, Downloads) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    
+    <!-- REQUIRED for Android 14+ (API 34): Media Playback foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+    <!-- Wake Lock (for reading sessions) -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Billing -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <!-- Device Features -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <application
+        android:name=".NovelVerseApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NovelVerse"
+        android:usesCleartextTraffic="false"
+        tools:targetApi="34">
+
+        <!-- Splash Activity (entry point) -->
+        <activity
+            android:name=".presentation.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.NovelVerse.Splash"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Main Activity -->
+        <activity
+            android:name=".presentation.home.HomeActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+        <!-- Task 14: Deep Links — all schemes/hosts -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="novelverse" android:host="novel" />
+                <data android:scheme="novelverse" android:host="chapter" />
+                <data android:scheme="novelverse" android:host="author" />
+                <data android:scheme="https" android:host="novelverse.app" android:pathPrefix="/novel" />
+                <data android:scheme="https" android:host="novelverse.app" android:pathPrefix="/chapter" />
+                <data android:scheme="https" android:host="novelverse.app" android:pathPrefix="/author" />
+            </intent-filter>
+        </activity>
+
+        <activity 
+            android:name=".presentation.social.LeaderboardActivity" 
+            android:exported="false" />
+
+        <activity
+            android:name=".presentation.reviews.ReviewsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!-- Crash Activity -->
+        <activity
+            android:name=".crash.CrashActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar"/>
+
+        <!-- Auth Activity -->
+        <activity
+            android:name=".presentation.auth.AuthActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Reader Activity -->
+        <activity
+            android:name=".presentation.novel.reader.ReaderActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|smallestScreenSize"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <!-- Author Dashboard -->
+        <activity
+            android:name=".presentation.author.dashboard.AuthorDashboardActivity"
+            android:exported="false"
+            android:label="@string/author_dashboard" />
+
+        <!-- My Works (full novel list for authors) -->
+        <activity
+            android:name=".presentation.author.novelmanager.MyWorksActivity"
+            android:exported="false"
+            android:parentActivityName=".presentation.home.HomeActivity" />
+
+        <!-- Novel Manager (ViewPager2: Chapters / Info / Drafts) -->
+        <activity
+            android:name=".presentation.author.novelmanager.NovelManagerActivity"
+            android:exported="false"
+            android:parentActivityName=".presentation.author.novelmanager.MyWorksActivity" />
+
+        <!-- Novel Editor -->
+        <activity
+            android:name=".presentation.author.novelmanager.NovelEditorActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Chapter Editor -->
+        <activity
+            android:name=".presentation.author.chaptermanager.ChapterEditorActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Admin Dashboard -->
+        <activity
+            android:name=".presentation.admin.AdminDashboardActivity"
+            android:exported="false"
+            android:label="@string/admin_dashboard" />
+
+        <!-- Payment/Store Activity -->
+        <activity
+            android:name=".presentation.payment.store.PointStoreActivity"
+            android:exported="false"
+            android:label="@string/point_store" />
+
+        <!-- Subscription Activity -->
+        <activity
+            android:name=".presentation.payment.subscriptions.SubscriptionActivity"
+            android:exported="false"
+            android:label="@string/subscriptions" />
+
+        <!-- Search Activity -->
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!-- Notifications Activity -->
+        <activity
+            android:name=".presentation.notifications.NotificationsActivity"
+            android:exported="false"
+            android:label="Notifications" />
+
+        <!-- Settings Activity -->
+        <activity
+            android:name=".presentation.profile.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/settings" />
+
+        <!-- Legal/Privacy Activity -->
+        <activity
+            android:name=".presentation.common.legal.LegalActivity"
+            android:exported="false" />
+
+        <!-- WebView Activity -->
+        <activity
+            android:name=".presentation.common.WebViewActivity"
+            android:exported="false" />
+
+        <!-- Novel Detail -->
+        <activity
+            android:name=".presentation.novel.detail.NovelDetailActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Chapter List (View All Chapters page) -->
+        <activity
+            android:name=".presentation.novel.detail.ChapterListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+      
+        <!-- Edit Profile Activity -->
+        <activity
+            android:name=".presentation.profile.edit.EditProfileActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Reading Preferences Activity -->
+        <activity
+            android:name=".presentation.profile.reading.ReadingPrefsActivity"
+            android:exported="false"
+            android:label="Reading Preferences"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Downloads Activity -->
+        <activity
+            android:name=".presentation.profile.downloads.DownloadsActivity"
+            android:exported="false"
+            android:label="Downloads" />
+
+        <!-- Help & Support Activity -->
+        <activity
+            android:name=".presentation.profile.help.HelpActivity"
+            android:exported="false"
+            android:label="Help &amp; Support" />
+
+        <!-- Author Analytics Activity -->
+        <activity
+            android:name=".presentation.author.analytics.AuthorAnalyticsActivity"
+            android:exported="false"
+            android:label="Analytics" />
+
+        <!-- TTS Player Activity -->
+        <activity
+            android:name=".presentation.novel.reader.TtsPlayerActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:label="Read Aloud" />
+
+        <!-- Writer System: WriterViewModel is a HiltViewModel, no registration needed -->
+        <!-- TTS Service -->
+        <service
+            android:name=".services.TtsService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- Download Service -->
+        <service
+            android:name=".services.DownloadService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Sync Service -->
+        <service
+            android:name=".services.SyncService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- FCM Service -->
+        <service
+            android:name=".services.FcmService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- FCM Token Service -->
+        <service
+            android:name=".services.FcmTokenService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- WorkManager Initialization -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+        <!-- File Provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- AdMob App ID -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8357919311461882~1636706481" />
+
+        <!-- Firebase Messaging Default Icon -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+
+        <!-- Firebase Messaging Default Color -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/primary" />
+
+        <!-- Firebase Messaging Default Channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <!-- Disable analytics collection in debug -->
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="true" />
+
+        <!-- Enable Crashlytics -->
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
+    
+        <!-- Novel list (Trending / New Releases / etc.) -->
+        <activity
+            android:name=".presentation.novellist.NovelListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <!-- Achievements Screen -->
+        <activity
+            android:name=".presentation.profile.achievements.AchievementsActivity"
+            android:exported="false"
+            android:label="Achievements"
+            android:parentActivityName=".presentation.home.HomeActivity" />
+
+    </application>
+
+</manifest>

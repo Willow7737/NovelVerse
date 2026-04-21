@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="60dp"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+         android:background="?attr/colorSurface"
+         android:orientation="horizontal"
+         android:paddingHorizontal="12dp">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_back"
+             android:contentDescription="Back"
+             android:background="@drawable/bg_icon_btn_white"
+             android:padding="10dp"
+             android:tint="?attr/colorOnSurfaceVariant"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="20sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:layout_marginStart="12dp"
+             android:layout_weight="1"
+             android:text="Admin Dashboard" />
+
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingBottom="40dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="horizontal"
+                 android:layout_marginTop="14dp">
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="6dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:paddingVertical="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="22sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/primary"
+                         android:id="@+id/stat_total_users"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:text="Users" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="6dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:paddingVertical="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="22sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/secondary"
+                         android:id="@+id/stat_total_novels"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:text="Novels" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_surface_card"
+                     android:elevation="1dp"
+                     android:paddingVertical="16dp"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="22sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/error"
+                         android:id="@+id/stat_pending_reports"
+                         android:text="0" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="@color/text_tertiary"
+                         android:text="Reports" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="6dp"
+                 android:layout_marginHorizontal="16dp"
+                 android:textSize="13sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="20dp"
+                 android:letterSpacing="0.10"
+                 android:text="MODERATION" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="vertical">
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_reports" />
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_pending_novels" />
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_banned_users" />
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="6dp"
+                 android:layout_marginHorizontal="16dp"
+                 android:textSize="13sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:layout_marginTop="20dp"
+                 android:letterSpacing="0.10"
+                 android:text="MANAGEMENT" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:elevation="1dp"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="vertical">
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_user_management" />
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_featured_novels" />
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_promo_codes" />
+
+                <View
+                     android:layout_height="0.5dp"
+                     android:layout_width="match_parent"
+                     android:background="@color/divider"
+                     android:layout_marginStart="52dp" />
+
+                <include
+                     layout="@layout/item_settings_row"
+                     android:id="@+id/row_app_config" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Dark-mode overrides.
+  RULE: The app background (#141416 charcoal + top splash) is IDENTICAL
+  in both modes — it never changes. Only card/surface backgrounds switch.
+  Text colours also switch so they remain readable on the new card surfaces.
+-->
+<resources>
+
+    <!-- ─── BACKGROUNDS — same charcoal, no change ─── -->
+    <color name="background">#141416</color>
+    <color name="background_dark">#141416</color>
+
+    <!-- ─── SURFACES / CARDS — the ONLY things that switch ─── -->
+    <color name="surface">#1C1C1E</color>               <!-- iOS dark base -->
+    <color name="surface_variant">#3A3A3C</color>
+    <color name="surface_input">#2C2C2E</color>
+    <color name="surface_card">#2C2C2E</color>          <!-- iOS dark elevated -->
+
+    <!-- ─── TEXT — switches to stay legible on dark cards ─── -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#ABABAF</color>
+    <color name="text_tertiary">#636366</color>
+    <color name="text_disabled">#3A3A3C</color>
+    <color name="text_link">#FF7090</color>
+
+    <!-- ─── BORDERS ─── -->
+    <color name="divider">#48484A</color>
+    <color name="border">#38383A</color>
+
+    <color name="section_card">#2C2C2E</color>
+
+    <!-- ─── GENRE PILLS (on charcoal bg — both modes identical) ─── -->
+    <color name="pill_unselected_bg">#2C2C2E</color>
+    <color name="pill_unselected_border">#48484A</color>
+    <color name="pill_unselected_text">#ABABAF</color>
+
+    <!-- ─── CHIP TOGGLES ─── -->
+    <color name="chip_unselected_bg">#2C2C2E</color>
+    <color name="chip_unselected_border">#48484A</color>
+    <color name="chip_unselected_text">#ABABAF</color>
+
+    <!-- ─── MYWORKS FILTER CHIPS ─── -->
+    <color name="chip_all_inactive_bg">#3D1420</color>
+    <color name="chip_published_inactive_bg">#0F2F1A</color>
+    <color name="chip_draft_inactive_bg">#3D2A00</color>
+    <color name="chip_completed_inactive_bg">#2D1550</color>
+
+    <!-- ─── SHIMMER ─── -->
+    <color name="shimmer_base">#2C2C2E</color>
+    <color name="shimmer_highlight">#3A3A3C</color>
+
+    <!-- ─── POINTS ─── -->
+    <color name="points_background">#3D2A00</color>
+
+    <!-- ─── GENRE COLOURS — slightly brighter for dark card surfaces ─── -->
+    <color name="genre_romance">#FF6B85</color>
+    <color name="genre_fantasy">#D088F7</color>
+    <color name="genre_scifi">#4DA3FF</color>
+    <color name="genre_mystery">#FF7090</color>
+    <color name="genre_thriller">#FFB340</color>
+    <color name="genre_horror">#636366</color>
+    <color name="genre_adventure">#30D158</color>
+    <color name="genre_historical">#D8C4A0</color>
+    <color name="genre_comedy">#FFE248</color>
+    <color name="genre_drama">#FF8F50</color>
+    <color name="genre_action">#FF7090</color>
+    <color name="genre_young_adult">#5AC8FA</color>
+
+    <!-- ─── ALIASES ─── -->
+    <color name="surface_dark">#1C1C1E</color>
+    <color name="surface_variant_dark">#3A3A3C</color>
+
+    <!-- ─── CARD SYSTEM — dark mode overrides ─── -->
+    <color name="surface_card_stroke">#38383A</color>
+    <color name="surface_card_secondary">#3A3A3C</color>
+    <color name="surface_card_tertiary">#2C2C2E</color>
+    <color name="drag_handle">#48484A</color>
+    <color name="icon_bg_tint">#3D1420</color>
+    <color name="icon_tint_primary">#FF7090</color>
+    <color name="button_secondary_bg">#2C2C2E</color>
+    <color name="button_destructive_bg">#2D1515</color>
+    <color name="chip_inactive_bg">#2C2C2E</color>
+    <color name="chip_inactive_stroke">#48484A</color>
+    <color name="search_bar_bg">#2C2C2E</color>
+
+<!-- ── Floating Nav Bar — dark mode overrides ── -->
+    <!-- On a dark charcoal background the glass needs a lighter tint
+         and the indicator/icons need to reverse: light pill, dark icon text. -->
+    <color name="nav_glass_base">#26FFFFFF</color>      <!-- 15% white — brightens dark glass -->
+    <color name="nav_glass_haze">#1AFFFFFF</color>      <!-- Stronger frost on dark bg -->
+    <color name="nav_noise">#0D808080</color>           <!-- Same grain -->
+    <color name="nav_edge_light">#40FFFFFF</color>      <!-- Slightly stronger specular in dark -->
+    <color name="nav_edge_shadow">#00000000</color>     <!-- No bottom shadow needed in dark -->
+    <color name="nav_indicator">#FFF2F2F7</color>       <!-- Light pill — stands out on dark glass -->
+    <color name="nav_icon_inactive">#99EBEBF0</color>   <!-- 60% off-white — visible on dark -->
+    <color name="nav_icon_active">#FF141416</color>     <!-- Charcoal — readable on light indicator -->
+
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bluesky: borderless card, rounded cover, tight typography -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="130dp"
+    android:layout_marginEnd="14dp"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Cover image — rounded 10dp corners -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/cd_novel_cover"
+            android:transitionName="novel_cover_transition"
+            android:id="@+id/cover_image"
+            android:background="@color/shimmer_base" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Meta below cover -->
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="?attr/colorOnSurface"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_marginTop="8dp"
+        android:id="@+id/title_text" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="12sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginTop="2dp"
+        android:id="@+id/author_text" />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
+
+        <RatingBar
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:stepSize="0.1"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:theme="@style/RatingBar"
+            android:id="@+id/rating_bar" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="11sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/text_tertiary"
+            android:layout_marginStart="4dp"
+            android:id="@+id/rating_text" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:textSize="11sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/text_tertiary"
+        android:id="@+id/readers_now_text" />
+</LinearLayout>

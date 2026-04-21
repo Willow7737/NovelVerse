@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorSurface">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="12dp" android:background="?attr/colorSurface">
+        <ImageView android:id="@+id/btn_back" android:layout_width="44dp" android:layout_height="44dp"
+            android:background="@drawable/bg_icon_btn_white" android:src="@drawable/ic_back"
+            android:tint="?attr/colorOnSurfaceVariant" android:padding="10dp" android:contentDescription="Back" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="12dp" android:text="Settings"
+            android:textColor="?attr/colorOnSurface" android:textSize="20sp" android:fontFamily="@font/inter_semibold" />
+    </LinearLayout>
+    <!-- Bluesky hairline divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+
+
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingBottom="40dp">
+
+            <!-- Account section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp" android:text="ACCOUNT"
+                android:textColor="@color/text_tertiary" android:textSize="13sp"
+                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.10" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card" android:elevation="1dp">
+                <include layout="@layout/item_settings_row" android:id="@+id/row_edit_profile" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_change_password" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_subscription" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_point_store" />
+            </LinearLayout>
+
+            <!-- Reading section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp" android:text="READING"
+                android:textColor="@color/text_tertiary" android:textSize="13sp"
+                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.10" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card" android:elevation="1dp">
+                <include layout="@layout/item_settings_row" android:id="@+id/row_reading_prefs" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_downloads" />
+            </LinearLayout>
+
+            <!-- Notifications section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp" android:text="NOTIFICATIONS"
+                android:textColor="@color/text_tertiary" android:textSize="13sp"
+                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.10" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card" android:elevation="1dp">
+                <include layout="@layout/item_settings_toggle_row" android:id="@+id/row_push_notifs" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_toggle_row" android:id="@+id/row_email_notifs" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_toggle_row" android:id="@+id/row_marketing" />
+            </LinearLayout>
+
+            <!-- Privacy section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp" android:text="PRIVACY"
+                android:textColor="@color/text_tertiary" android:textSize="13sp"
+                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.10" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card" android:elevation="1dp">
+                <include layout="@layout/item_settings_row" android:id="@+id/row_privacy" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_export_data" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_delete_account" />
+            </LinearLayout>
+
+            <!-- App section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp" android:text="APP"
+                android:textColor="@color/text_tertiary" android:textSize="13sp"
+                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.10" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card" android:elevation="1dp">
+                <include layout="@layout/item_settings_row" android:id="@+id/row_language" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_help" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_legal" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:layout_marginStart="52dp" android:background="@color/divider" />
+                <include layout="@layout/item_settings_row" android:id="@+id/row_about" />
+            </LinearLayout>
+
+            <!-- Sign out -->
+            <TextView android:id="@+id/btn_sign_out" android:layout_width="180dp"
+                android:layout_height="48dp" android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp" android:gravity="center"
+                android:background="@drawable/bg_btn_outlined_error" android:text="Sign Out"
+                android:textColor="@color/error" android:textSize="15sp"
+                android:fontFamily="@font/inter_semibold" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

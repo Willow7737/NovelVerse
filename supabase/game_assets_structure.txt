@@ -1,0 +1,129 @@
+game-assets/
+├── achievements/              (51 total)
+│   ├── 03_achievement_first_page.png
+│   ├── 04_achievement_bookworm.png
+│   ├── 05_achievement_scholar.png
+│   ├── 06_achievement_sage.png
+│   ├── 07_achievement_lorekeeper.png
+│   ├── 08_achievement_completionist.png
+│   ├── 09_achievement_finished_strong.png
+│   ├── 10_achievement_night_reader.png
+│   ├── 11_achievement_speed_reader.png
+│   ├── 12_achievement_deep_dive.png
+│   ├── 13_achievement_first_words.png
+│   ├── 14_achievement_published.png
+│   ├── 15_achievement_rising_star.png
+│   ├── 16_achievement_going_viral.png
+│   ├── 17_achievement_bestseller.png
+│   ├── 18_achievement_prolific.png
+│   ├── 19_achievement_streak_3.png
+│   ├── 20_achievement_streak_7.png
+│   ├── 21_achievement_streak_30.png
+│   ├── 22_achievement_streak_100.png
+│   ├── 23_achievement_bookmarked.png
+│   ├── 24_achievement_critic.png
+│   ├── 25_achievement_trusted_voice.png
+│   ├── 26_achievement_connected.png
+│   ├── 27_achievement_trendsetter.png
+│   ├── 28_supporter_bronze.png
+│   ├── 29_supporter_silver.png
+│   ├── 30_supporter_gold.png
+│   ├── 75_achievement_streak_14.png
+│   ├── 76_achievement_streak_60.png
+│   ├── 77_achievement_streak_180.png
+│   ├── 78_achievement_streak_365.png
+│   ├── 79_achievement_chapter_50.png
+│   ├── 80_achievement_novels_3.png
+│   ├── 81_achievement_words_100k.png
+│   ├── 82_achievement_words_1m.png
+│   ├── 83_achievement_followers_100.png
+│   ├── 84_achievement_followers_1k.png
+│   ├── 85_achievement_tipped.png
+│   ├── 86_achievement_earnings_100.png
+│   ├── 87_achievement_comments_50.png
+│   ├── 88_achievement_replies_100.png
+│   ├── 89_achievement_liked_500.png
+│   ├── 90_genre_fantasy_master.png
+│   ├── 91_genre_romance_master.png
+│   ├── 92_genre_horror_master.png
+│   ├── 93_genre_scifi_master.png
+│   └── 94_genre_mystery_master.png
+├── levels/                    (11 total)
+│   ├── 64_level_1.png
+│   ├── 65_level_10.png
+│   ├── 66_level_20.png
+│   ├── 67_level_30.png
+│   ├── 68_level_40.png
+│   ├── 69_level_50.png
+│   ├── 70_level_60.png
+│   ├── 71_level_70.png
+│   ├── 72_level_80.png
+│   ├── 73_level_90.png
+│   └── 74_level_100.png
+├── currencies/                (2 total)
+│   ├── 01_ink_bottle.png
+│   └── 02_quill.png
+├── misc/                      (8 total)
+│   ├── 31_ui_flame_streak.png
+│   ├── 32_ui_snowflake_freeze.png
+│   ├── 33_ui_shield_recovery.png
+│   ├── 34_ui_calendar_checkin.png
+│   ├── 35_ui_level_badge_frame.png
+│   ├── 36_ui_xp_star.png
+│   ├── 37_ui_levelup_celebration.png
+│   └── 42_toast_notification.png
+├── frames/                    (11 total)
+│   ├── 38_card_common.png
+│   ├── 39_card_rare.png
+│   ├── 40_card_epic.png
+│   ├── 41_card_legendary.png
+│   ├── 49_frame_reader.png
+│   ├── 50_frame_writer.png
+│   ├── 51_frame_bronze.png
+│   ├── 52_frame_silver.png
+│   ├── 53_frame_gold.png
+│   ├── 54_frame_flame_streak.png
+│   └── 55_frame_legendary.png
+├── themes/                    (6 total)
+│   ├── 43_theme_fantasy.jpg
+│   ├── 44_theme_scifi.jpg
+│   ├── 45_theme_romance.jpg
+│   ├── 46_theme_ocean.jpg
+│   ├── 47_theme_galaxy.jpg
+│   └── 48_theme_gold.jpg
+├── store/                     (5 total)
+│   ├── 56_store_ink_small.png
+│   ├── 57_store_ink_large.png
+│   ├── 58_store_quill.png
+│   ├── 101_bundle_starter.png
+│   ├── 102_bundle_whale.png
+│   ├── 103_item_xp_boost.png
+│   ├── 104_item_badge_slot.png
+│   └── 105_gift_card.png
+├── subscriptions/             (2 total)
+│   ├── 59_sub_pro.png
+│   └── 60_sub_proplus.png
+├── notifications/             (6 total)
+│   ├── 95_notif_achievement.png
+│   ├── 96_notif_streak.png
+│   ├── 97_notif_tip.png
+│   ├── 98_notif_follow.png
+│   ├── 99_notif_chapter.png
+│   └── 100_notif_system.png
+├── status/                    (6 total)
+│   ├── 109_achievement_beta_tester.png
+│   ├── 110_status_verified.png
+│   ├── 111_status_moderator.png
+│   ├── 112_status_author_pro.png
+│   ├── 113_set_reader_complete.png
+│   └── 114_set_writer_complete.png
+├── events/                    (3 total)
+│   ├── 106_event_halloween_2026.png
+│   ├── 107_event_winter_2026.png
+│   └── 108_event_anniversary.png
+└── placeholders/              (5 total)
+    ├── 61_placeholder_locked.png
+    ├── 62_empty_no_currency.png
+    ├── 63_locked_theme_preview.png
+    ├── 115_empty_achievements.png
+    └── 116_empty_streak.png

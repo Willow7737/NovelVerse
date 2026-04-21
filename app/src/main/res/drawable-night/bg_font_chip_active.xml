@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Active font chip — dark mode: blue-tinted bg with blue stroke -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#1A3450" />
+    <stroke android:width="1.5dp" android:color="#5EB3FF" />
+    <corners android:radius="100dp" />
+</shape>

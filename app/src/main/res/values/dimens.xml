@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="banner_corner_radius">16dp</dimen>
+    <dimen name="banner_elevation">12dp</dimen>
+    <dimen name="banner_margin_horizontal">12dp</dimen>
+    <dimen name="banner_margin_top">12dp</dimen>
+    <dimen name="banner_padding_horizontal">16dp</dimen>
+    <dimen name="banner_padding_vertical">14dp</dimen>
+    <dimen name="banner_icon_size">26dp</dimen>
+    <dimen name="banner_title_size">15sp</dimen>
+    <dimen name="banner_message_size">13sp</dimen>
+
+    <dimen name="divider_height">2dp</dimen>
+    <dimen name="divider_stroke_width">1dp</dimen>
+    <dimen name="dash_width">5dp</dimen>
+    <dimen name="dash_gap">4dp</dimen>
+
+</resources>

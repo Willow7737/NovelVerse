@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  drawable-night/bg_floating_nav.xml
+  Same as day — the nav pill is always dark glass on the always-dark bg.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#D8141416" />
+            <corners android:radius="36dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0AFFFFFF" />
+            <corners android:radius="36dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="#18FFFFFF" />
+            <solid android:color="#00000000" />
+            <corners android:radius="36dp" />
+        </shape>
+    </item>
+
+</layer-list>

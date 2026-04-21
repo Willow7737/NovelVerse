@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <!-- ── Equipped badges ── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:text="EQUIPPED BADGES"
+            android:letterSpacing="0.08" />
+
+        <!-- Badge slots: 1 default, up to 3 at L25 -->
+        <LinearLayout
+            android:id="@+id/badge_slots_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical">
+
+            <!-- Slot 1 (always visible) -->
+            <FrameLayout
+                android:id="@+id/badge_slot_1"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_surface_card">
+
+                <ImageView
+                    android:id="@+id/badge_slot_1_image"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Badge slot 1" />
+
+                <ImageView
+                    android:id="@+id/badge_slot_1_empty"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add"
+                    android:tint="?attr/colorOnSurfaceVariant"
+                    android:contentDescription="Empty slot" />
+
+            </FrameLayout>
+
+            <!-- Slot 2 (unlocked at Level 10) -->
+            <FrameLayout
+                android:id="@+id/badge_slot_2"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_surface_card"
+                android:alpha="0.4">
+
+                <ImageView
+                    android:id="@+id/badge_slot_2_image"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Badge slot 2" />
+
+                <ImageView
+                    android:id="@+id/badge_slot_2_lock"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lock"
+                    android:tint="?attr/colorOnSurfaceVariant"
+                    android:contentDescription="Locked — Level 10" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="Lv. 10"
+                    android:textSize="9sp"
+                    android:gravity="center"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+            </FrameLayout>
+
+            <!-- Slot 3 (unlocked at Level 25) -->
+            <FrameLayout
+                android:id="@+id/badge_slot_3"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_surface_card"
+                android:alpha="0.4">
+
+                <ImageView
+                    android:id="@+id/badge_slot_3_image"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Badge slot 3" />
+
+                <ImageView
+                    android:id="@+id/badge_slot_3_lock"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lock"
+                    android:tint="?attr/colorOnSurfaceVariant"
+                    android:contentDescription="Locked — Level 25" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="Lv. 25"
+                    android:textSize="9sp"
+                    android:gravity="center"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- ── Avatar frames ── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:text="AVATAR FRAMES"
+            android:letterSpacing="0.08" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/avatar_frames_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp" />
+
+        <!-- ── Profile themes ── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:text="PROFILE THEMES"
+            android:letterSpacing="0.08" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/themes_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

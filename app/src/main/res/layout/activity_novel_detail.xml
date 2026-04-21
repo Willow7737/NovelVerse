@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="?attr/colorSurface">
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="?attr/colorSurface"
+         android:gravity="center_vertical"
+         android:elevation="8dp"
+         android:orientation="horizontal"
+         android:paddingBottom="24dp"
+         android:paddingHorizontal="16dp"
+         android:id="@+id/bottom_cta"
+         android:layout_gravity="bottom"
+         android:paddingTop="12dp">
+
+        <ImageView
+             android:layout_height="48dp"
+             android:layout_width="48dp"
+             android:src="@drawable/ic_bookmark"
+             android:layout_marginEnd="10dp"
+             android:contentDescription="Add to library"
+             android:background="@drawable/bg_surface_card"
+             android:padding="12dp"
+             android:id="@+id/btn_bookmark" />
+
+        <ImageView
+             android:layout_height="48dp"
+             android:layout_width="48dp"
+             android:src="@drawable/ic_star_filled"
+             android:layout_marginEnd="10dp"
+             android:contentDescription="Write review"
+             android:background="@drawable/bg_surface_card"
+             android:padding="12dp"
+             android:tint="@color/warning"
+             android:id="@+id/btn_write_review" />
+
+        <TextView
+             android:layout_height="52dp"
+             android:layout_width="0dp"
+             android:gravity="center"
+             android:background="@drawable/bg_btn_primary"
+             android:textSize="16sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="@color/white"
+             android:layout_weight="1"
+             android:id="@+id/btn_read"
+             android:text="Start Reading" />
+
+        <TextView
+             android:layout_height="48dp"
+             android:layout_width="wrap_content"
+             android:gravity="center"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_medium"
+             android:textColor="?attr/colorPrimary"
+             android:paddingHorizontal="12dp"
+             android:id="@+id/btn_download_next_10"
+             android:text="⬇ Next 10" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingBottom="120dp">
+
+            <FrameLayout
+                 android:layout_height="280dp"
+                 android:layout_width="match_parent"
+                 android:background="@color/shimmer_base">
+
+                <ImageView
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:scaleType="centerCrop"
+                     android:contentDescription="@null"
+                     android:alpha="0.12"
+                     android:id="@+id/novel_cover_blur_bg" />
+
+                <View
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:background="@drawable/bg_header_fade" />
+
+                <ImageView
+                     android:layout_height="44dp"
+                     android:layout_width="44dp"
+                     android:src="@drawable/ic_back"
+                     android:contentDescription="Back"
+                     android:background="@drawable/bg_icon_btn_white"
+                     android:layout_margin="12dp"
+                     android:padding="10dp"
+                     android:tint="?attr/colorOnSurfaceVariant"
+                     android:id="@+id/btn_back"
+                     android:layout_gravity="top|start" />
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:layout_margin="12dp"
+                     android:orientation="horizontal"
+                     android:layout_gravity="top|end">
+
+                    <ImageView
+                         android:layout_height="44dp"
+                         android:layout_width="44dp"
+                         android:src="@drawable/ic_share"
+                         android:layout_marginEnd="8dp"
+                         android:contentDescription="Share"
+                         android:background="@drawable/bg_icon_btn_white"
+                         android:padding="10dp"
+                         android:tint="?attr/colorOnSurfaceVariant"
+                         android:id="@+id/btn_share" />
+
+                    <ImageView
+                         android:layout_height="44dp"
+                         android:layout_width="44dp"
+                         android:src="@drawable/ic_more_vert"
+                         android:contentDescription="More options"
+                         android:background="@drawable/bg_icon_btn_white"
+                         android:padding="10dp"
+                         android:tint="?attr/colorOnSurfaceVariant"
+                         android:id="@+id/btn_more" />
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                     android:layout_height="180dp"
+                     android:layout_width="120dp"
+                     android:layout_marginBottom="16dp"
+                     app:cardElevation="12dp"
+                     app:cardCornerRadius="8dp"
+                     android:layout_gravity="bottom|center_horizontal">
+
+                    <ImageView
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"
+                         android:src="@drawable/img_placeholder_cover"
+                         android:scaleType="centerCrop"
+                         android:contentDescription="Novel cover"
+                         android:transitionName="novel_cover_detail"
+                         android:id="@+id/novel_cover" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </FrameLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="?attr/colorSurface"
+                 android:gravity="center_horizontal"
+                 android:orientation="vertical"
+                 android:paddingBottom="16dp"
+                 android:paddingHorizontal="20dp"
+                 android:paddingTop="18dp">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:gravity="center"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:letterSpacing="-0.01"
+                     android:id="@+id/novel_title"
+                     android:text="Novel Title" />
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:gravity="center_vertical"
+                     android:clickable="true"
+                     android:orientation="horizontal"
+                     android:layout_marginTop="8dp"
+                     android:focusable="true"
+                     android:id="@+id/author_row"
+                     android:foreground="?attr/selectableItemBackground">
+
+                    <ImageView
+                         android:layout_height="20dp"
+                         android:layout_width="20dp"
+                         android:src="@drawable/ic_avatar_placeholder"
+                         android:layout_marginEnd="8dp"
+                         android:contentDescription="Author avatar"
+                         android:scaleType="centerCrop"
+                         android:id="@+id/author_avatar" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="15sp"
+                         android:fontFamily="@font/inter_medium"
+                         android:textColor="?attr/colorPrimary"
+                         android:id="@+id/novel_author"
+                         android:text="Author Name" />
+
+                    <ImageView
+                         android:layout_height="16dp"
+                         android:layout_width="16dp"
+                         android:visibility="gone"
+                         android:src="@drawable/ic_verified"
+                         android:contentDescription="Verified"
+                         android:layout_marginStart="4dp"
+                         android:id="@+id/author_verified" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:gravity="center"
+                     android:orientation="horizontal"
+                     android:layout_marginTop="14dp">
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:gravity="center"
+                         android:orientation="vertical"
+                         android:layout_weight="1">
+
+                        <LinearLayout
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:gravity="center_vertical"
+                             android:orientation="horizontal">
+
+                            <ImageView
+                                 android:layout_height="16dp"
+                                 android:layout_width="16dp"
+                                 android:src="@drawable/ic_star_filled"
+                                 android:layout_marginEnd="4dp"
+                                 android:contentDescription="Rating"
+                                 android:tint="@color/warning" />
+
+                            <TextView
+                                 android:layout_height="wrap_content"
+                                 android:layout_width="wrap_content"
+                                 android:textSize="16sp"
+                                 android:fontFamily="@font/inter_semibold"
+                                 android:textColor="?attr/colorOnSurface"
+                                 android:id="@+id/novel_rating"
+                                 android:text="0.0" />
+
+                        </LinearLayout>
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="12sp"
+                             android:textColor="@color/text_tertiary"
+                             android:text="Rating" />
+
+                    </LinearLayout>
+
+                    <View
+                         android:layout_height="32dp"
+                         android:layout_width="1dp"
+                         android:background="@color/divider" />
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:gravity="center"
+                         android:orientation="vertical"
+                         android:layout_weight="1">
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="16sp"
+                             android:fontFamily="@font/inter_semibold"
+                             android:textColor="?attr/colorOnSurface"
+                             android:id="@+id/novel_views"
+                             android:text="0" />
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="12sp"
+                             android:textColor="@color/text_tertiary"
+                             android:text="Views" />
+
+                    </LinearLayout>
+
+                    <View
+                         android:layout_height="32dp"
+                         android:layout_width="1dp"
+                         android:background="@color/divider" />
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:gravity="center"
+                         android:orientation="vertical"
+                         android:layout_weight="1">
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="16sp"
+                             android:fontFamily="@font/inter_semibold"
+                             android:textColor="?attr/colorOnSurface"
+                             android:id="@+id/novel_chapters"
+                             android:text="0" />
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textSize="12sp"
+                             android:textColor="@color/text_tertiary"
+                             android:text="Chapters" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <HorizontalScrollView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:scrollbars="none"
+                     android:layout_marginTop="14dp">
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:orientation="horizontal"
+                         android:id="@+id/genre_chips">
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+            <View
+                 android:layout_height="1dp"
+                 android:layout_width="match_parent"
+                 android:background="@color/divider"
+                 android:layout_marginHorizontal="14dp" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/bg_surface_card"
+                 android:layout_marginHorizontal="14dp"
+                 android:padding="16dp"
+                 android:orientation="vertical"
+                 android:layout_marginTop="10dp">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:textSize="16sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:text="Synopsis" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:ellipsize="end"
+                     android:textSize="15sp"
+                     android:fontFamily="@font/inter_regular"
+                     android:textColor="?attr/colorOnSurfaceVariant"
+                     android:lineSpacingMultiplier="1.5"
+                     android:maxLines="6"
+                     android:id="@+id/novel_description"
+                     android:text="Novel description goes here." />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:visibility="gone"
+                     android:textSize="14sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="?attr/colorPrimary"
+                     android:layout_marginTop="8dp"
+                     android:id="@+id/btn_read_more"
+                     android:text="Read more" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:visibility="gone"
+                 android:background="@drawable/bg_surface_card"
+                 android:layout_marginHorizontal="14dp"
+                 android:orientation="vertical"
+                 android:layout_marginTop="10dp"
+                 android:id="@+id/reviews_section">
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
+                     android:orientation="horizontal"
+                     android:paddingBottom="10dp"
+                     android:paddingHorizontal="16dp"
+                     android:paddingTop="14dp">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="0dp"
+                         android:textSize="16sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="?attr/colorOnSurface"
+                         android:layout_weight="1"
+                         android:text="Reviews" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:fontFamily="@font/inter_regular"
+                         android:textColor="?attr/colorOnSurfaceVariant"
+                         android:id="@+id/reviews_count_label" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:paddingBottom="12dp"
+                     android:clipToPadding="false"
+                     android:nestedScrollingEnabled="false"
+                     android:paddingHorizontal="14dp"
+                     android:id="@+id/reviews_recycler" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center_vertical"
+                 android:orientation="horizontal"
+                 android:paddingBottom="8dp"
+                 android:paddingHorizontal="14dp"
+                 android:paddingTop="20dp">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:textSize="16sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:layout_weight="1"
+                     android:text="Chapters" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="14sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="?attr/colorPrimary"
+                     android:id="@+id/btn_sort_chapters"
+                     android:text="Oldest first" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:clipToPadding="false"
+                 android:nestedScrollingEnabled="false"
+                 android:paddingHorizontal="14dp"
+                 android:id="@+id/chapters_recycler" />
+
+            <TextView
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:background="@drawable/bg_surface_card"
+                 android:layout_marginHorizontal="14dp"
+                 android:textSize="15sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="?attr/colorPrimary"
+                 android:layout_marginTop="4dp"
+                 android:id="@+id/btn_all_chapters"
+                 android:text="View All Chapters" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

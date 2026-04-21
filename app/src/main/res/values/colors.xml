@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ═══════════════════════════════════════════════════════ BRAND — Indigo (calm, editorial, Apple system indigo) Primary does NOT change between light and dark. ═══════════════════════════════════════════════════════ -->
+    <color name="primary">#5856D6</color> <!-- Indigo — buttons, links, accents -->
+    <color name="primary_dark">#4240C4</color> <!-- Pressed / darker indigo -->
+    <color name="primary_light">#7B7AE8</color> <!-- Lighter indigo — tints on dark surfaces -->
+    <color name="on_primary">#FFFFFF</color>
+
+    <color name="secondary">#FF9F0A</color> <!-- Amber-gold — coins, premium, VIP -->
+    <color name="secondary_dark">#D4860A</color>
+    <color name="secondary_light">#FFC44D</color>
+    <color name="on_secondary">#FFFFFF</color>
+
+    <!-- ═══════════════════════════════════════════════════════ APP BACKGROUND — static in BOTH modes Deep charcoal #141416 — never switches. Top-half splash lives in bg_app_main.xml. ═══════════════════════════════════════════════════════ -->
+    <color name="background">#141416</color> <!-- Always deep charcoal -->
+    <color name="background_dark">#141416</color> <!-- Alias — same value -->
+
+    <!-- ═══════════════════════════════════════════════════════ SURFACE / CARDS — THE ONLY THINGS THAT CHANGE MODE Light mode → white / near-white cards Dark mode → iOS elevated dark cards ═══════════════════════════════════════════════════════ -->
+    <color name="surface">#F2F2F7</color> <!-- Sheet / bottom-nav fill — light mode -->
+    <color name="surface_dark">#1C1C1E</color> <!-- Sheet fill — dark mode (iOS dark base) -->
+
+    <color name="surface_variant">#EBEBF0</color>
+    <color name="surface_variant_dark">#3A3A3C</color>
+
+    <color name="surface_input">#FFFFFF</color>
+    <color name="surface_input_dark">#2C2C2E</color>
+
+    <color name="surface_card">#FFFFFF</color> <!-- Novel cards, list items — light mode -->
+    <color name="surface_card_dark">#2C2C2E</color> <!-- Novel cards — dark mode (iOS elevated) -->
+
+    <!-- ═══════════════════════════════════════════════════════ TEXT text_primary / secondary are used inside cards — they DO switch. Text that sits on the charcoal background should use colorOnBackground from the theme (always #F2F2F7). ═══════════════════════════════════════════════════════ -->
+    <color name="text_primary">#1C1C1E</color> <!-- Dark text — on light cards -->
+    <color name="text_primary_dark">#FFFFFF</color> <!-- Light text — on dark cards / always on bg -->
+
+    <color name="text_secondary">#636366</color> <!-- iOS secondary label — light -->
+    <color name="text_secondary_dark">#ABABAF</color>
+
+    <color name="text_tertiary">#8E8E93</color> <!-- iOS tertiary label -->
+    <color name="text_tertiary_dark">#636366</color>
+
+    <color name="text_disabled">#C7C7CC</color>
+    <color name="text_disabled_dark">#3A3A3C</color>
+
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_link">#5856D6</color> <!-- Links use brand indigo -->
+    <color name="text_link_dark">#7B7AE8</color>
+
+    <!-- ═══════════════════════════════════════════════════════ STATUS / SEMANTIC ═══════════════════════════════════════════════════════ -->
+    <color name="success">#30D158</color> <!-- iOS green -->
+    <color name="success_light">#D1F5DC</color>
+    <color name="success_dark">#28BD4E</color>
+
+    <color name="error">#FF453A</color> <!-- iOS red -->
+    <color name="error_light">#FFE5E3</color>
+    <color name="error_dark">#FF6961</color>
+
+    <color name="warning">#FF9F0A</color> <!-- iOS amber -->
+    <color name="warning_light">#FFF3D4</color>
+    <color name="warning_dark">#FFB340</color>
+
+    <color name="info">#5856D6</color>
+    <color name="info_light">#EAE9FF</color>
+
+    <color name="accent">#30D158</color>
+    <color name="accent_dark">#28BD4E</color>
+    <color name="on_accent">#FFFFFF</color>
+
+    <!-- ═══════════════════════════════════════════════════════ BORDERS & DIVIDERS ═══════════════════════════════════════════════════════ -->
+    <color name="divider">#E5E5EA</color> <!-- iOS separator — light -->
+    <color name="divider_dark">#38383A</color> <!-- iOS separator — dark -->
+
+    <color name="border">#E5E5EA</color>
+    <color name="border_dark">#38383A</color>
+
+    <color name="section_card">#FFFFFF</color>
+
+    <!-- ═══════════════════════════════════════════════════════ GENRE COLOURS — semantic, NOT brand. Intentionally unchanged. ═══════════════════════════════════════════════════════ -->
+    <color name="genre_romance">#FF2D55</color>
+    <color name="genre_romance_dark">#FF6B85</color>
+
+    <color name="genre_fantasy">#BF5AF2</color>
+    <color name="genre_fantasy_dark">#D088F7</color>
+
+    <color name="genre_scifi">#0A84FF</color>
+    <color name="genre_scifi_dark">#4DA3FF</color>
+
+    <color name="genre_mystery">#FF375F</color>
+    <color name="genre_mystery_dark">#FF7090</color>
+
+    <color name="genre_thriller">#FF9F0A</color>
+    <color name="genre_thriller_dark">#FFB340</color>
+
+    <color name="genre_horror">#2C2C2E</color>
+    <color name="genre_horror_dark">#48484A</color>
+
+    <color name="genre_adventure">#34C759</color>
+    <color name="genre_adventure_dark">#30D158</color>
+
+    <color name="genre_historical">#C4A882</color>
+    <color name="genre_historical_dark">#D8C4A0</color>
+
+    <color name="genre_comedy">#FFD60A</color>
+    <color name="genre_comedy_dark">#FFE248</color>
+
+    <color name="genre_drama">#FF6B2A</color>
+    <color name="genre_drama_dark">#FF8F50</color>
+
+    <color name="genre_action">#E8395A</color>
+    <color name="genre_action_dark">#FF7090</color>
+
+    <color name="genre_young_adult">#32ADE6</color>
+    <color name="genre_young_adult_dark">#5AC8FA</color>
+
+    <!-- ═══════════════════════════════════════════════════════ MYWORKS FILTER CHIP COLOURS ═══════════════════════════════════════════════════════ -->
+    <color name="chip_all_active">#5856D6</color>
+    <color name="chip_all_inactive_bg">#EAE9FF</color>
+    <color name="chip_all_inactive_bg_dark">#1E1D4A</color>
+
+    <color name="chip_published_active">#30D158</color>
+    <color name="chip_published_inactive_bg">#D1F5DC</color>
+    <color name="chip_published_inactive_bg_dark">#0F2F1A</color>
+
+    <color name="chip_draft_active">#FF9F0A</color>
+    <color name="chip_draft_inactive_bg">#FFF3D4</color>
+    <color name="chip_draft_inactive_bg_dark">#3D2A00</color>
+
+    <color name="chip_completed_active">#BF5AF2</color>
+    <color name="chip_completed_inactive_bg">#F0E5FF</color>
+    <color name="chip_completed_inactive_bg_dark">#2D1550</color>
+
+    <!-- ═══════════════════════════════════════════════════════ CATEGORY / GENRE PILL TOGGLE ═══════════════════════════════════════════════════════ -->
+    <color name="pill_selected_bg">#5856D6</color>
+    <color name="pill_selected_text">#FFFFFF</color>
+    <color name="pill_unselected_bg">#F2F3F4</color>
+    <color name="pill_unselected_bg_dark">#F2F3F4</color>
+    <color name="pill_unselected_text">#38383A</color>
+    <color name="pill_unselected_border">#E5E5EA</color>
+    <color name="pill_unselected_border_dark">#E5E5EA</color>
+
+    <!-- ═══════════════════════════════════════════════════════ CHIP TOGGLE (Search / Library tabs) ═══════════════════════════════════════════════════════ -->
+    <color name="chip_selected_bg">#5856D6</color>
+    <color name="chip_selected_text">#FFFFFF</color>
+    <color name="chip_unselected_bg">#2C2C2E</color>
+    <color name="chip_unselected_bg_dark">#2C2C2E</color>
+    <color name="chip_unselected_text">#ABABAF</color>
+    <color name="chip_unselected_text_dark">#ABABAF</color>
+    <color name="chip_unselected_border">#38383A</color>
+    <color name="chip_unselected_border_dark">#48484A</color>
+
+    <!-- ═══════════════════════════════════════════════════════ POINTS / PREMIUM / VIP ═══════════════════════════════════════════════════════ -->
+    <color name="points">#FF9F0A</color>
+    <color name="points_background">#FFF3D4</color>
+    <color name="points_background_dark">#3D2A00</color>
+    <color name="premium">#5856D6</color>
+    <color name="vip">#FF9F0A</color>
+
+    <!-- ═══════════════════════════════════════════════════════ RATING SCALE ═══════════════════════════════════════════════════════ -->
+    <color name="rating_excellent">#30D158</color>
+    <color name="rating_good">#34C759</color>
+    <color name="rating_average">#FFD60A</color>
+    <color name="rating_poor">#FF9F0A</color>
+    <color name="rating_bad">#FF453A</color>
+
+    <!-- ═══════════════════════════════════════════════════════ READER THEMES ═══════════════════════════════════════════════════════ -->
+    <color name="reader_background_light">#FFFFFF</color>
+    <color name="reader_background_dark">#000000</color>
+    <color name="reader_background_sepia">#F4ECD8</color>
+    <color name="reader_text_light">#1C1C1E</color>
+    <color name="reader_text_dark">#F2F2F7</color>
+    <color name="reader_text_sepia">#5B4636</color>
+
+    <!-- ═══════════════════════════════════════════════════════ SHIMMER — adapted for dark charcoal background ═══════════════════════════════════════════════════════ -->
+    <color name="shimmer_base">#2C2C2E</color>
+    <color name="shimmer_base_dark">#2C2C2E</color>
+    <color name="shimmer_highlight">#3A3A3C</color>
+    <color name="shimmer_highlight_dark">#48484A</color>
+
+    <!-- ═══════════════════════════════════════════════════════ OVERLAY / SCRIM ═══════════════════════════════════════════════════════ -->
+    <color name="overlay_light">#80FFFFFF</color>
+    <color name="overlay_dark">#80000000</color>
+    <color name="scrim">#99000000</color>
+
+    <!-- ═══════════════════════════════════════════════════════ BANNER NOTIFICATION BAR ═══════════════════════════════════════════════════════ -->
+    <color name="banner_background">#2C2C2E</color>
+    <color name="banner_error">#FF453A</color>
+    <color name="banner_warning">#FF9F0A</color>
+    <color name="banner_info">#5856D6</color>
+    <color name="banner_success">#30D158</color>
+    <color name="banner_title">#FFFFFF</color>
+    <color name="banner_message">#ABABAF</color>
+
+    <!-- ═══════════════════════════════════════════════════════ UTILITY ═══════════════════════════════════════════════════════ -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="link">#5856D6</color>
+
+    <!-- ═══════════════════════════════════════════════════════ GAMIFICATION — Rarity ═══════════════════════════════════════════════════════ -->
+    <color name="rarity_common">#8E8E93</color>
+    <color name="rarity_rare">#32ADE6</color>
+    <color name="rarity_epic">#BF5AF2</color>
+    <color name="rarity_legendary">#FFD60A</color>
+
+    <!-- Currency / XP -->
+    <color name="ink_color">#5AC8FA</color>
+    <color name="quill_color">#FFD60A</color>
+    <color name="xp_color">#5856D6</color>
+
+    <!-- Gamification card bg -->
+    <color name="gamification_card_bg">#2C2C2E</color>
+    <color name="gamification_card_bg_light">#F2F2F7</color>
+
+    <!-- Streak -->
+    <color name="streak_flame">#FF6D00</color>
+    <color name="streak_frozen">#5AC8FA</color>
+
+    <!-- ═══════════════════════════════════════════════════════ CARD & COMPONENT SYSTEM — mode-switched surfaces ═══════════════════════════════════════════════════════ -->
+    <color name="surface_card_stroke">#E5E5EA</color>
+    <color name="surface_card_stroke_dark">#38383A</color>
+
+    <color name="surface_card_secondary">#F9F9FB</color>
+    <color name="surface_card_secondary_dark">#3A3A3C</color>
+
+    <color name="surface_card_tertiary">#F2F2F7</color>
+    <color name="surface_card_tertiary_dark">#2C2C2E</color>
+
+    <color name="drag_handle">#C7C7CC</color>
+    <color name="drag_handle_dark">#48484A</color>
+
+    <!-- Icon tints — indigo on light card / lighter indigo on dark -->
+    <color name="icon_bg_tint">#EAE9FF</color>
+    <color name="icon_bg_tint_dark">#1E1D4A</color>
+
+    <color name="icon_tint_primary">#5856D6</color>
+    <color name="icon_tint_primary_dark">#7B7AE8</color>
+
+    <color name="button_secondary_bg">#F2F2F7</color>
+    <color name="button_secondary_bg_dark">#2C2C2E</color>
+    <color name="button_destructive_bg">#FEE2E2</color>
+
+    <color name="chip_inactive_bg">#2C2C2E</color>
+    <color name="chip_inactive_bg_dark">#2C2C2E</color>
+
+    <color name="chip_inactive_stroke">#38383A</color>
+    <color name="chip_inactive_stroke_dark">#48484A</color>
+
+    <color name="search_bar_bg">#2C2C2E</color>
+    <color name="search_bar_bg_dark">#2C2C2E</color>
+
+    <!-- ═══════════════════════════════════════════════════════ GLASSMORPHISM ═══════════════════════════════════════════════════════ -->
+    <color name="glass_bg">#B3141416</color> <!-- 70% opaque charcoal — matches nav pill -->
+    <color name="glass_stroke">#26FFFFFF</color> <!-- Thin white specular edge -->
+    <color name="glass_tint">#14FFFFFF</color> <!-- Very faint frosting layer -->
+
+<!-- ═══════════════════════════════════════════════════════
+         FLOATING NAV BAR — light mode
+         These are read at runtime by FloatingNavBar.init().
+         Dark-mode overrides live in values-night/colors.xml.
+         ═══════════════════════════════════════════════════════ -->
+    <color name="nav_glass_base">#1A000000</color>      <!-- 10% black tint on frosted glass -->
+    <color name="nav_glass_haze">#12FFFFFF</color>      <!-- Subtle white frosting -->
+    <color name="nav_noise">#0D808080</color>           <!-- Grain texture -->
+    <color name="nav_edge_light">#33FFFFFF</color>      <!-- Top specular edge -->
+    <color name="nav_edge_shadow">#0D000000</color>     <!-- Bottom shadow edge -->
+    <color name="nav_indicator">#FF2C2C2E</color>       <!-- Dark pill — readable on light glass -->
+    <color name="nav_icon_inactive">#992C2C2E</color>   <!-- 60% dark — visible on light -->
+    <color name="nav_icon_active">#FFFFFFFF</color>     <!-- White — on dark indicator -->
+
+</resources>
