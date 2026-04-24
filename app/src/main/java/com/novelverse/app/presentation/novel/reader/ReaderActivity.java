@@ -49,6 +49,8 @@ import com.novelverse.app.domain.models.Chapter;
 import com.novelverse.app.presentation.common.views.ReaderSliderView;
 import com.novelverse.app.data.remote.supabase.SupabaseDatabaseService;
 import com.novelverse.app.presentation.common.views.ShimmerView;
+import com.novelverse.app.presentation.tts.TtsPlayerActivity;
+import com.novelverse.app.presentation.tts.TtsMiniPlayerFragment;
 import com.novelverse.app.ui.banner.BannerHelper;
 
 import java.util.List;
@@ -67,6 +69,8 @@ public class ReaderActivity extends AppCompatActivity {
     public static final String EXTRA_COVER_URL   = "novel_cover_url";
 
     @Inject ChapterRepository        chapterRepository;
+
+    private TtsMiniPlayerFragment miniPlayerFrag;
     @Inject NovelRepository          novelRepository;
     @Inject UserPreferences          userPreferences;
     @Inject SupabaseDatabaseService  dbService;
@@ -97,7 +101,7 @@ public class ReaderActivity extends AppCompatActivity {
     private TextView    chapterTitle;
 
     // State
-    private boolean barsVisible = true;
+    private boolean barsVisible = false;
     private PopupWindow selectionPopup;
     private GestureDetector tapDetector;
     private String  novelId;
@@ -139,6 +143,10 @@ public class ReaderActivity extends AppCompatActivity {
         // Bind views
         topBar               = findViewById(R.id.reader_top_bar);
         bottomBar            = findViewById(R.id.reader_bottom_bar);
+
+        // Start with bars hidden — user taps to reveal
+        if (topBar    != null) topBar.setVisibility(View.GONE);
+        if (bottomBar != null) bottomBar.setVisibility(View.GONE);
         readerScroll         = findViewById(R.id.reader_scroll);
         chapterContent       = findViewById(R.id.chapter_content);
         readerPager          = findViewById(R.id.reader_pager);
@@ -193,8 +201,11 @@ public class ReaderActivity extends AppCompatActivity {
         View ttsBtn = findViewById(R.id.btn_reader_tts);
         if (ttsBtn != null) ttsBtn.setOnClickListener(v -> openTtsPlayer());
 
-        // ── Draggable TTS mini FAB ──────────────────────────────────────────
-        setupTtsMiniPlayer();
+        // ── TTS Mini Player Fragment ─────────────────────────────────────────
+        miniPlayerFrag = new TtsMiniPlayerFragment();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.tts_mini_player_container, miniPlayerFrag, "tts_mini")
+            .commitNow();
 
         View settingsBtn = findViewById(R.id.btn_reader_settings);
         if (settingsBtn != null) settingsBtn.setOnClickListener(v -> openReaderSettings());
@@ -504,7 +515,7 @@ public class ReaderActivity extends AppCompatActivity {
                     ? getDrawable(R.drawable.bg_chapter_nav_active)
                     : getDrawable(R.drawable.bg_chapter_nav_inactive));
             if (prev instanceof android.widget.ImageView) {
-                ((android.widget.ImageView) prev).setColorFilter(hasPrev ? 0xFFFFFFFF : resolveAttrColor(com.google.android.material.R.attr.colorOnSurfaceVariant));
+                ((android.widget.ImageView) prev).setColorFilter(hasPrev ? ContextCompat.getColor(this, R.color.white) : resolveAttrColor(com.google.android.material.R.attr.colorOnSurfaceVariant));
             }
             prev.setAlpha(1f);
         }
@@ -513,7 +524,7 @@ public class ReaderActivity extends AppCompatActivity {
                     ? getDrawable(R.drawable.bg_chapter_nav_active)
                     : getDrawable(R.drawable.bg_chapter_nav_inactive));
             if (next instanceof android.widget.ImageView) {
-                ((android.widget.ImageView) next).setColorFilter(hasNext ? 0xFFFFFFFF : resolveAttrColor(com.google.android.material.R.attr.colorOnSurfaceVariant));
+                ((android.widget.ImageView) next).setColorFilter(hasNext ? ContextCompat.getColor(this, R.color.white) : resolveAttrColor(com.google.android.material.R.attr.colorOnSurfaceVariant));
             }
             next.setAlpha(1f);
         }
@@ -623,28 +634,28 @@ public class ReaderActivity extends AppCompatActivity {
         int bgColor, textColor, titleColor, barBg;
         switch (theme != null ? theme : "light") {
             case "dark":
-                bgColor    = 0xFF121212;
-                textColor  = 0xFFE0E0E0;
-                titleColor = 0xFFFFFFFF;
-                barBg      = 0xF2121212;
+                bgColor    = ContextCompat.getColor(this, R.color.reader_theme_dark_bg);
+                textColor  = ContextCompat.getColor(this, R.color.reader_text_dark);
+                titleColor = ContextCompat.getColor(this, R.color.white);
+                barBg      = ContextCompat.getColor(this, R.color.reader_theme_dark_bar);
                 break;
             case "sepia":
-                bgColor    = 0xFFF4ECD8;
-                textColor  = 0xFF5B4636;
-                titleColor = 0xFF3D2B1F;
-                barBg      = 0xF2F4ECD8;
+                bgColor    = ContextCompat.getColor(this, R.color.reader_background_sepia);
+                textColor  = ContextCompat.getColor(this, R.color.reader_text_sepia);
+                titleColor = ContextCompat.getColor(this, R.color.reader_theme_sepia_title);
+                barBg      = ContextCompat.getColor(this, R.color.reader_theme_sepia_bar);
                 break;
             case "amoled":
-                bgColor    = 0xFF000000;
-                textColor  = 0xFFCCCCCC;
-                titleColor = 0xFFFFFFFF;
-                barBg      = 0xF2000000;
+                bgColor    = ContextCompat.getColor(this, R.color.black);
+                textColor  = ContextCompat.getColor(this, R.color.reader_theme_amoled_text);
+                titleColor = ContextCompat.getColor(this, R.color.white);
+                barBg      = ContextCompat.getColor(this, R.color.reader_theme_amoled_bar);
                 break;
             default: // light
-                bgColor    = 0xFFFFFFFF;
-                textColor  = 0xFF1A1A1A;
-                titleColor = 0xFF0F172A;
-                barBg      = 0xF2FFFFFF;
+                bgColor    = ContextCompat.getColor(this, R.color.white);
+                textColor  = ContextCompat.getColor(this, R.color.reader_theme_light_text);
+                titleColor = ContextCompat.getColor(this, R.color.reader_theme_light_title);
+                barBg      = ContextCompat.getColor(this, R.color.reader_theme_light_bar);
                 break;
         }
 
@@ -664,10 +675,17 @@ public class ReaderActivity extends AppCompatActivity {
         }
 
         // ─ Update shimmer colors for the active theme
-        int shimBase  = (bgColor == 0xFF000000) ? 0xFF1A1A1A : (bgColor == 0xFF121212) ? 0xFF1E1E1E :
-                        (bgColor == 0xFFF4ECD8) ? 0xFFEADFC8 : 0xFFE8EDF2;
-        int shimShine = (bgColor == 0xFF000000) ? 0xFF2A2A2A : (bgColor == 0xFF121212) ? 0xFF2E2E2E :
-                        (bgColor == 0xFFF4ECD8) ? 0xFFF4ECD8 : 0xFFF6F8FA;
+        int cAmoled = ContextCompat.getColor(this, R.color.black);
+        int cDark   = ContextCompat.getColor(this, R.color.reader_theme_dark_bg);
+        int cSepia  = ContextCompat.getColor(this, R.color.reader_background_sepia);
+        int shimBase  = (bgColor == cAmoled) ? ContextCompat.getColor(this, R.color.reader_shimmer_base_amoled)
+                      : (bgColor == cDark)   ? ContextCompat.getColor(this, R.color.reader_shimmer_base_dark)
+                      : (bgColor == cSepia)  ? ContextCompat.getColor(this, R.color.reader_shimmer_base_sepia)
+                      :                        ContextCompat.getColor(this, R.color.reader_shimmer_base_light);
+        int shimShine = (bgColor == cAmoled) ? ContextCompat.getColor(this, R.color.reader_shimmer_shine_amoled)
+                      : (bgColor == cDark)   ? ContextCompat.getColor(this, R.color.reader_shimmer_shine_dark)
+                      : (bgColor == cSepia)  ? ContextCompat.getColor(this, R.color.reader_shimmer_shine_sepia)
+                      :                        ContextCompat.getColor(this, R.color.reader_shimmer_shine_light);
         updateShimmerColors(shimBase, shimShine);
 
         // ─ Reading mode
@@ -694,7 +712,7 @@ public class ReaderActivity extends AppCompatActivity {
             View decor = getWindow().getDecorView();
             int sysFlags = decor.getSystemUiVisibility();
             // Light backgrounds (light/sepia) need dark icons; dark backgrounds need light icons
-            boolean lightBackground = (bgColor == 0xFFFFFFFF || bgColor == 0xFFF4ECD8);
+            boolean lightBackground = (bgColor == ContextCompat.getColor(this, R.color.white) || bgColor == cSepia);
             if (lightBackground) {
                 sysFlags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             } else {
@@ -924,7 +942,7 @@ public class ReaderActivity extends AppCompatActivity {
                 View dot = new View(p.getContext()); dot.setTag("dot");
                 android.graphics.drawable.GradientDrawable dotBg = new android.graphics.drawable.GradientDrawable();
                 dotBg.setShape(android.graphics.drawable.GradientDrawable.OVAL);
-                dotBg.setColor(android.graphics.Color.parseColor("#0085FF")); dot.setBackground(dotBg);
+                dotBg.setColor(ContextCompat.getColor(ReaderActivity.this, R.color.reader_accent));
                 LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(dp(7), dp(7));
                 dlp.leftMargin = dp(8); dlp.gravity = Gravity.CENTER_VERTICAL; dot.setLayoutParams(dlp); row.addView(dot);
                 return new RecyclerView.ViewHolder(row) {};
@@ -934,7 +952,7 @@ public class ReaderActivity extends AppCompatActivity {
                 LinearLayout row = (LinearLayout) h.itemView;
                 int realIdx = rev ? (allChapters.size() - 1 - pos) : pos;
                 boolean cur = (realIdx == currentIndex);
-                int accent  = android.graphics.Color.parseColor("#0085FF");
+                int accent = ContextCompat.getColor(ReaderActivity.this, R.color.reader_accent);
                 int muted   = resolveAttrColor(com.google.android.material.R.attr.colorOnSurfaceVariant);
                 int primary = resolveAttrColor(com.google.android.material.R.attr.colorOnSurface);
                 TextView num   = row.findViewWithTag("num");
@@ -1019,7 +1037,13 @@ public class ReaderActivity extends AppCompatActivity {
             root.findViewById(R.id.tab_dot_automation),
             root.findViewById(R.id.tab_dot_access)
         };
-        int[] tabColors = { 0xFF0085FF, 0xFFF59E0B, 0xFF10B981, 0xFF8B5CF6, 0xFFEC4899 };
+        int[] tabColors = {
+            ContextCompat.getColor(this, R.color.reader_settings_tab_text),
+            ContextCompat.getColor(this, R.color.reader_settings_tab_display),
+            ContextCompat.getColor(this, R.color.reader_settings_tab_layout),
+            ContextCompat.getColor(this, R.color.reader_settings_tab_automation),
+            ContextCompat.getColor(this, R.color.reader_settings_tab_access)
+        };
 
         selectTab(activeTab, tabColors);
 
@@ -1251,7 +1275,7 @@ public class ReaderActivity extends AppCompatActivity {
                 tabDots[i].setBackground(dotBg);
             } else {
                 tabIcons[i].clearColorFilter();
-                tabIcons[i].setColorFilter(0xFF96A6B6);
+                tabIcons[i].setColorFilter(ContextCompat.getColor(this, R.color.reader_icon_inactive));
             }
         }
     }
@@ -1331,7 +1355,7 @@ public class ReaderActivity extends AppCompatActivity {
     private void updateFollowBrightnessBtn(TextView btn, boolean isAuto) {
         if (btn == null) return;
         if (isAuto) {
-            btn.setTextColor(0xFF0085FF);
+            btn.setTextColor(ContextCompat.getColor(this, R.color.reader_accent));
             btn.setBackground(getDrawable(R.drawable.bg_font_chip_active));
             btn.setText("Auto ✓");
         } else {
@@ -1480,132 +1504,13 @@ public class ReaderActivity extends AppCompatActivity {
         intent.putExtra(TtsPlayerActivity.EXTRA_CHAPTER_TITLE,
             chapterTitle != null && chapterTitle.getText() != null
                 ? chapterTitle.getText().toString() : "");
+        intent.putExtra(TtsPlayerActivity.EXTRA_NOVEL_ID,      novelId);
+        intent.putExtra(TtsPlayerActivity.EXTRA_CHAPTER_ID,    currentChapterId);
         if (novelCoverUrl != null) {
             intent.putExtra(TtsPlayerActivity.EXTRA_COVER_URL, novelCoverUrl);
         }
         startActivity(intent);
-        showTtsMiniPlayer();
-    }
-
-    // ── TTS Mini Player FAB ───────────────────────────────────────────────
-
-    private android.view.View ttsMiniPlayer;
-    private float fabTouchOffsetX, fabTouchOffsetY;
-    private float fabLastRawX, fabLastRawY;
-    private boolean fabDragging = false;
-
-    private void setupTtsMiniPlayer() {
-        ttsMiniPlayer = findViewById(R.id.tts_mini_fab);
-        if (ttsMiniPlayer == null) return;
-
-        ImageView fabCover     = ttsMiniPlayer.findViewById(R.id.fab_cover);
-        ImageView fabPlayPause = ttsMiniPlayer.findViewById(R.id.fab_play_pause);
-        View      fabClose     = ttsMiniPlayer.findViewById(R.id.fab_close);
-
-        // Load cover into FAB if available
-        if (fabCover != null && novelCoverUrl != null && !novelCoverUrl.isEmpty()) {
-            com.bumptech.glide.Glide.with(this)
-                .load(novelCoverUrl)
-                .centerCrop()
-                .placeholder(R.drawable.img_cover_placeholder_default)
-                .into(fabCover);
-        }
-
-        // Drag logic on the whole FAB
-        ttsMiniPlayer.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case android.view.MotionEvent.ACTION_DOWN:
-                    fabTouchOffsetX = event.getRawX() - v.getX();
-                    fabTouchOffsetY = event.getRawY() - v.getY();
-                    fabLastRawX     = event.getRawX();
-                    fabLastRawY     = event.getRawY();
-                    fabDragging     = false;
-                    return true;
-
-                case android.view.MotionEvent.ACTION_MOVE:
-                    float dx = Math.abs(event.getRawX() - fabLastRawX);
-                    float dy = Math.abs(event.getRawY() - fabLastRawY);
-                    if (dx > 8 || dy > 8) fabDragging = true;
-                    if (fabDragging) {
-                        v.setX(event.getRawX() - fabTouchOffsetX);
-                        v.setY(event.getRawY() - fabTouchOffsetY);
-                    }
-                    return true;
-
-                case android.view.MotionEvent.ACTION_UP:
-                    if (!fabDragging) {
-                        // Tap on FAB body → open full TTS player
-                        openTtsPlayerFromFab();
-                    }
-                    return true;
-            }
-            return false;
-        });
-
-        // Play/pause tap
-        if (fabPlayPause != null) {
-            fabPlayPause.setOnClickListener(v -> {
-                v.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);
-                sendTtsCommand("toggle");
-            });
-        }
-
-        // Close/stop tap
-        if (fabClose != null) {
-            fabClose.setOnClickListener(v -> {
-                v.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);
-                sendTtsCommand("stop");
-                hideTtsMiniPlayer();
-            });
-        }
-    }
-
-    private void showTtsMiniPlayer() {
-        if (ttsMiniPlayer == null) return;
-        ttsMiniPlayer.setVisibility(android.view.View.VISIBLE);
-        ttsMiniPlayer.setAlpha(0f);
-        ttsMiniPlayer.setScaleX(0.7f);
-        ttsMiniPlayer.setScaleY(0.7f);
-        ttsMiniPlayer.animate()
-            .alpha(1f).scaleX(1f).scaleY(1f)
-            .setDuration(260)
-            .setInterpolator(new android.view.animation.OvershootInterpolator(1.2f))
-            .start();
-    }
-
-    private void hideTtsMiniPlayer() {
-        if (ttsMiniPlayer == null) return;
-        ttsMiniPlayer.animate()
-            .alpha(0f).scaleX(0.7f).scaleY(0.7f)
-            .setDuration(200)
-            .withEndAction(() -> ttsMiniPlayer.setVisibility(android.view.View.GONE))
-            .start();
-    }
-
-    private void openTtsPlayerFromFab() {
-        String text = (chapterContent != null && chapterContent.getText() != null)
-            ? chapterContent.getText().toString() : "";
-        String novelTitle = (readerNovelTitle != null && readerNovelTitle.getText() != null)
-            ? readerNovelTitle.getText().toString() : "";
-        Intent intent = new Intent(this, TtsPlayerActivity.class);
-        intent.putExtra(TtsPlayerActivity.EXTRA_CHAPTER_TEXT,  text);
-        intent.putExtra(TtsPlayerActivity.EXTRA_NOVEL_TITLE,   novelTitle);
-        intent.putExtra(TtsPlayerActivity.EXTRA_CHAPTER_TITLE,
-            chapterTitle != null && chapterTitle.getText() != null
-                ? chapterTitle.getText().toString() : "");
-        if (novelCoverUrl != null)
-            intent.putExtra(TtsPlayerActivity.EXTRA_COVER_URL, novelCoverUrl);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
-    }
-
-    /** Send a lightweight command to TtsService without a full bind */
-    private void sendTtsCommand(String action) {
-        try {
-            Intent cmd = new Intent(this, com.novelverse.app.services.TtsService.class);
-            cmd.setAction("com.novelverse.app.TTS_" + action.toUpperCase());
-            startService(cmd);
-        } catch (Exception ignored) {}
+        // TtsMiniPlayerFragment auto-shows via onPlaying() ServiceListener callback.
     }
 
     private int resolveAttrColor(int attr) {

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_tts_mini_player.xml
+    Root is match_parent + transparent so that the Fragment fills the host
+    activity window. This makes the drag math correct: v.setX/setY are
+    relative to this root, and getRawX/getRawY are screen-relative, so
+    the offset calculation works regardless of which activity hosts it
+    (ReaderActivity, the MainActivity that holds HomeFragment, etc.).
+    The root itself is non-interactive — touches pass through to content
+    behind it unless they land on the visible pill.
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clickable="false"
+    android:focusable="false">
+
+    <!-- ── Draggable compact pill: [cover] [▶/‖] [✕] ───────────────────── -->
+    <LinearLayout
+        android:id="@+id/tts_mini_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_reader_fab_horizontal"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:elevation="12dp"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="6dp"
+        android:visibility="gone">
+
+        <!-- Squircle cover thumbnail -->
+        <FrameLayout
+            android:id="@+id/fab_cover_container"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_fab_cover_squircle"
+            android:clipToOutline="true"
+            android:outlineProvider="background">
+
+            <ImageView
+                android:id="@+id/fab_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_cover_placeholder_default" />
+
+        </FrameLayout>
+
+        <!-- Play / Pause -->
+        <ImageView
+            android:id="@+id/fab_play_pause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_play"
+            android:padding="10dp"
+            android:tint="#EEFFFFFF"
+            android:background="@drawable/bg_tts_play_btn"
+            android:layout_marginHorizontal="4dp"
+            android:contentDescription="Play or pause" />
+
+        <!-- Close / Stop -->
+        <ImageView
+            android:id="@+id/fab_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_close"
+            android:padding="8dp"
+            android:tint="#66FFFFFF"
+            android:layout_marginStart="2dp"
+            android:contentDescription="Stop and dismiss" />
+
+    </LinearLayout>
+
+</FrameLayout>

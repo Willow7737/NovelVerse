@@ -1,10 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Open VIP can improve the speed of decompilation, resource code translate to name automatically and activate the smart editing and automatic completion function-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?attr/colorControlNormal">
-  <path
-      android:fillColor="@android:color/white"
-      android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,17c-0.55,0 -1,-0.45 -1,-1v-4c0,-0.55 0.45,-1 1,-1s1,0.45 1,1v4c0,0.55 -0.45,1 -1,1zM13,9h-2L11,7h2v2z"/>
+    android:width="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M11.999,10.563C12.551,10.563 12.999,11.01 12.999,11.563V16.313C12.999,16.865 12.551,17.312 11.999,17.313C11.447,17.313 10.999,16.865 10.999,16.313V11.563C10.999,11.01 11.447,10.563 11.999,10.563Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M11.999,6.688C12.62,6.688 13.124,7.191 13.124,7.813C13.124,8.434 12.62,8.937 11.999,8.938C11.378,8.938 10.874,8.434 10.874,7.813C10.874,7.191 11.378,6.688 11.999,6.688Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M12,1C18.075,1 23,5.925 23,12C23,18.075 18.075,23 12,23C5.925,23 1,18.075 1,12C1,5.925 5.925,1 12,1ZM12,3C7.029,3 3,7.029 3,12C3,16.971 7.029,21 12,21C16.971,21 21,16.971 21,12C21,7.029 16.971,3 12,3Z"
+        android:fillType="evenOdd" />
 </vector>

@@ -1,184 +1,452 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  activity_tts_player.xml  –  Lean TTS reader
-  Dark slate-black. Top bar: back + small squircle cover top-left + titles.
-  Body: full chapter text with past/current/future sentence colouring.
-  Controls live in a bottom sheet, opened via a small persistent button.
--->
-<FrameLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tts_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D0F14">
+    android:fitsSystemWindows="false"
+    android:background="#0A0A0F">
 
-    <!-- ── Scrollable chapter text ──────────────────────────────────── -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/tts_scroll"
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- MAIN CONTENT – original layout wrapped in a FrameLayout        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="64dp"
-        android:paddingBottom="96dp"
-        android:clipToPadding="false"
-        android:scrollbars="none"
-        android:overScrollMode="never">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tts_chapter_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="22dp"
-            android:paddingVertical="16dp"
-            android:textSize="16sp"
-            android:fontFamily="@font/inter_semibold"
-            android:lineSpacingMultiplier="1.75"
-            android:breakStrategy="simple"
-            android:hyphenationFrequency="none"
-            android:textColor="#AAFFFFFF"
-            android:text="Loading…" />
-
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- ── Top bar overlay ─────────────────────────────────────────── -->
-    <LinearLayout
-        android:id="@+id/tts_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="14dp"
-        android:background="#E60D0F14"
-        android:elevation="4dp">
-
-        <!-- Back -->
-        <ImageView
-            android:id="@+id/tts_btn_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_back"
-            android:padding="10dp"
-            android:tint="#BBFFFFFF"
-            android:background="@drawable/bg_tts_small_btn"
-            android:layout_marginEnd="12dp"
-            android:contentDescription="Back" />
-
-        <!-- Small squircle cover -->
-        <FrameLayout
-            android:id="@+id/tts_cover_frame"
-            android:layout_width="34dp"
-            android:layout_height="44dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_tts_cover_squircle"
-            android:clipToOutline="true"
-            android:outlineProvider="background">
-
-            <ImageView
-                android:id="@+id/tts_img_cover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_cover_placeholder_default" />
-        </FrameLayout>
-
-        <!-- Titles column -->
+        <!-- ══ Main content: fixed header + scrollable text ═══════════════ -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:id="@+id/tts_main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="124dp"
             android:orientation="vertical">
 
+            <!-- Cover card — 120×168dp, centered, hideable -->
+            <FrameLayout
+                android:id="@+id/tts_cover_card"
+                android:layout_width="120dp"
+                android:layout_height="168dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_tts_cover_squircle"
+                android:clipToOutline="true"
+                android:outlineProvider="background"
+                android:elevation="10dp"
+                android:contentDescription="Cover art">
+
+                <ImageView
+                    android:id="@+id/tts_img_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_cover_placeholder_default" />
+
+            </FrameLayout>
+
+            <!-- Novel title -->
             <TextView
                 android:id="@+id/tts_novel_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="32dp"
                 android:text="Novel Title"
-                android:textSize="13sp"
+                android:textSize="22sp"
                 android:fontFamily="@font/inter_semibold"
-                android:textColor="#EEFFFFFF"
-                android:maxLines="1"
+                android:textColor="#FAFAFA"
+                android:gravity="center"
+                android:maxLines="2"
                 android:ellipsize="end" />
 
+            <!-- Chapter subtitle -->
             <TextView
                 android:id="@+id/tts_chapter_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="20dp"
                 android:text="Chapter"
-                android:textSize="11sp"
-                android:fontFamily="@font/inter_semibold"
-                android:textColor="#55FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="#A1A1AA"
+                android:gravity="center"
                 android:maxLines="1"
                 android:ellipsize="end" />
+
+            <!-- Chapter text — sentence-highlighted, scrollable -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/tts_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="20dp"
+                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+
+                <TextView
+                    android:id="@+id/tts_chapter_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inter_regular"
+                    android:lineSpacingExtra="12sp"
+                    android:breakStrategy="simple"
+                    android:hyphenationFrequency="none"
+                    android:textColor="#FAFAFA"
+                    android:text="Loading…" />
+
+            </androidx.core.widget.NestedScrollView>
+
         </LinearLayout>
 
-    </LinearLayout>
+        <!-- ══ Top gradient scrim (extends into status bar area) ══════════ -->
+        <View
+            android:id="@+id/tts_top_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="top"
+            android:background="@drawable/bg_tts_top_gradient"
+            android:importantForAccessibility="no" />
 
-    <!-- ── Controls pill (bottom-center, fixed) ────────────────────── -->
-    <LinearLayout
-        android:id="@+id/tts_controls_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="24dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_reader_fab_horizontal"
-        android:elevation="10dp"
-        android:paddingHorizontal="6dp">
+        <!-- ══ Top bar 56dp ═══════════════════════════════════════════════ -->
+        <!-- Note: Height and padding are adjusted dynamically in TtsPlayerActivity.adjustLayoutForStatusBar() -->
+        <LinearLayout
+            android:id="@+id/tts_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@drawable/img_top_gradient"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="12dp">
 
-        <!-- Prev -->
-        <ImageView
-            android:id="@+id/tts_btn_prev"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow_left"
-            android:padding="10dp"
-            android:tint="#AAFFFFFF"
-            android:background="@drawable/bg_tts_small_btn"
-            android:layout_marginHorizontal="3dp"
-            android:contentDescription="Previous" />
+            <!-- Minimize / swipe-down -->
+            <ImageView
+                android:id="@+id/tts_btn_minimize"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_chevron_down"
+                android:tint="#A1A1AA"
+                android:background="@android:color/transparent"
+                android:contentDescription="Minimize" />
 
-        <!-- Play / Pause -->
-        <ImageView
-            android:id="@+id/tts_btn_play_pause"
-            android:layout_width="52dp"
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Voice avatar + name — tappable → voice settings -->
+            <LinearLayout
+                android:id="@+id/tts_voice_info_row"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@android:color/transparent">
+
+                <!-- 28dp waveform avatar squircle -->
+                <FrameLayout
+                    android:id="@+id/tts_avatar_container"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_tts_avatar_squircle"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background">
+
+                    <ImageView
+                        android:id="@+id/tts_voice_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_waveform"
+                        android:tint="#A1A1AA" />
+
+                </FrameLayout>
+
+                <!-- Voice name -->
+                <TextView
+                    android:id="@+id/tts_voice_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aria / en-US"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textColor="#FAFAFA" />
+
+            </LinearLayout>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Offline mode pill — hidden when online -->
+            <TextView
+                android:id="@+id/tts_offline_pill"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:minWidth="72dp"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Offline mode"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="#71717A"
+                android:background="@drawable/bg_tts_offline_pill"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- ══ Progress area (above bottom bar) ═══════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/tts_progress_area"
+            android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:src="@drawable/ic_play"
-            android:padding="14dp"
-            android:tint="#FFFFFF"
-            android:background="@drawable/bg_tts_play_btn"
-            android:layout_marginHorizontal="3dp"
-            android:contentDescription="Play or pause" />
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="72dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:background="#0A0A0F">
 
-        <!-- Next -->
-        <ImageView
-            android:id="@+id/tts_btn_next"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow_right"
-            android:padding="10dp"
-            android:tint="#AAFFFFFF"
-            android:background="@drawable/bg_tts_small_btn"
-            android:layout_marginHorizontal="3dp"
-            android:contentDescription="Next" />
+            <!-- Current position -->
+            <TextView
+                android:id="@+id/tts_time_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:00"
+                android:textSize="12sp"
+                android:fontFamily="monospace"
+                android:textColor="#71717A"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Seek track -->
+            <SeekBar
+                android:id="@+id/tts_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="100"
+                android:thumbTint="#6366F1"
+                android:progressTint="#6366F1"
+                android:progressBackgroundTint="#1E1E2A"
+                android:splitTrack="false"
+                android:thumb="@drawable/bg_tts_progress_thumb"
+                android:paddingVertical="16dp" />
+
+            <!-- End time — tappable to toggle total/remaining -->
+            <TextView
+                android:id="@+id/tts_time_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:00"
+                android:textSize="12sp"
+                android:fontFamily="monospace"
+                android:textColor="#71717A"
+                android:paddingVertical="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <!-- ══ Bottom control bar 72dp ════════════════════════════════════ -->\
+        <LinearLayout
+            android:id="@+id/tts_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp"
+            android:background="@android:color/transparent">
+
+            <!-- Contents -->
+            <ImageView
+                android:id="@+id/tts_btn_contents"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_bullet_list"
+                android:padding="12dp"
+                android:tint="#71717A"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:contentDescription="Table of contents" />
+
+            <!-- Prev (long press = −10s) -->
+            <ImageView
+                android:id="@+id/tts_btn_prev"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_skip_previous"
+                android:padding="10dp"
+                android:tint="#71717A"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:contentDescription="Previous (long press for −10s)" />
+
+            <!-- Play / Pause — 64dp accent circle -->
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="@drawable/bg_tts_play_btn_large"
+                android:elevation="6dp"
+                android:clipToOutline="true"
+                android:outlineProvider="background">
+
+                <ImageView
+                    android:id="@+id/tts_btn_play_pause"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_play"
+                    android:padding="16dp"
+                    android:tint="#FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Play or pause" />
+
+            </FrameLayout>
+
+            <!-- Next (long press = +10s) -->
+            <ImageView
+                android:id="@+id/tts_btn_next"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_skip_next"
+                android:padding="10dp"
+                android:tint="#71717A"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:contentDescription="Next (long press for +10s)" />
+
+            <!-- Settings -->
+            <ImageView
+                android:id="@+id/tts_btn_settings"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_gear"
+                android:padding="12dp"
+                android:tint="#71717A"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:contentDescription="Settings" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- LEFT SIDE DRAWER – Table of Contents                           -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/tts_drawer_toc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:background="#0A0A0F"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="16dp">
+
+        <!-- Header: cover (slanted), title, author -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp"
+            android:gravity="center_vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                android:rotation="-4"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/tts_toc_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_cover_placeholder_default" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tts_toc_novel_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Novel Title"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textColor="#FAFAFA"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tts_toc_novel_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Author Name"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/inter_regular"
+                    android:textColor="#A1A1AA"
+                    android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <!-- Divider -->
         <View
-            android:layout_width="1dp"
-            android:layout_height="24dp"
-            android:background="#22FFFFFF"
-            android:layout_marginHorizontal="4dp" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1E1E2A"
+            android:layout_marginHorizontal="20dp" />
 
-        <!-- Open full controls -->
-        <ImageView
-            android:id="@+id/tts_btn_open_controls"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_gear"
-            android:padding="10dp"
-            android:tint="#88FFFFFF"
-            android:background="@drawable/bg_tts_small_btn"
-            android:layout_marginHorizontal="3dp"
-            android:contentDescription="Settings" />
+        <!-- Chapter list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tts_toc_chapters_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingVertical="12dp"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="true" />
 
     </LinearLayout>
 
-</FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

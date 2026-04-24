@@ -163,12 +163,12 @@
     <color name="rating_bad">#FF453A</color>
 
     <!-- ═══════════════════════════════════════════════════════ READER THEMES ═══════════════════════════════════════════════════════ -->
-    <color name="reader_background_light">#FFFFFF</color>
-    <color name="reader_background_dark">#000000</color>
-    <color name="reader_background_sepia">#F4ECD8</color>
+    <color name="reader_background_light">#D3DADA</color>
+    <color name="reader_background_dark">#2C3E36 </color>
+    <color name="reader_background_sepia">#F4ECD8 </color>
     <color name="reader_text_light">#1C1C1E</color>
-    <color name="reader_text_dark">#F2F2F7</color>
-    <color name="reader_text_sepia">#5B4636</color>
+    <color name="reader_text_dark">#E0E0E0 </color>
+    <color name="reader_text_sepia">#5B4636 </color>
 
     <!-- ═══════════════════════════════════════════════════════ SHIMMER — adapted for dark charcoal background ═══════════════════════════════════════════════════════ -->
     <color name="shimmer_base">#2C2C2E</color>
@@ -189,6 +189,7 @@
     <color name="banner_success">#30D158</color>
     <color name="banner_title">#FFFFFF</color>
     <color name="banner_message">#ABABAF</color>
+    <color name="banner_bg">#1A1A1A</color>
 
     <!-- ═══════════════════════════════════════════════════════ UTILITY ═══════════════════════════════════════════════════════ -->
     <color name="white">#FFFFFF</color>
@@ -266,5 +267,56 @@
     <color name="nav_indicator">#FF2C2C2E</color>       <!-- Dark pill — readable on light glass -->
     <color name="nav_icon_inactive">#992C2C2E</color>   <!-- 60% dark — visible on light -->
     <color name="nav_icon_active">#FFFFFFFF</color>     <!-- White — on dark indicator -->
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         TTS PLAYER — sentence highlight & UI colours
+         ═══════════════════════════════════════════════════════ -->
+    <color name="tts_sentence_past">#52525B</color>     <!-- Zinc-600 — already-read sentences -->
+    <color name="tts_sentence_current">#6366F1</color>  <!-- Indigo-500 — active/highlighted sentence -->
+    <color name="tts_sentence_future">#FAFAFA</color>   <!-- Near-white — unread sentences -->
+    <color name="tts_chip_text_inactive">#A1A1AA</color><!-- Zinc-400 — inactive chip/speed label -->
+    <color name="tts_voice_desc_alpha">#55FFFFFF</color><!-- 33% white — voice character subtitle -->
+    <color name="tts_tier_default">#64748B</color>      <!-- Slate-500 — unclassified tier badge -->
+    <color name="tts_tier_premium">#F59E0B</color>      <!-- Amber-500 — premium tier badge -->
+    <color name="tts_avatar_tint">#88FFFFFF</color>     <!-- 53% white — placeholder waveform icon tint -->
+
+    <!-- ═══════════════════════════════════════════════════════
+         READER THEMES — per-theme bg / text / title / bar tints
+         reader_background_sepia / reader_text_dark / reader_text_sepia
+         already defined above; only missing values added here.
+         ═══════════════════════════════════════════════════════ -->
+    <color name="reader_theme_dark_bg">#121212</color>       <!-- Dark theme canvas -->
+    <color name="reader_theme_dark_bar">#F2121212</color>    <!-- Dark theme bar (95% opaque) -->
+    <color name="reader_theme_sepia_title">#3D2B1F</color>   <!-- Sepia chapter title -->
+    <color name="reader_theme_sepia_bar">#F2F4ECD8</color>   <!-- Sepia bar (95% opaque) -->
+    <color name="reader_theme_amoled_text">#CCCCCC</color>   <!-- AMOLED body text -->
+    <color name="reader_theme_amoled_bar">#F2000000</color>  <!-- AMOLED bar (95% opaque) -->
+    <color name="reader_theme_light_text">#1A1A1A</color>    <!-- Light body text -->
+    <color name="reader_theme_light_title">#0F172A</color>   <!-- Light chapter title (slate-900) -->
+    <color name="reader_theme_light_bar">#F2FFFFFF</color>   <!-- Light bar (95% opaque) -->
+
+    <!-- ═══════════════════════════════════════════════════════
+         READER SHIMMER — per-theme base + shine pairs
+         ═══════════════════════════════════════════════════════ -->
+    <color name="reader_shimmer_base_amoled">#1A1A1A</color>
+    <color name="reader_shimmer_shine_amoled">#2A2A2A</color>
+    <color name="reader_shimmer_base_dark">#1E1E1E</color>
+    <color name="reader_shimmer_shine_dark">#2E2E2E</color>
+    <color name="reader_shimmer_base_sepia">#EADFC8</color>
+    <color name="reader_shimmer_shine_sepia">#F4ECD8</color>
+    <color name="reader_shimmer_base_light">#E8EDF2</color>
+    <color name="reader_shimmer_shine_light">#F6F8FA</color>
+
+    <!-- ═══════════════════════════════════════════════════════
+         READER UI — accent, settings tabs, icon states
+         ═══════════════════════════════════════════════════════ -->
+    <color name="reader_accent">#0085FF</color>                   <!-- Chapter list current / brightness auto -->
+    <color name="reader_settings_tab_text">#0085FF</color>        <!-- Text settings tab dot -->
+    <color name="reader_settings_tab_display">#F59E0B</color>     <!-- Display settings tab dot -->
+    <color name="reader_settings_tab_layout">#10B981</color>      <!-- Layout settings tab dot -->
+    <color name="reader_settings_tab_automation">#8B5CF6</color>  <!-- Automation settings tab dot -->
+    <color name="reader_settings_tab_access">#EC4899</color>      <!-- Accessibility settings tab dot -->
+    <color name="reader_icon_inactive">#96A6B6</color>            <!-- Inactive settings tab icon tint -->
 
 </resources>

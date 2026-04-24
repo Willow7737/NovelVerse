@@ -58,6 +58,11 @@ public class TtsService extends Service implements TextToSpeech.OnInitListener,
     public static final String ACTION_PREV_CHUNK  = "com.novelverse.app.TTS_PREV";
     public static final String ACTION_NEXT_CHUNK  = "com.novelverse.app.TTS_NEXT";
 
+    // ── Session metadata (set by TtsPlayerActivity on load) ──────────────
+    private String sessionNovelId   = "";
+    private String sessionChapterId = "";
+    private String sessionCoverUrl  = "";
+
     public enum PlaybackState { IDLE, PLAYING, PAUSED, STOPPED }
 
     private PlaybackState      playbackState     = PlaybackState.IDLE;
@@ -268,7 +273,18 @@ public class TtsService extends Service implements TextToSpeech.OnInitListener,
     public java.util.List<String> getChunks() { return java.util.Collections.unmodifiableList(chunks); }
     public String  getNovelTitle()           { return novelTitle; }
     public String  getChapterTitle()         { return chapterTitle; }
+    public String  getNovelId()              { return sessionNovelId; }
+    public String  getChapterId()            { return sessionChapterId; }
+    public String  getCoverUrl()             { return sessionCoverUrl; }
     public boolean isInOnlineMode()          { return "online".equals(resolveActiveMode()); }
+    /** Called by TtsPlayerActivity so any bound client (e.g. TtsMiniPlayerFragment) can
+     *  open the full player or load the cover without needing its own extras. */
+    public void setSessionMeta(String novelId, String chapterId, String coverUrl) {
+        sessionNovelId   = novelId   != null ? novelId   : "";
+        sessionChapterId = chapterId != null ? chapterId : "";
+        sessionCoverUrl  = coverUrl  != null ? coverUrl  : "";
+    }
+
     public boolean isInOfflineMode()         { return "offline".equals(resolveActiveMode()); }
 
     public String resolveActiveMode() {
@@ -397,40 +413,32 @@ public class TtsService extends Service implements TextToSpeech.OnInitListener,
 
     // ── Text chunking ─────────────────────────────────────────────────────
 
+    /**
+     * Splits text into chunks — one paragraph per chunk.
+     * Each non-empty paragraph becomes its own chunk.
+     * Empty paragraphs are skipped or replaced with "..." based on prefs.
+     */
     private List<String> chunkText(String text) {
         if (text == null || text.trim().isEmpty()) return new ArrayList<>();
-        String[] paragraphs = text.split("\\n\\s*\\n");
+        String[] paragraphs = text.split("\n\s*\n");
         List<String> result = new ArrayList<>();
-        int targetWords = ttsPrefs.getChunkSizeWords();
-        StringBuilder current = new StringBuilder();
-        int wordCount = 0;
+
         for (String para : paragraphs) {
             String trimmed = para.trim();
             if (trimmed.isEmpty()) {
                 if (ttsPrefs.isSkipEmptyParagraphsEnabled()) continue;
-                trimmed = "...";
+                result.add("...");
+                continue;
             }
-            int paraWords = trimmed.split("\\s+").length;
-            if (wordCount > 0 && wordCount + paraWords > targetWords) {
-                result.add(current.toString().trim());
-                current.setLength(0); wordCount = 0;
+            // Split by sentence boundaries — resume only replays the current
+            // sentence rather than the whole paragraph.
+            String[] sentences = trimmed.split("(?<=[.!?\u2026])\s+");
+            for (String s : sentences) {
+                String sc = s.trim();
+                if (!sc.isEmpty()) result.add(sc);
             }
-            if (current.length() > 0) current.append("\n\n");
-            current.append(trimmed);
-            wordCount += paraWords;
         }
-        if (current.length() > 0) result.add(current.toString().trim());
-        if (result.isEmpty() && !text.trim().isEmpty()) {
-            String[] words = text.trim().split("\\s+");
-            StringBuilder sb = new StringBuilder(); int wc = 0;
-            for (String w : words) {
-                sb.append(w).append(' '); wc++;
-                if (wc >= targetWords) {
-                    result.add(sb.toString().trim()); sb.setLength(0); wc = 0;
-                }
-            }
-            if (sb.length() > 0) result.add(sb.toString().trim());
-        }
+
         return result;
     }
 
@@ -458,7 +466,7 @@ public class TtsService extends Service implements TextToSpeech.OnInitListener,
 
     private Notification buildNotification() {
         Intent openIntent = new Intent(this,
-            com.novelverse.app.presentation.novel.reader.TtsPlayerActivity.class);
+            com.novelverse.app.presentation.tts.TtsPlayerActivity.class);
         openIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent openPi = PendingIntent.getActivity(this, 0, openIntent,
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);

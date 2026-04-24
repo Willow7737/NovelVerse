@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed / dragging — visible 12dp circle -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="#6366F1" />
+            <size android:width="12dp" android:height="12dp" />
+        </shape>
+    </item>
+    <!-- Default — tiny dot so the track reads cleanly -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#6366F1" />
+            <size android:width="12dp" android:height="12dp" />
+        </shape>
+    </item>
+</selector>

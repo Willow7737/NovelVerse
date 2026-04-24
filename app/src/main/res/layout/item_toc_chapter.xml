@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="14dp"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/toc_chapter_number"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="14sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="#FAFAFA" />
+
+    <TextView
+        android:id="@+id/toc_chapter_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Chapter Title"
+        android:textSize="15sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="#FAFAFA"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <ImageView
+        android:id="@+id/toc_playing_icon"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:src="@drawable/ic_playing"
+        android:visibility="gone"
+        android:tint="#6366F1"
+        android:contentDescription="Currently playing" />
+
+</LinearLayout>

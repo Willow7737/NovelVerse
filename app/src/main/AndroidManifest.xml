@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Internet -->
@@ -7,9 +8,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Storage -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -21,7 +24,7 @@
     <!-- Foreground Service (for TTS, Downloads) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-    
+
     <!-- REQUIRED for Android 14+ (API 34): Media Playback foreground service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
@@ -71,24 +74,41 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
 
-        <!-- Task 14: Deep Links — all schemes/hosts -->
+            <!-- Task 14: Deep Links — all schemes/hosts -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="novelverse" android:host="novel" />
-                <data android:scheme="novelverse" android:host="chapter" />
-                <data android:scheme="novelverse" android:host="author" />
-                <data android:scheme="https" android:host="novelverse.app" android:pathPrefix="/novel" />
-                <data android:scheme="https" android:host="novelverse.app" android:pathPrefix="/chapter" />
-                <data android:scheme="https" android:host="novelverse.app" android:pathPrefix="/author" />
+                <data
+                    android:scheme="novelverse"
+                    android:host="novel" />
+                <data
+                    android:scheme="novelverse"
+                    android:host="chapter" />
+                <data
+                    android:scheme="novelverse"
+                    android:host="author" />
+                <data
+                    android:scheme="https"
+                    android:host="novelverse.app"
+                    android:pathPrefix="/novel" />
+                <data
+                    android:scheme="https"
+                    android:host="novelverse.app"
+                    android:pathPrefix="/chapter" />
+                <data
+                    android:scheme="https"
+                    android:host="novelverse.app"
+                    android:pathPrefix="/author" />
             </intent-filter>
         </activity>
 
-        <activity 
-            android:name=".presentation.social.LeaderboardActivity" 
+        <!-- Leaderboard Activity -->
+        <activity
+            android:name=".presentation.social.LeaderboardActivity"
             android:exported="false" />
 
+        <!-- Reviews Activity -->
         <activity
             android:name=".presentation.reviews.ReviewsActivity"
             android:exported="false"
@@ -98,7 +118,7 @@
         <activity
             android:name=".crash.CrashActivity"
             android:exported="false"
-            android:theme="@style/Theme.Material3.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
 
         <!-- Auth Activity -->
         <activity
@@ -112,6 +132,12 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|smallestScreenSize"
             android:windowSoftInputMode="adjustNothing" />
+
+        <!-- TTS Player Activity -->
+        <activity
+            android:name=".presentation.tts.TtsPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <!-- Author Dashboard -->
         <activity
@@ -200,7 +226,7 @@
             android:name=".presentation.novel.detail.ChapterListActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-      
+
         <!-- Edit Profile Activity -->
         <activity
             android:name=".presentation.profile.edit.EditProfileActivity"
@@ -330,7 +356,7 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
-    
+
         <!-- Novel list (Trending / New Releases / etc.) -->
         <activity
             android:name=".presentation.novellist.NovelListActivity"

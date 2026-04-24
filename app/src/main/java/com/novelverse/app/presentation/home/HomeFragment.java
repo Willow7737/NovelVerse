@@ -232,11 +232,11 @@ public class HomeFragment extends Fragment {
     /** Fetch reviews from Supabase. Falls back to mock data if the query fails. */
     private void fetchReviewsFromSupabase() {
         if (!isAdded()) return;
-        // FIX 1: Use getAccessToken() instead of getAuthToken()
         String token  = userPreferences.getAccessToken();
         String select = "id,rating,review,created_at,user_id," +
                         "profiles!inner(display_name,username,avatar_url)," +
-                        "novels!inner(id,title,author_name,cover_url,genre,total_views)";
+                        "novels!inner(id,title,author_name,cover_url,genre,total_views)," +
+                        "user_levels!left(current_level,xp_total)";
         String filter = "review=not.is.null&rating=gte.1";
         String url    = dbService.buildSelectUrl("ratings", select, filter, "created_at.desc")
                         + "&limit=30";
@@ -249,19 +249,13 @@ public class HomeFragment extends Fragment {
                     reviewPool.clear();
                     if (fetched != null && !fetched.isEmpty()) {
                         reviewPool.addAll(fetched);
-                    } else {
-                        reviewPool.addAll(buildFallbackSlides());
                     }
                     pickAndShowSlides();
                 });
             }
-            // FIX 2: Changed onError(Exception e) to onError(String message)
             @Override public void onError(String message) {
                 if (!isAdded()) return;
-                requireActivity().runOnUiThread(() -> {
-                    if (reviewPool.isEmpty()) reviewPool.addAll(buildFallbackSlides());
-                    pickAndShowSlides();
-                });
+                requireActivity().runOnUiThread(() -> pickAndShowSlides());
             }
         });
     }
@@ -269,6 +263,17 @@ public class HomeFragment extends Fragment {
     /** Randomly select SLIDE_COUNT reviews from the pool and push them to the pager. */
     private void pickAndShowSlides() {
         if (!isAdded() || reviewsPager == null) return;
+
+        View section = getView() != null
+                ? getView().findViewById(R.id.section_community_reviews) : null;
+
+        if (reviewPool.isEmpty()) {
+            if (section != null) section.setVisibility(View.GONE);
+            slideHandler.removeCallbacks(autoSlideRunnable);
+            return;
+        }
+        if (section != null) section.setVisibility(View.VISIBLE);
+
         List<ReviewPost> pool = new ArrayList<>(reviewPool);
         Collections.shuffle(pool);
         List<ReviewPost> slides = pool.subList(0, Math.min(SLIDE_COUNT, pool.size()));
@@ -322,7 +327,6 @@ public class HomeFragment extends Fragment {
         List<ReviewPost> list = new ArrayList<>();
         try {
             JsonArray arr = JsonParser.parseString(json).getAsJsonArray();
-            int[] mockChapters = {2, 12, 60, 120, 520};
             for (int i = 0; i < arr.size(); i++) {
                 JsonObject obj = arr.get(i).getAsJsonObject();
                 ReviewPost p = new ReviewPost();
@@ -332,7 +336,19 @@ public class HomeFragment extends Fragment {
                         ? obj.get("rating").getAsInt() : 0);
                 p.setReviewText(str(obj, "review"));
                 p.setCreatedAt(str(obj, "created_at"));
-                p.setChaptersCompleted(mockChapters[i % mockChapters.length]);
+
+                // chaptersCompleted: derive from real user_levels.xp_total if present.
+                // Each chapter read awards 10 XP in the gamification system, so
+                // xp_total / 10 gives a reasonable approximation. Falls back to 0.
+                int chaptersCompleted = 0;
+                if (obj.has("user_levels") && !obj.get("user_levels").isJsonNull()) {
+                    JsonObject lvl = obj.getAsJsonObject("user_levels");
+                    if (lvl.has("xp_total") && !lvl.get("xp_total").isJsonNull()) {
+                        long xp = lvl.get("xp_total").getAsLong();
+                        chaptersCompleted = (int) Math.max(0, xp / 10);
+                    }
+                }
+                p.setChaptersCompleted(chaptersCompleted);
 
                 if (obj.has("profiles") && !obj.get("profiles").isJsonNull()) {
                     JsonObject prof = obj.getAsJsonObject("profiles");

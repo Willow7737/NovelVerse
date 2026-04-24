@@ -26,37 +26,36 @@ import com.novelverse.app.R;
 /**
  * BannerView — iOS-style drop-down notification banner.
  *
- * Slides in from above the status bar, auto-dismisses, swipe-up to dismiss,
- * tap-X to dismiss. Uses Inter font, accent colour strip per type.
+ * <p>Slides in from above the status bar, auto-dismisses, swipe-up to dismiss, tap-X to dismiss.
+ * Uses Inter font, accent colour strip per type.
  */
 public class BannerView extends FrameLayout {
 
-    private View        accentStrip;
-    private ImageView   iconView;
-    private TextView    titleView;
-    private TextView    messageView;
-    private ImageView   dismissBtn;
+    private ImageView iconView;
+    private TextView titleView;
+    private TextView messageView;
+    private ImageView dismissBtn;
     private ProgressBar progressView;
-
-    private BannerConfig  config;
+    private BannerConfig config;
     private ValueAnimator progressAnimator;
-    private boolean       isDismissing = false;
+    private boolean isDismissing = false;
 
     public BannerView(@NonNull Context context) {
-        super(context); init(context);
+        super(context);
+        init(context);
     }
 
     public BannerView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs); init(context);
+        super(context, attrs);
+        init(context);
     }
 
     private void init(Context ctx) {
         inflate(ctx, R.layout.view_banner, this);
-        accentStrip  = findViewById(R.id.banner_accent);
-        iconView     = findViewById(R.id.banner_icon);
-        titleView    = findViewById(R.id.banner_title);
-        messageView  = findViewById(R.id.banner_message);
-        dismissBtn   = findViewById(R.id.banner_dismiss);
+        iconView = findViewById(R.id.banner_icon);
+        titleView = findViewById(R.id.banner_title);
+        messageView = findViewById(R.id.banner_message);
+        dismissBtn = findViewById(R.id.banner_dismiss);
         progressView = findViewById(R.id.banner_progress);
         setVisibility(GONE);
     }
@@ -77,7 +76,6 @@ public class BannerView extends FrameLayout {
         GradientDrawable strip = new GradientDrawable();
         strip.setColor(color);
         strip.setCornerRadius(dp(2));
-        accentStrip.setBackground(strip);
 
         // Icon
         iconView.setImageResource(type.getIconRes());
@@ -120,12 +118,12 @@ public class BannerView extends FrameLayout {
         if (getParent() != null) ((ViewGroup) getParent()).removeView(this);
 
         // Position: below status bar
-        MarginLayoutParams lp = new MarginLayoutParams(
-                MarginLayoutParams.MATCH_PARENT,
-                MarginLayoutParams.WRAP_CONTENT);
+        MarginLayoutParams lp =
+                new MarginLayoutParams(
+                        MarginLayoutParams.MATCH_PARENT, MarginLayoutParams.WRAP_CONTENT);
         int statusBarH = getStatusBarHeight();
-        lp.topMargin   = statusBarH + dp(10);
-        lp.leftMargin  = dp(12);
+        lp.topMargin = statusBarH + dp(10);
+        lp.leftMargin = dp(12);
         lp.rightMargin = dp(12);
         parent.addView(this, lp);
 
@@ -146,8 +144,8 @@ public class BannerView extends FrameLayout {
         progressAnimator = ValueAnimator.ofInt(100, 0);
         progressAnimator.setDuration(config.getDuration());
         progressAnimator.setInterpolator(new LinearInterpolator());
-        progressAnimator.addUpdateListener(a ->
-                progressView.setProgress((Integer) a.getAnimatedValue()));
+        progressAnimator.addUpdateListener(
+                a -> progressView.setProgress((Integer) a.getAnimatedValue()));
         progressAnimator.start();
     }
 
@@ -157,47 +155,54 @@ public class BannerView extends FrameLayout {
         if (progressAnimator != null) progressAnimator.cancel();
 
         Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.banner_slide_up);
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation a) {}
-            public void onAnimationRepeat(Animation a) {}
-            public void onAnimationEnd(Animation a) {
-                setVisibility(GONE);
-                ViewGroup parent = (ViewGroup) getParent();
-                if (parent != null) parent.removeView(BannerView.this);
-                if (config.getOnDismissListener() != null) config.getOnDismissListener().run();
-            }
-        });
+        anim.setAnimationListener(
+                new Animation.AnimationListener() {
+                    public void onAnimationStart(Animation a) {}
+
+                    public void onAnimationRepeat(Animation a) {}
+
+                    public void onAnimationEnd(Animation a) {
+                        setVisibility(GONE);
+                        ViewGroup parent = (ViewGroup) getParent();
+                        if (parent != null) parent.removeView(BannerView.this);
+                        if (config.getOnDismissListener() != null)
+                            config.getOnDismissListener().run();
+                    }
+                });
         startAnimation(anim);
     }
 
     // ── Swipe gesture ─────────────────────────────────────────────────────────
 
     private void setupSwipe() {
-        GestureDetector gd = new GestureDetector(getContext(),
-                new GestureDetector.SimpleOnGestureListener() {
-                    private static final int THRESHOLD = 80;
-                    private static final int VELOCITY  = 100;
+        GestureDetector gd =
+                new GestureDetector(
+                        getContext(),
+                        new GestureDetector.SimpleOnGestureListener() {
+                            private static final int THRESHOLD = 80;
+                            private static final int VELOCITY = 100;
 
-                    @Override
-                    public boolean onFling(MotionEvent e1, MotionEvent e2,
-                                          float vX, float vY) {
-                        if (e1 == null || e2 == null) return false;
-                        float dy = e2.getY() - e1.getY();
-                        if (dy < -THRESHOLD && Math.abs(vY) > VELOCITY) {
-                            dismiss();
-                            return true;
-                        }
-                        return false;
+                            @Override
+                            public boolean onFling(
+                                    MotionEvent e1, MotionEvent e2, float vX, float vY) {
+                                if (e1 == null || e2 == null) return false;
+                                float dy = e2.getY() - e1.getY();
+                                if (dy < -THRESHOLD && Math.abs(vY) > VELOCITY) {
+                                    dismiss();
+                                    return true;
+                                }
+                                return false;
+                            }
+                        });
+
+        setOnTouchListener(
+                (v, event) -> {
+                    boolean handled = gd.onTouchEvent(event);
+                    if (event.getAction() == MotionEvent.ACTION_UP && !handled) {
+                        performClick();
                     }
+                    return true;
                 });
-
-        setOnTouchListener((v, event) -> {
-            boolean handled = gd.onTouchEvent(event);
-            if (event.getAction() == MotionEvent.ACTION_UP && !handled) {
-                performClick();
-            }
-            return true;
-        });
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

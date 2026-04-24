@@ -30,6 +30,16 @@
 
     <color name="section_card">#2C2C2E</color>
 
+    <!-- ═══════════════════════════════════════════════════════ BANNER NOTIFICATION BAR ═══════════════════════════════════════════════════════ -->
+    <color name="banner_background">#2C2C2E</color>
+    <color name="banner_error">#FF453A</color>
+    <color name="banner_warning">#FF9F0A</color>
+    <color name="banner_info">#5856D6</color>
+    <color name="banner_success">#30D158</color>
+    <color name="banner_title">#1A1A1A</color>
+    <color name="banner_message">#1A1A1E</color>
+    <color name="banner_bg">#F2F2F2</color>
+
     <!-- ─── GENRE PILLS (on charcoal bg — both modes identical) ─── -->
     <color name="pill_unselected_bg">#2C2C2E</color>
     <color name="pill_unselected_border">#48484A</color>
