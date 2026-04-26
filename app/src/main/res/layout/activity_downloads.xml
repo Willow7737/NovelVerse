@@ -86,6 +86,7 @@
                  android:textSize="13sp"
                  android:fontFamily="@font/inter_regular"
                  android:textColor="@color/text_tertiary"
+                 android:id="@+id/tv_storage_used"
                  android:text="0 MB used" />
 
         </LinearLayout>
@@ -97,11 +98,24 @@
              android:progressBackgroundTint="@color/divider"
              android:progressTint="@color/primary"
              android:progress="0"
-             />
+             android:id="@+id/storage_progress"
+             style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
     </LinearLayout>
 
+    <!-- Downloaded novels list (visible when there are downloads) -->
+    <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/downloads_recycler"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1"
+         android:visibility="gone"
+         android:clipToPadding="false"
+         android:paddingBottom="80dp" />
+
+    <!-- Empty state (visible when no downloads) -->
     <LinearLayout
+         android:id="@+id/empty_state_layout"
          android:layout_height="match_parent"
          android:layout_width="match_parent"
          android:gravity="center"

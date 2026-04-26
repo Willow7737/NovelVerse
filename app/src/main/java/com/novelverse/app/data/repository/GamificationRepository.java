@@ -37,13 +37,12 @@ import javax.inject.Singleton;
 /**
  * Gamification repository — local-first, optimistic updates, server-wins conflict resolution.
  *
- * Threading contract:
- *   • All methods that touch Room must run on the executor (never on the main thread).
- *   • Methods returning void dispatch themselves via executor internally.
- *   • Methods that must return a result use a ResultCallback so callers stay off-thread.
- *   • checkAchievementRateLimit / unlockAchievement are synchronous helpers — they must
- *     only ever be called from within an executor.execute() block (e.g. from AchievementEngine
- *     which is always dispatched by ReaderActivity via executeAchievementCheck()).
+ * <p>Threading contract: • All methods that touch Room must run on the executor (never on the main
+ * thread). • Methods returning void dispatch themselves via executor internally. • Methods that
+ * must return a result use a ResultCallback so callers stay off-thread. • checkAchievementRateLimit
+ * / unlockAchievement are synchronous helpers — they must only ever be called from within an
+ * executor.execute() block (e.g. from AchievementEngine which is always dispatched by
+ * ReaderActivity via executeAchievementCheck()).
  */
 @Singleton
 public class GamificationRepository {
@@ -51,21 +50,24 @@ public class GamificationRepository {
     private static final String TAG = "GamificationRepo";
     private static final SimpleDateFormat DATE_FMT = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-    private final AchievementDao      achievementDao;
-    private final UserAchievementDao  userAchievementDao;
-    private final UserCurrencyDao     userCurrencyDao;
+    private final AchievementDao achievementDao;
+    private final UserAchievementDao userAchievementDao;
+    private final UserCurrencyDao userCurrencyDao;
     private final TokenTransactionDao tokenTransactionDao;
-    private final UserLevelDao        userLevelDao;
-    private final UserStreakDao       userStreakDao;
-    private final DailyCapDao         dailyCapDao;
+    private final UserLevelDao userLevelDao;
+    private final UserStreakDao userStreakDao;
+    private final DailyCapDao dailyCapDao;
     private final SupabaseDatabaseService supabase;
-    final ExecutorService             executor; // package-private so ViewModel can submit tasks
+    private final com.novelverse.app.data.local.preferences.UserPreferences userPreferences;
+    final ExecutorService executor; // package-private so ViewModel can submit tasks
 
     // ── Callback interfaces ───────────────────────────────────────────────────
 
     /** Generic boolean result callback — delivered on the executor thread. */
     public interface ResultCallback {
-        /** @param success the boolean result of the operation */
+        /**
+         * @param success the boolean result of the operation
+         */
         void onResult(boolean success);
     }
 
@@ -80,69 +82,73 @@ public class GamificationRepository {
             UserLevelDao userLevelDao,
             UserStreakDao userStreakDao,
             DailyCapDao dailyCapDao,
-            SupabaseDatabaseService supabase) {
-        this.achievementDao      = achievementDao;
-        this.userAchievementDao  = userAchievementDao;
-        this.userCurrencyDao     = userCurrencyDao;
+            SupabaseDatabaseService supabase,
+            com.novelverse.app.data.local.preferences.UserPreferences userPreferences) {
+        this.achievementDao = achievementDao;
+        this.userAchievementDao = userAchievementDao;
+        this.userCurrencyDao = userCurrencyDao;
         this.tokenTransactionDao = tokenTransactionDao;
-        this.userLevelDao        = userLevelDao;
-        this.userStreakDao        = userStreakDao;
-        this.dailyCapDao         = dailyCapDao;
-        this.supabase            = supabase;
-        this.executor            = Executors.newSingleThreadExecutor();
+        this.userLevelDao = userLevelDao;
+        this.userStreakDao = userStreakDao;
+        this.dailyCapDao = dailyCapDao;
+        this.supabase = supabase;
+        this.userPreferences = userPreferences;
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
     // ── Seeding ───────────────────────────────────────────────────────────────
 
     /** Call once at app start (idempotent — INSERT OR IGNORE). */
     public void seedAchievementsIfNeeded() {
-        executor.execute(() -> {
-            if (achievementDao.count() == 0) {
-                achievementDao.insertAll(AchievementDefinitions.all());
-                Log.i(TAG, "Seeded " + achievementDao.count() + " achievements");
-            }
-        });
+        executor.execute(
+                () -> {
+                    if (achievementDao.count() == 0) {
+                        achievementDao.insertAll(AchievementDefinitions.all());
+                        Log.i(TAG, "Seeded " + achievementDao.count() + " achievements");
+                    }
+                });
     }
 
     /** Ensures gamification rows exist for a user (idempotent). */
     public void ensureUserRows(String userId, long nowMs) {
-        executor.execute(() -> {
-            // Currency
-            UserCurrencyEntity currency = userCurrencyDao.get(userId);
-            if (currency == null) {
-                currency = new UserCurrencyEntity();
-                currency.setUserId(userId);
-                userCurrencyDao.insert(currency);
-            }
-            // Level
-            UserLevelEntity level = userLevelDao.get(userId);
-            if (level == null) {
-                level = new UserLevelEntity();
-                level.setUserId(userId);
-                level.setXpLevelTarget(XpLevelEngine.xpToCompleteLevel(1));
-                userLevelDao.insert(level);
-            }
-            // Streak
-            UserStreakEntity streak = userStreakDao.get(userId);
-            if (streak == null) {
-                streak = new UserStreakEntity();
-                streak.setUserId(userId);
-                streak.setGraceWindowStart(nowMs);
-                streak.setFreezeMonthResetAt(nowMs);
-                userStreakDao.insert(streak);
-            }
-            // Ensure user_achievement rows exist for all catalog entries
-            List<AchievementEntity> catalog = achievementDao.getAll();
-            for (AchievementEntity ach : catalog) {
-                if (userAchievementDao.get(userId, ach.getId()) == null) {
-                    UserAchievementEntity ua = new UserAchievementEntity();
-                    ua.setId(UUID.randomUUID().toString());
-                    ua.setUserId(userId);
-                    ua.setAchievementId(ach.getId());
-                    userAchievementDao.insert(ua);
-                }
-            }
-        });
+        executor.execute(
+                () -> {
+                    // Currency
+                    UserCurrencyEntity currency = userCurrencyDao.get(userId);
+                    if (currency == null) {
+                        currency = new UserCurrencyEntity();
+                        currency.setUserId(userId);
+                        userCurrencyDao.insert(currency);
+                    }
+                    // Level
+                    UserLevelEntity level = userLevelDao.get(userId);
+                    if (level == null) {
+                        level = new UserLevelEntity();
+                        level.setUserId(userId);
+                        level.setXpLevelTarget(XpLevelEngine.xpToCompleteLevel(1));
+                        userLevelDao.insert(level);
+                    }
+                    // Streak
+                    UserStreakEntity streak = userStreakDao.get(userId);
+                    if (streak == null) {
+                        streak = new UserStreakEntity();
+                        streak.setUserId(userId);
+                        streak.setGraceWindowStart(nowMs);
+                        streak.setFreezeMonthResetAt(nowMs);
+                        userStreakDao.insert(streak);
+                    }
+                    // Ensure user_achievement rows exist for all catalog entries
+                    List<AchievementEntity> catalog = achievementDao.getAll();
+                    for (AchievementEntity ach : catalog) {
+                        if (userAchievementDao.get(userId, ach.getId()) == null) {
+                            UserAchievementEntity ua = new UserAchievementEntity();
+                            ua.setId(UUID.randomUUID().toString());
+                            ua.setUserId(userId);
+                            ua.setAchievementId(ach.getId());
+                            userAchievementDao.insert(ua);
+                        }
+                    }
+                });
     }
 
     // ── Live data observers ───────────────────────────────────────────────────
@@ -178,28 +184,34 @@ public class GamificationRepository {
     // ── Currency operations (optimistic) ─────────────────────────────────────
 
     public void addInk(String userId, int amount, String type, String reason, long nowMs) {
-        executor.execute(() -> {
-            if (amount <= 0) return;
+        executor.execute(
+                () -> {
+                    if (amount <= 0) return;
 
-            if ("EARN_READING".equals(type)) {
-                String dateKey = DATE_FMT.format(new Date(nowMs));
-                ensureDailyCapRow(userId, dateKey);
-                DailyCapEntity cap = dailyCapDao.get(userId, dateKey);
-                if (cap != null && cap.getInkFromReading() >= cap.getReadingCap()) {
-                    Log.d(TAG, "Daily reading Ink cap reached for " + userId);
-                    return;
-                }
-                dailyCapDao.addReadingInk(userId, dateKey, amount);
-            }
+                    if ("EARN_READING".equals(type)) {
+                        String dateKey = DATE_FMT.format(new Date(nowMs));
+                        ensureDailyCapRow(userId, dateKey);
+                        DailyCapEntity cap = dailyCapDao.get(userId, dateKey);
+                        if (cap != null && cap.getInkFromReading() >= cap.getReadingCap()) {
+                            Log.d(TAG, "Daily reading Ink cap reached for " + userId);
+                            return;
+                        }
+                        dailyCapDao.addReadingInk(userId, dateKey, amount);
+                    }
 
-            userCurrencyDao.addInk(userId, amount);
-            UserCurrencyEntity after = userCurrencyDao.get(userId);
-            recordTransaction(userId, type, amount, 0,
-                after != null ? after.getInkBalance() : 0,
-                after != null ? after.getQuillBalance() : 0,
-                reason, nowMs);
-            syncCurrencyToServer(userId);
-        });
+                    userCurrencyDao.addInk(userId, amount);
+                    UserCurrencyEntity after = userCurrencyDao.get(userId);
+                    recordTransaction(
+                            userId,
+                            type,
+                            amount,
+                            0,
+                            after != null ? after.getInkBalance() : 0,
+                            after != null ? after.getQuillBalance() : 0,
+                            reason,
+                            nowMs);
+                    syncCurrencyToServer(userId);
+                });
     }
 
     public void spendInk(String userId, int amount, String type, String reason, long nowMs) {
@@ -207,7 +219,8 @@ public class GamificationRepository {
     }
 
     /** Synchronous variant — only call from within an executor.execute() block. */
-    private void spendInkInternal(String userId, int amount, String type, String reason, long nowMs) {
+    private void spendInkInternal(
+            String userId, int amount, String type, String reason, long nowMs) {
         UserCurrencyEntity cur = userCurrencyDao.get(userId);
         if (cur == null || cur.getInkBalance() < amount) {
             Log.w(TAG, "Insufficient Ink for " + userId);
@@ -215,10 +228,15 @@ public class GamificationRepository {
         }
         userCurrencyDao.addInk(userId, -amount);
         UserCurrencyEntity after = userCurrencyDao.get(userId);
-        recordTransaction(userId, type, -amount, 0,
-            after != null ? after.getInkBalance() : 0,
-            after != null ? after.getQuillBalance() : 0,
-            reason, nowMs);
+        recordTransaction(
+                userId,
+                type,
+                -amount,
+                0,
+                after != null ? after.getInkBalance() : 0,
+                after != null ? after.getQuillBalance() : 0,
+                reason,
+                nowMs);
         syncCurrencyToServer(userId);
     }
 
@@ -227,7 +245,8 @@ public class GamificationRepository {
     }
 
     /** Synchronous variant — only call from within an executor.execute() block. */
-    private void spendQuillInternal(String userId, int amount, String type, String reason, long nowMs) {
+    private void spendQuillInternal(
+            String userId, int amount, String type, String reason, long nowMs) {
         UserCurrencyEntity cur = userCurrencyDao.get(userId);
         if (cur == null || cur.getQuillBalance() < amount) {
             Log.w(TAG, "Insufficient Quill for " + userId);
@@ -235,21 +254,26 @@ public class GamificationRepository {
         }
         userCurrencyDao.addQuill(userId, -amount);
         UserCurrencyEntity after = userCurrencyDao.get(userId);
-        recordTransaction(userId, type, 0, -amount,
-            after != null ? after.getInkBalance() : 0,
-            after != null ? after.getQuillBalance() : 0,
-            reason, nowMs);
+        recordTransaction(
+                userId,
+                type,
+                0,
+                -amount,
+                after != null ? after.getInkBalance() : 0,
+                after != null ? after.getQuillBalance() : 0,
+                reason,
+                nowMs);
         syncCurrencyToServer(userId);
     }
 
     // ── Achievement unlock ────────────────────────────────────────────────────
 
     /**
-     * Mark an achievement as unlocked and credit its rewards.
-     * Idempotent — safe to call multiple times, second call is a no-op.
-     * Returns the unlocked AchievementEntity or null if already unlocked / not found.
+     * Mark an achievement as unlocked and credit its rewards. Idempotent — safe to call multiple
+     * times, second call is a no-op. Returns the unlocked AchievementEntity or null if already
+     * unlocked / not found.
      *
-     * ⚠️ Synchronous — must only be called from within an executor.execute() block.
+     * <p>⚠️ Synchronous — must only be called from within an executor.execute() block.
      */
     public AchievementEntity unlockAchievement(String userId, String achievementId, long nowMs) {
         UserAchievementEntity ua = userAchievementDao.get(userId, achievementId);
@@ -264,10 +288,15 @@ public class GamificationRepository {
         if (ach.getInkReward() > 0) {
             userCurrencyDao.addInk(userId, ach.getInkReward());
             UserCurrencyEntity after = userCurrencyDao.get(userId);
-            recordTransaction(userId, "EARN_ACHIEVEMENT", ach.getInkReward(), 0,
-                after != null ? after.getInkBalance() : 0,
-                after != null ? after.getQuillBalance() : 0,
-                "Unlocked " + ach.getTitle(), nowMs);
+            recordTransaction(
+                    userId,
+                    "EARN_ACHIEVEMENT",
+                    ach.getInkReward(),
+                    0,
+                    after != null ? after.getInkBalance() : 0,
+                    after != null ? after.getQuillBalance() : 0,
+                    "Unlocked " + ach.getTitle(),
+                    nowMs);
         }
         if (ach.getQuillReward() > 0) {
             userCurrencyDao.addQuill(userId, ach.getQuillReward());
@@ -286,18 +315,18 @@ public class GamificationRepository {
     }
 
     /**
-     * Dispatches an achievement check to the executor so callers (e.g. ReaderActivity
-     * scroll listeners) never touch Room on the main thread.
+     * Dispatches an achievement check to the executor so callers (e.g. ReaderActivity scroll
+     * listeners) never touch Room on the main thread.
      *
-     * Use this instead of calling AchievementEngine directly from UI callbacks.
+     * <p>Use this instead of calling AchievementEngine directly from UI callbacks.
      */
     public void executeAchievementCheck(Runnable engineCall) {
         executor.execute(engineCall);
     }
 
     public void updateAchievementProgress(String userId, String achievementId, int newProgress) {
-        executor.execute(() ->
-            userAchievementDao.updateProgress(userId, achievementId, newProgress));
+        executor.execute(
+                () -> userAchievementDao.updateProgress(userId, achievementId, newProgress));
     }
 
     // ── XP ────────────────────────────────────────────────────────────────────
@@ -311,12 +340,13 @@ public class GamificationRepository {
         if (current == null) return;
         XpLevelEngine.LevelUpResult result = XpLevelEngine.addXp(current, xp, nowMs);
         if (result != null) {
-            userLevelDao.updateProgress(userId,
-                result.updated.getXpTotal(),
-                result.updated.getCurrentLevel(),
-                result.updated.getXpInLevel(),
-                result.updated.getXpLevelTarget(),
-                result.updated.getBadgeSlots());
+            userLevelDao.updateProgress(
+                    userId,
+                    result.updated.getXpTotal(),
+                    result.updated.getCurrentLevel(),
+                    result.updated.getXpInLevel(),
+                    result.updated.getXpLevelTarget(),
+                    result.updated.getBadgeSlots());
             if (result.didLevelUp && levelUpListener != null) {
                 levelUpListener.onLevelUp(result.newLevel);
             }
@@ -346,10 +376,11 @@ public class GamificationRepository {
             updated.setUserId(userId);
             userStreakDao.insert(updated);
         } else {
-            userStreakDao.updateStreak(userId,
-                updated.getCurrentStreak(),
-                updated.getLongestStreak(),
-                updated.getLastActivityDate());
+            userStreakDao.updateStreak(
+                    userId,
+                    updated.getCurrentStreak(),
+                    updated.getLongestStreak(),
+                    updated.getLastActivityDate());
         }
         if (result.event != StreakEngine.StreakEvent.ALREADY_TODAY) {
             // addInk dispatches to executor itself, but we're already on it —
@@ -357,77 +388,97 @@ public class GamificationRepository {
             int bonus = 10 + Math.min(updated.getCurrentStreak(), 50);
             userCurrencyDao.addInk(userId, bonus);
             UserCurrencyEntity after = userCurrencyDao.get(userId);
-            recordTransaction(userId, "EARN_STREAK", bonus, 0,
-                after != null ? after.getInkBalance() : 0,
-                after != null ? after.getQuillBalance() : 0,
-                "Daily streak bonus", nowMs);
+            recordTransaction(
+                    userId,
+                    "EARN_STREAK",
+                    bonus,
+                    0,
+                    after != null ? after.getInkBalance() : 0,
+                    after != null ? after.getQuillBalance() : 0,
+                    "Daily streak bonus",
+                    nowMs);
         }
         syncStreakToServer(userId);
         return result;
     }
 
     /**
-     * Applies a streak freeze asynchronously.
-     * The callback is invoked on the executor thread — post to main thread in the
-     * ViewModel if you need to update UI (e.g. via Handler.post or LiveData.postValue).
+     * Applies a streak freeze asynchronously. The callback is invoked on the executor thread — post
+     * to main thread in the ViewModel if you need to update UI (e.g. via Handler.post or
+     * LiveData.postValue).
      */
-    public void applyStreakFreeze(String userId, boolean useFreeFreeze, long nowMs,
-                                   ResultCallback callback) {
-        executor.execute(() -> {
-            UserStreakEntity current = userStreakDao.get(userId);
-            if (current == null) {
-                if (callback != null) callback.onResult(false);
-                return;
-            }
-            UserStreakEntity updated = StreakEngine.applyFreeze(current, useFreeFreeze, nowMs);
-            if (updated == null) {
-                if (callback != null) callback.onResult(false);
-                return;
-            }
-            userStreakDao.applyFreeze(userId,
-                updated.getFreezeExpiresAt(),
-                updated.getFreeFreezesUsedThisMonth());
-            if (!useFreeFreeze) {
-                spendInkInternal(userId, StreakEngine.FREEZE_COST_INK,
-                    "SPEND_FREEZE", "Streak freeze", nowMs);
-            }
-            syncStreakToServer(userId);
-            if (callback != null) callback.onResult(true);
-        });
+    public void applyStreakFreeze(
+            String userId, boolean useFreeFreeze, long nowMs, ResultCallback callback) {
+        executor.execute(
+                () -> {
+                    UserStreakEntity current = userStreakDao.get(userId);
+                    if (current == null) {
+                        if (callback != null) callback.onResult(false);
+                        return;
+                    }
+                    UserStreakEntity updated =
+                            StreakEngine.applyFreeze(current, useFreeFreeze, nowMs);
+                    if (updated == null) {
+                        if (callback != null) callback.onResult(false);
+                        return;
+                    }
+                    userStreakDao.applyFreeze(
+                            userId,
+                            updated.getFreezeExpiresAt(),
+                            updated.getFreeFreezesUsedThisMonth());
+                    if (!useFreeFreeze) {
+                        spendInkInternal(
+                                userId,
+                                StreakEngine.FREEZE_COST_INK,
+                                "SPEND_FREEZE",
+                                "Streak freeze",
+                                nowMs);
+                    }
+                    syncStreakToServer(userId);
+                    if (callback != null) callback.onResult(true);
+                });
     }
 
     /**
-     * Applies a shield recovery asynchronously.
-     * The callback is invoked on the executor thread — post to main thread in the
-     * ViewModel if you need to update UI.
+     * Applies a shield recovery asynchronously. The callback is invoked on the executor thread —
+     * post to main thread in the ViewModel if you need to update UI.
      */
-    public void applyShieldRecovery(String userId, int recoveredStreak,
-                                     boolean isFreeRecovery, long nowMs,
-                                     ResultCallback callback) {
-        executor.execute(() -> {
-            UserStreakEntity current = userStreakDao.get(userId);
-            if (current == null) {
-                if (callback != null) callback.onResult(false);
-                return;
-            }
-            if (!isFreeRecovery) {
-                UserCurrencyEntity cur = userCurrencyDao.get(userId);
-                if (cur == null || cur.getQuillBalance() < StreakEngine.SHIELD_COST_QUILL) {
-                    if (callback != null) callback.onResult(false);
-                    return;
-                }
-                spendQuillInternal(userId, StreakEngine.SHIELD_COST_QUILL,
-                    "SPEND_SHIELD", "Streak shield recovery", nowMs);
-            }
-            UserStreakEntity updated =
-                StreakEngine.applyShieldRecovery(current, recoveredStreak, nowMs);
-            userStreakDao.updateStreak(userId,
-                updated.getCurrentStreak(),
-                updated.getLongestStreak(),
-                updated.getLastActivityDate());
-            syncStreakToServer(userId);
-            if (callback != null) callback.onResult(true);
-        });
+    public void applyShieldRecovery(
+            String userId,
+            int recoveredStreak,
+            boolean isFreeRecovery,
+            long nowMs,
+            ResultCallback callback) {
+        executor.execute(
+                () -> {
+                    UserStreakEntity current = userStreakDao.get(userId);
+                    if (current == null) {
+                        if (callback != null) callback.onResult(false);
+                        return;
+                    }
+                    if (!isFreeRecovery) {
+                        UserCurrencyEntity cur = userCurrencyDao.get(userId);
+                        if (cur == null || cur.getQuillBalance() < StreakEngine.SHIELD_COST_QUILL) {
+                            if (callback != null) callback.onResult(false);
+                            return;
+                        }
+                        spendQuillInternal(
+                                userId,
+                                StreakEngine.SHIELD_COST_QUILL,
+                                "SPEND_SHIELD",
+                                "Streak shield recovery",
+                                nowMs);
+                    }
+                    UserStreakEntity updated =
+                            StreakEngine.applyShieldRecovery(current, recoveredStreak, nowMs);
+                    userStreakDao.updateStreak(
+                            userId,
+                            updated.getCurrentStreak(),
+                            updated.getLongestStreak(),
+                            updated.getLastActivityDate());
+                    syncStreakToServer(userId);
+                    if (callback != null) callback.onResult(true);
+                });
     }
 
     // ── Anti-exploit: rate limit ──────────────────────────────────────────────
@@ -435,8 +486,8 @@ public class GamificationRepository {
     /**
      * Returns true if an achievement can be unlocked right now (≤10/min limit).
      *
-     * ⚠️ Synchronous — must only be called from within an executor.execute() block.
-     * Use executeAchievementCheck() to dispatch from UI threads.
+     * <p>⚠️ Synchronous — must only be called from within an executor.execute() block. Use
+     * executeAchievementCheck() to dispatch from UI threads.
      */
     public boolean checkAchievementRateLimit(String userId, long nowMs) {
         String dateKey = DATE_FMT.format(new Date(nowMs));
@@ -458,32 +509,126 @@ public class GamificationRepository {
 
     // ── Supabase background sync (fire-and-forget) ────────────────────────────
 
+    /**
+     * Sync currency balances to Supabase user_currency table. Uses UPSERT on user_id conflict so
+     * it's safe to call repeatedly.
+     */
     private void syncCurrencyToServer(String userId) {
         UserCurrencyEntity e = userCurrencyDao.get(userId);
         if (e == null || !e.isNeedsSync()) return;
-        Log.d(TAG, "Sync currency for " + userId + " (stub — wire token)");
+        String token = userPreferences.getAccessToken();
+        if (token == null) return;
+
+        com.google.gson.JsonObject body = new com.google.gson.JsonObject();
+        body.addProperty("user_id", userId);
+        body.addProperty("ink_balance", e.getInkBalance());
+        body.addProperty("quill_balance", e.getQuillBalance());
+        body.addProperty("lifetime_ink_earned", e.getLifetimeInkEarned());
+        body.addProperty("lifetime_quill_spent", e.getLifetimeQuillSpent());
+
+        supabase.upsert(
+                "user_currency",
+                body,
+                "user_id",
+                token,
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override
+                    public void onSuccess(String r) {
+                        executor.execute(() -> userCurrencyDao.markSynced(userId));
+                        Log.d(TAG, "Currency synced for " + userId);
+                    }
+
+                    @Override
+                    public void onError(String err) {
+                        Log.e(TAG, "Currency sync failed: " + err);
+                    }
+                });
     }
 
+    /** Sync unlocked achievements to Supabase user_achievements table. */
     private void syncAchievementsToServer(String userId) {
         List<UserAchievementEntity> pending = userAchievementDao.getPendingSync();
+        if (pending == null || pending.isEmpty()) return;
+        String token = userPreferences.getAccessToken();
+        if (token == null) return;
+
         for (UserAchievementEntity ua : pending) {
-            Log.d(TAG, "Sync achievement " + ua.getAchievementId() + " for " + ua.getUserId());
-            userAchievementDao.markSynced(ua.getId());
+            com.google.gson.JsonObject body = new com.google.gson.JsonObject();
+            body.addProperty("user_id", ua.getUserId());
+            body.addProperty("achievement_id", ua.getAchievementId());
+            body.addProperty("is_unlocked", ua.isUnlocked());
+            body.addProperty("unlocked_at", ua.getUnlockedAt());
+            body.addProperty("progress", ua.getProgress());
+
+            final String localId = ua.getId();
+            supabase.upsert(
+                    "user_achievements",
+                    body,
+                    "user_id,achievement_id",
+                    token,
+                    new SupabaseDatabaseService.DatabaseCallback() {
+                        @Override
+                        public void onSuccess(String r) {
+                            executor.execute(() -> userAchievementDao.markSynced(localId));
+                        }
+
+                        @Override
+                        public void onError(String err) {
+                            Log.e(TAG, "Achievement sync failed: " + err);
+                        }
+                    });
         }
     }
 
+    /**
+     * Sync streak state to Supabase via the sync_user_streak RPC. The RPC accepts epoch-millisecond
+     * longs and converts to timestamptz server-side.
+     */
     private void syncStreakToServer(String userId) {
         List<UserStreakEntity> pending = userStreakDao.getPendingSync();
+        if (pending == null || pending.isEmpty()) return;
+        String token = userPreferences.getAccessToken();
+        if (token == null) return;
+
         for (UserStreakEntity e : pending) {
-            Log.d(TAG, "Sync streak for " + e.getUserId());
-            userStreakDao.markSynced(e.getUserId());
+            com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+            params.addProperty("p_user_id", e.getUserId());
+            params.addProperty("p_current_streak", e.getCurrentStreak());
+            params.addProperty("p_longest_streak", e.getLongestStreak());
+            params.addProperty("p_last_activity_date", e.getLastActivityDate());
+            params.addProperty("p_grace_window_start", e.getGraceWindowStart());
+            params.addProperty("p_freeze_expires_at", e.getFreezeExpiresAt());
+
+            supabase.callRpc(
+                    "sync_user_streak",
+                    params,
+                    token,
+                    new SupabaseDatabaseService.DatabaseCallback() {
+                        @Override
+                        public void onSuccess(String r) {
+                            executor.execute(() -> userStreakDao.markSynced(e.getUserId()));
+                            Log.d(TAG, "Streak synced for " + e.getUserId());
+                        }
+
+                        @Override
+                        public void onError(String err) {
+                            Log.e(TAG, "Streak sync failed: " + err);
+                        }
+                    });
         }
     }
 
     // ── Private helpers ───────────────────────────────────────────────────────
 
-    private void recordTransaction(String userId, String type, int inkDelta, int quillDelta,
-                                    int inkAfter, int quillAfter, String reason, long nowMs) {
+    private void recordTransaction(
+            String userId,
+            String type,
+            int inkDelta,
+            int quillDelta,
+            int inkAfter,
+            int quillAfter,
+            String reason,
+            long nowMs) {
         TokenTransactionEntity tx = new TokenTransactionEntity();
         tx.setId(UUID.randomUUID().toString());
         tx.setUserId(userId);

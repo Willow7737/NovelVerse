@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chip_container"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="16dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_onboarding_chip_unselected"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/chip_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_fantasy"
+        android:tint="@color/onboarding_text_primary" />
+
+    <TextView
+        android:id="@+id/chip_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:text="Fantasy"
+        android:textSize="16sp"
+        android:textColor="@color/onboarding_text_primary"
+        android:fontFamily="@font/inter_medium" />
+
+</LinearLayout>

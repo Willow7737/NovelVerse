@@ -9,6 +9,7 @@
 
     <!-- ─── BACKGROUNDS — same charcoal, no change ─── -->
     <color name="background">#141416</color>
+    <color name="background_variant">#F2F3F4</color>
     <color name="background_dark">#141416</color>
 
     <!-- ─── SURFACES / CARDS — the ONLY things that switch ─── -->
@@ -23,6 +24,10 @@
     <color name="text_tertiary">#636366</color>
     <color name="text_disabled">#3A3A3C</color>
     <color name="text_link">#FF7090</color>
+
+    <color name="icon_primary">#FFFFFF</color>
+    <color name="icon_secondary">#636366</color>
+    <color name="button_blue">#0067FF</color>
 
     <!-- ─── BORDERS ─── -->
     <color name="divider">#48484A</color>

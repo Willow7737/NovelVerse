@@ -126,6 +126,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Onboarding Activity -->
+        <activity
+            android:name=".presentation.onboarding.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NovelVerse.Onboarding"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Reader Activity -->
         <activity
             android:name=".presentation.novel.reader.ReaderActivity"

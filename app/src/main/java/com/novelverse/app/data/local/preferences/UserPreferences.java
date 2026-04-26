@@ -35,6 +35,11 @@ public class UserPreferences {
     private static final String KEY_EMAIL_NOTIFICATIONS = "email_notifications";
     private static final String KEY_MARKETING_EMAILS = "marketing_emails";
     private static final String KEY_ONBOARDING_COMPLETED = "onboarding_completed";
+    private static final String KEY_ONBOARDING_STEP = "onboarding_step";
+    private static final String KEY_HAS_COMPLETED_INTERESTS = "has_completed_interests";
+    private static final String KEY_ONBOARDING_INTERESTS_JSON = "onboarding_interests_json";
+    private static final String KEY_ATTRIBUTION_SOURCE = "attribution_source";
+    private static final String KEY_PROFILE_SETUP_SKIPPED = "profile_setup_skipped";
     private static final String KEY_LAST_SYNC = "last_sync";
     public static final String KEY_LAST_CHECK_IN = "last_check_in_timestamp";
     private static final String KEY_RECENT_SEARCHES = "recent_searches_json";
@@ -390,6 +395,46 @@ public class UserPreferences {
 
     public boolean isOnboardingCompleted() {
         return getPrefs().getBoolean(KEY_ONBOARDING_COMPLETED, false);
+    }
+
+    public void setOnboardingStep(int step) {
+        getPrefs().edit().putInt(KEY_ONBOARDING_STEP, step).apply();
+    }
+
+    public int getOnboardingStep() {
+        return getPrefs().getInt(KEY_ONBOARDING_STEP, 0);
+    }
+
+    public void setHasCompletedInterests(boolean v) {
+        getPrefs().edit().putBoolean(KEY_HAS_COMPLETED_INTERESTS, v).apply();
+    }
+
+    public boolean hasCompletedInterests() {
+        return getPrefs().getBoolean(KEY_HAS_COMPLETED_INTERESTS, false);
+    }
+
+    public void setOnboardingInterestsJson(String json) {
+        putStr(KEY_ONBOARDING_INTERESTS_JSON, json);
+    }
+
+    public String getOnboardingInterestsJson() {
+        return getPrefs().getString(KEY_ONBOARDING_INTERESTS_JSON, null);
+    }
+
+    public void setAttributionSource(String source) {
+        putStr(KEY_ATTRIBUTION_SOURCE, source);
+    }
+
+    public String getAttributionSource() {
+        return getPrefs().getString(KEY_ATTRIBUTION_SOURCE, null);
+    }
+
+    public void setProfileSetupSkipped(boolean v) {
+        getPrefs().edit().putBoolean(KEY_PROFILE_SETUP_SKIPPED, v).apply();
+    }
+
+    public boolean isProfileSetupSkipped() {
+        return getPrefs().getBoolean(KEY_PROFILE_SETUP_SKIPPED, false);
     }
 
     public void setLastSync(long ts) {

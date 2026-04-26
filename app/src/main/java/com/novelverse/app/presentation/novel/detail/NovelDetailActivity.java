@@ -415,25 +415,44 @@ public class NovelDetailActivity extends AppCompatActivity {
         // Follow button
         android.widget.Button followBtn = root.findViewById(R.id.btn_follow_author);
         if (followBtn != null) {
-            followBtn.setOnClickListener(v -> {
-                String userId = userPreferences.getUserId();
-                String token  = userPreferences.getAccessToken();
-                if (userId == null || currentNovel == null) return;
-                String authorId = currentNovel.getAuthorId();
-                if (authorId == null) return;
+            String userId  = userPreferences.getUserId();
+            String token   = userPreferences.getAccessToken();
+            String authorId = currentNovel != null ? currentNovel.getAuthorId() : null;
 
-                // Persist follow to Supabase
-                com.google.gson.JsonObject body = new com.google.gson.JsonObject();
-                body.addProperty("follower_id", userId);
-                body.addProperty("following_id", authorId);
-                databaseService.upsert("user_follows", body, "follower_id,following_id", token,
+            // Check current follow state first
+            if (userId != null && authorId != null && !userId.equals(authorId)) {
+                com.google.gson.JsonObject checkParams = new com.google.gson.JsonObject();
+                checkParams.addProperty("p_follower_id", userId);
+                checkParams.addProperty("p_author_id",   authorId);
+                databaseService.callRpc("is_following", checkParams, token,
+                    new SupabaseDatabaseService.DatabaseCallback() {
+                        @Override public void onSuccess(String r) {
+                            boolean following = "true".equalsIgnoreCase(r.trim());
+                            runOnUiThread(() -> {
+                                followBtn.setText(following ? "Following ✓" : "Follow");
+                                followBtn.setEnabled(!following);
+                            });
+                        }
+                        @Override public void onError(String e) {}
+                    });
+            } else if (userId != null && userId.equals(authorId)) {
+                followBtn.setVisibility(android.view.View.GONE); // can't follow yourself
+            }
+
+            followBtn.setOnClickListener(v -> {
+                if (userId == null || authorId == null || currentNovel == null) return;
+                followBtn.setEnabled(false);
+
+                com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+                params.addProperty("p_follower_id", userId);
+                params.addProperty("p_author_id",   authorId);
+
+                databaseService.callRpc("follow_author", params, token,
                     new SupabaseDatabaseService.DatabaseCallback() {
                         @Override public void onSuccess(String r) {
                             runOnUiThread(() -> {
                                 BannerHelper.success(NovelDetailActivity.this, "Now following!");
-                                followBtn.setEnabled(false);
                                 followBtn.setText("Following ✓");
-                                // Achievement trigger
                                 if (achievementEngine != null) {
                                     int totalFollowing = userPreferences.incrementFollowingCount();
                                     achievementEngine.onFollowAdded(
@@ -443,8 +462,10 @@ public class NovelDetailActivity extends AppCompatActivity {
                             });
                         }
                         @Override public void onError(String e) {
-                            runOnUiThread(() -> BannerHelper.error(
-                                NovelDetailActivity.this, "Follow failed", e));
+                            runOnUiThread(() -> {
+                                followBtn.setEnabled(true);
+                                BannerHelper.error(NovelDetailActivity.this, "Follow failed. Try again.");
+                            });
                         }
                     });
                 sheet.dismiss();

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="@color/background">
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:layout_marginBottom="80dp"
+         android:fillViewport="true"
+         android:id="@+id/scroll_view">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingBottom="16dp"
+             android:paddingHorizontal="16dp"
+             android:paddingTop="48dp">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:textSize="28sp"
+                 android:fontFamily="@font/inter_bold"
+                 android:textColor="@color/onboarding_text_primary"
+                 android:letterSpacing="0.05"
+                 android:text="@string/what_are_your_interests" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:textSize="16sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="@color/onboarding_text_secondary"
+                 android:layout_marginTop="8dp"
+                 android:text="@string/choose_three_or_more" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:nestedScrollingEnabled="false"
+                 android:layout_marginTop="24dp"
+                 android:id="@+id/recycler_genres"
+                 android:overScrollMode="never" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="@drawable/bg_bottom_fade"
+         android:orientation="vertical"
+         android:paddingBottom="24dp"
+         android:paddingHorizontal="16dp"
+         android:layout_gravity="bottom"
+         android:paddingTop="8dp">
+
+        <com.google.android.material.button.MaterialButton
+             android:layout_height="56dp"
+             android:layout_width="match_parent"
+             app:backgroundTint="@color/black"
+             android:textSize="16sp"
+             android:fontFamily="@font/inter_semibold"
+             app:cornerRadius="16dp"
+             android:textColor="@color/white"
+             android:id="@+id/btn_continue"
+             android:text="@string/action_continue" />
+
+    </LinearLayout>
+
+</FrameLayout>

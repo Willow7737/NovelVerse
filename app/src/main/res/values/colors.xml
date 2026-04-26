@@ -7,14 +7,26 @@
     <color name="primary_light">#7B7AE8</color> <!-- Lighter indigo — tints on dark surfaces -->
     <color name="on_primary">#FFFFFF</color>
 
+    <!-- Onboarding accent colors -->
+    <color name="accent_gold">#D4A853</color>
+    <color name="accent_navy">#1E3A5F</color>
+    <color name="accent_teal">#14B8A6</color>
+    <color name="accent_coral">#F97066</color>
+    <color name="onboarding_text_primary">#1A1A1A</color>
+    <color name="onboarding_text_secondary">#6B7280</color>
+    <color name="onboarding_text_tertiary">#9CA3AF</color>
+    <color name="onboarding_border">#E5E7EB</color>
+    <color name="onboarding_surface">#F7F7F8</color>
+
     <color name="secondary">#FF9F0A</color> <!-- Amber-gold — coins, premium, VIP -->
     <color name="secondary_dark">#D4860A</color>
     <color name="secondary_light">#FFC44D</color>
     <color name="on_secondary">#FFFFFF</color>
 
     <!-- ═══════════════════════════════════════════════════════ APP BACKGROUND — static in BOTH modes Deep charcoal #141416 — never switches. Top-half splash lives in bg_app_main.xml. ═══════════════════════════════════════════════════════ -->
-    <color name="background">#141416</color> <!-- Always deep charcoal -->
-    <color name="background_dark">#141416</color> <!-- Alias — same value -->
+    <color name="background">#F2F3F4</color> <!-- Always deep charcoal -->
+    <color name="background_variant">#1A1A1A</color>
+    <color name="background_dark">#F2F3F4</color> <!-- Alias — same value -->
 
     <!-- ═══════════════════════════════════════════════════════ SURFACE / CARDS — THE ONLY THINGS THAT CHANGE MODE Light mode → white / near-white cards Dark mode → iOS elevated dark cards ═══════════════════════════════════════════════════════ -->
     <color name="surface">#F2F2F7</color> <!-- Sheet / bottom-nav fill — light mode -->
@@ -45,6 +57,11 @@
     <color name="text_on_primary">#FFFFFF</color>
     <color name="text_link">#5856D6</color> <!-- Links use brand indigo -->
     <color name="text_link_dark">#7B7AE8</color>
+
+
+    <color name="icon_primary">#1C1C1E</color>
+    <color name="icon_secondary">#ABABAF</color>
+    <color name="button_blue">#0067FF</color>
 
     <!-- ═══════════════════════════════════════════════════════ STATUS / SEMANTIC ═══════════════════════════════════════════════════════ -->
     <color name="success">#30D158</color> <!-- iOS green -->

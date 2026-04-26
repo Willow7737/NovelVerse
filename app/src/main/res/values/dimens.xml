@@ -15,4 +15,7 @@
     <dimen name="dash_width">5dp</dimen>
     <dimen name="dash_gap">4dp</dimen>
 
+    <dimen name="indicator_active_width">24dp</dimen>
+    <dimen name="indicator_inactive_width">6dp</dimen>
+    <dimen name="indicator_height">6dp</dimen>
 </resources>

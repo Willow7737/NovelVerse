@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Open VIP can improve the speed of decompilation, resource code translate to name automatically and activate the smart editing and automatic completion function-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?attr/colorControlNormal"
-    android:autoMirrored="true">
-  <path
-      android:fillColor="@android:color/white"
-      android:pathData="M12.29,8.71L9.7,11.3c-0.39,0.39 -0.39,1.02 0,1.41l2.59,2.59c0.63,0.63 1.71,0.18 1.71,-0.71V9.41c0,-0.89 -1.08,-1.33 -1.71,-0.7z"/>
+    android:width="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M14.293,3.293C14.684,2.902 15.316,2.902 15.707,3.293C16.098,3.683 16.098,4.317 15.707,4.707L8.414,12L15.707,19.293C16.098,19.684 16.098,20.316 15.707,20.707C15.316,21.098 14.684,21.098 14.293,20.707L6.293,12.707C5.902,12.316 5.902,11.684 6.293,11.293L14.293,3.293Z" />
 </vector>

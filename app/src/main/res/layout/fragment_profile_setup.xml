@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="48dp"
+            android:paddingBottom="24dp"
+            android:gravity="center_horizontal">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_to_novelverse"
+                android:textSize="28sp"
+                android:textColor="@color/onboarding_text_primary"
+                android:fontFamily="@font/inter_bold"
+                android:letterSpacing="-0.5"
+                android:gravity="center" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/lets_set_up_profile"
+                android:textSize="16sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center" />
+
+            <!-- Avatar -->
+            <FrameLayout
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="32dp">
+
+                <ImageView
+                    android:id="@+id/avatar_image"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_avatar_circle"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/onboarding_text_tertiary"
+                    android:contentDescription="@string/profile_photo" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@drawable/bg_avatar_circle"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/onboarding_text_secondary"
+                    android:padding="6dp"
+                    android:contentDescription="@string/camera" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/tap_to_add_photo"
+                android:textSize="14sp"
+                android:textColor="@color/onboarding_text_tertiary"
+                android:fontFamily="@font/inter_regular" />
+
+            <!-- Display Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/your_display_name"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:textSize="16sp"
+                    android:inputType="textPersonName"
+                    android:background="@drawable/bg_onboarding_chip_unselected" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Role Selection Label -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/choose_your_role"
+                android:textSize="14sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:fontFamily="@font/inter_medium" />
+
+            <!-- Role Pills -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pill_reader"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/reader"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/inter_medium"
+                    android:background="@drawable/bg_role_pill_selected" />
+
+                <View android:layout_width="8dp" android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/pill_writer"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/writer"
+                    android:textSize="14sp"
+                    android:textColor="@color/onboarding_text_primary"
+                    android:fontFamily="@font/inter_medium"
+                    android:background="@drawable/bg_role_pill_unselected" />
+
+                <View android:layout_width="8dp" android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/pill_both"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/both"
+                    android:textSize="14sp"
+                    android:textColor="@color/onboarding_text_primary"
+                    android:fontFamily="@font/inter_medium"
+                    android:background="@drawable/bg_role_pill_unselected" />
+            </LinearLayout>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Complete Setup Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_complete"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/complete_setup"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_semibold"
+                app:backgroundTint="@color/black"
+                app:cornerRadius="16dp" />
+
+            <!-- Skip Button -->
+            <TextView
+                android:id="@+id/btn_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/skip_for_now"
+                android:textSize="16sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:fontFamily="@font/inter_medium"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

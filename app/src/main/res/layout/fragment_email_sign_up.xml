@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_left"
+                android:tint="@color/icon_primary"
+                android:contentDescription="@string/back" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/btn_header_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:fontFamily="@font/inter_semibold"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/create_your_account"
+            android:textSize="28sp"
+            android:textColor="@color/text_primary"
+            android:fontFamily="@font/inter_bold"
+            android:letterSpacing="0.05" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/start_your_reading_journey"
+            android:textSize="16sp"
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/inter_regular" />
+
+        <!-- Email Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="@string/email_address"
+            app:hintTextColor="@color/text_tertiary"
+            app:cursorColor="@color/button_blue"
+            app:startIconDrawable="@drawable/ic_mail"
+            app:startIconTint="@color/icon_secondary"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/bg_onboarding_chip_unselected" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cursorColor="@color/button_blue"
+            android:hint="@string/password"
+            app:hintTextColor="@color/text_tertiary"
+            app:startIconTint="@color/icon_secondary"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:endIconMode="password_toggle"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_onboarding_chip_unselected" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Confirm Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirm_password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/confirm_password"
+            app:hintTextColor="@color/text_tertiary"
+            app:endIconMode="password_toggle"
+            app:startIconTint="@color/icon_secondary"
+            app:cursorColor="@color/button_blue"
+            app:startIconDrawable="@drawable/ic_lock"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirm_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_onboarding_chip_unselected" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Create Account Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_account"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/create_account"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_semibold"
+            app:backgroundTint="@color/button_blue"
+            app:cornerRadius="16dp" />
+
+        <!-- Social divider -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/or_continue_with"
+            android:textSize="14sp"
+            android:textColor="@color/onboarding_text_tertiary"
+            android:fontFamily="@font/inter_regular" />
+
+        <!-- Social icons row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_social_google"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_social_button"
+                android:src="@drawable/ic_google"
+                android:scaleType="centerInside"
+                android:padding="8dp"
+                android:contentDescription="@string/google_sign_in" />
+
+            <View android:layout_width="16dp" android:layout_height="0dp" />
+
+            <ImageButton
+                android:id="@+id/btn_social_apple"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_social_button"
+                android:tint="@color/icon_primary"
+                android:src="@drawable/ic_apple"
+                android:scaleType="centerInside"
+                android:padding="8dp"
+                android:contentDescription="@string/apple_sign_in" />
+
+            <View android:layout_width="16dp" android:layout_height="0dp" />
+
+            <ImageButton
+                android:id="@+id/btn_social_facebook"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_social_button"
+                android:src="@drawable/ic_facebook"
+                android:scaleType="centerInside"
+                android:padding="8dp"
+                android:contentDescription="@string/facebook_sign_in" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

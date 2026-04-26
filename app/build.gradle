@@ -37,6 +37,19 @@ android {
         buildConfigField "String", "GOOGLE_WEB_CLIENT_ID", "\"${localProps.getProperty('GOOGLE_WEB_CLIENT_ID', 'http://1029537581769-r4u4kp674itr4nlh158octq8fhben3on.apps.googleusercontent.com')}\""
     }
 
+    signingConfigs {
+        debug {
+            // Default debug signing — used automatically by Gradle
+        }
+        release {
+            // Load keystore credentials from local.properties (never commit these to git)
+            storeFile     localProps.getProperty('KEYSTORE_PATH')      ? file(localProps.getProperty('KEYSTORE_PATH'))      : null
+            storePassword localProps.getProperty('KEYSTORE_PASSWORD')  ?: ''
+            keyAlias      localProps.getProperty('KEY_ALIAS')          ?: ''
+            keyPassword   localProps.getProperty('KEY_PASSWORD')       ?: ''
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -48,7 +61,11 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            // Uses release keystore if KEYSTORE_PATH is set in local.properties;
+            // falls back to debug signing so unsigned-release builds still compile locally.
+            signingConfig signingConfigs.release.storeFile != null
+                    ? signingConfigs.release
+                    : signingConfigs.debug
         }
     }
 

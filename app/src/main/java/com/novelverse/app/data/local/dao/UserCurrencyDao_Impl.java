@@ -119,4 +119,13 @@ public final class UserCurrencyDao_Impl implements UserCurrencyDao {
         try { List<UserCurrencyEntity> r = new ArrayList<>(); while (c.moveToNext()) r.add(cursorToUC(c)); return r; }
         finally { c.close(); q.release(); }
     }
+   
+    @Override public void markSynced(String userId) {
+        __db.assertNotSuspendingTransaction();
+        final SupportSQLiteStatement s = __db.compileStatement(
+            "UPDATE user_currency SET needs_sync = 0 WHERE user_id = ?");
+        __db.beginTransaction();
+        try { s.bindString(1, userId); s.executeUpdateDelete(); __db.setTransactionSuccessful(); }
+        finally { __db.endTransaction(); }
+    }
 }

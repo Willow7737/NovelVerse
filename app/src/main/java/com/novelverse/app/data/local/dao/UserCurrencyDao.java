@@ -35,4 +35,7 @@ public interface UserCurrencyDao {
 
     @Query("SELECT * FROM user_currency WHERE needs_sync = 1")
     java.util.List<UserCurrencyEntity> getPendingSync();
+
+    @Query("UPDATE user_currency SET needs_sync = 0 WHERE user_id = :userId")
+    void markSynced(String userId);
 }

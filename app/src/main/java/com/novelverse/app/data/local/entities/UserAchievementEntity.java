@@ -6,10 +6,6 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-/**
- * Records that a specific user has unlocked a specific achievement.
- * currentProgress tracks partial progress toward target_value.
- */
 @Entity(
     tableName = "user_achievements",
     foreignKeys = {
@@ -30,7 +26,7 @@ public class UserAchievementEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private String id; // UUID
+    private String id;
 
     @ColumnInfo(name = "user_id")
     private String userId;
@@ -41,15 +37,12 @@ public class UserAchievementEntity {
     @ColumnInfo(name = "is_unlocked")
     private boolean isUnlocked;
 
-    /** Unlocked timestamp in epoch millis; 0 if not yet unlocked */
     @ColumnInfo(name = "unlocked_at")
     private long unlockedAt;
 
-    /** Current progress toward targetValue (0 … targetValue) */
     @ColumnInfo(name = "current_progress")
     private int currentProgress;
 
-    /** Whether XP/Ink reward has already been credited */
     @ColumnInfo(name = "reward_claimed")
     private boolean rewardClaimed;
 
@@ -58,25 +51,23 @@ public class UserAchievementEntity {
 
     public UserAchievementEntity() {}
 
-    // ── Getters ───────────────────────────────────────────────────────────────
-
     public String  getId()              { return id; }
     public String  getUserId()          { return userId; }
     public String  getAchievementId()   { return achievementId; }
     public boolean isUnlocked()         { return isUnlocked; }
     public long    getUnlockedAt()      { return unlockedAt; }
     public int     getCurrentProgress() { return currentProgress; }
+    public int     getProgress()        { return currentProgress; }
     public boolean isRewardClaimed()    { return rewardClaimed; }
     public boolean isNeedsSync()        { return needsSync; }
 
-    // ── Setters ───────────────────────────────────────────────────────────────
-
-    public void setId(String id)                       { this.id = id; }
-    public void setUserId(String userId)               { this.userId = userId; }
-    public void setAchievementId(String achievementId) { this.achievementId = achievementId; }
-    public void setIsUnlocked(boolean isUnlocked)      { this.isUnlocked = isUnlocked; }
-    public void setUnlockedAt(long unlockedAt)          { this.unlockedAt = unlockedAt; }
-    public void setCurrentProgress(int currentProgress) { this.currentProgress = currentProgress; }
-    public void setRewardClaimed(boolean rewardClaimed) { this.rewardClaimed = rewardClaimed; }
-    public void setNeedsSync(boolean needsSync)         { this.needsSync = needsSync; }
+    public void setId(String id)                           { this.id = id; }
+    public void setUserId(String userId)                   { this.userId = userId; }
+    public void setAchievementId(String achievementId)     { this.achievementId = achievementId; }
+    public void setIsUnlocked(boolean isUnlocked)          { this.isUnlocked = isUnlocked; }
+    public void setUnlockedAt(long unlockedAt)             { this.unlockedAt = unlockedAt; }
+    public void setCurrentProgress(int currentProgress)    { this.currentProgress = currentProgress; }
+    public void setProgress(int progress)                  { this.currentProgress = progress; }
+    public void setRewardClaimed(boolean rewardClaimed)    { this.rewardClaimed = rewardClaimed; }
+    public void setNeedsSync(boolean needsSync)            { this.needsSync = needsSync; }
 }

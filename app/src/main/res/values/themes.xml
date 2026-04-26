@@ -119,6 +119,20 @@
 
 
     <!-- ════════════════════════════════════════════════════════════════
+         Onboarding Theme — White background, light status bar
+         ════════════════════════════════════════════════════════════════ -->
+    <style name="Theme.NovelVerse.Onboarding" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <!-- ════════════════════════════════════════════════════════════════
          Bottom Sheet — Glassmorphism
          The drawable provides the semi-transparent frosted container.
          System blur (API 31+) must be enabled in your Fragment:

@@ -8,6 +8,7 @@ import com.novelverse.app.data.local.dao.UserCurrencyDao;
 import com.novelverse.app.data.local.dao.UserLevelDao;
 import com.novelverse.app.data.local.dao.UserStreakDao;
 import com.novelverse.app.data.local.database.NovelVerseDatabase;
+import com.novelverse.app.data.local.preferences.UserPreferences;
 import com.novelverse.app.data.remote.supabase.SupabaseDatabaseService;
 import com.novelverse.app.data.repository.GamificationRepository;
 import com.novelverse.app.domain.gamification.AchievementEngine;
@@ -71,11 +72,12 @@ public class GamificationModule {
             UserLevelDao userLevelDao,
             UserStreakDao userStreakDao,
             DailyCapDao dailyCapDao,
-            SupabaseDatabaseService supabase) {
+            SupabaseDatabaseService supabase,
+            UserPreferences userPreferences) {              
         return new GamificationRepository(
             achievementDao, userAchievementDao, userCurrencyDao,
             tokenTransactionDao, userLevelDao, userStreakDao, dailyCapDao,
-            supabase
+            supabase, userPreferences                       
         );
     }
 

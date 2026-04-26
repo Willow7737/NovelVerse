@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="48dp">
+
+    <ImageView
+        android:id="@+id/slide_image"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/onboarding_illustration" />
+
+    <!--
+        FIX: lineSpacingMultiplier changed from 0.01 to 1.0.
+        The old value (0.01) crushed line height to 1% of normal, causing
+        text to overlap within this view on multi-line headlines.
+    -->
+    <TextView
+        android:id="@+id/slide_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:letterSpacing="0.01"
+        android:lineSpacingMultiplier="1.0"
+        android:maxLines="5"
+        android:ellipsize="end"
+        android:textColor="@color/text_primary"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/slide_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.4"
+        android:maxLines="9"
+        android:ellipsize="end"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp" />
+
+</LinearLayout>
