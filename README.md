@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663546129863/YdlBhTGLTDrjBLoW.jpg" alt="NovelVerse Banner" width="100%">
+</p>
+
 # <p align="center">📖 NovelVerse Android App</p>
 
 <p align="center">
