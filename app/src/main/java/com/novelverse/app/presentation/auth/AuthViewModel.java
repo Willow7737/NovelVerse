@@ -210,6 +210,15 @@ public class AuthViewModel extends ViewModel {
     }
 
     /**
+     * Generic file upload to any Supabase Storage bucket.
+     * Used for cover photos (bucket = "cover-photos", path = "{uid}/cover.jpg").
+     */
+    public void uploadFile(String bucket, String path, byte[] bytes, String mimeType,
+                           com.novelverse.app.domain.utils.BiCallback<String> cb) {
+        userRepository.uploadFile(bucket, path, bytes, mimeType, cb);
+    }
+
+    /**
      * Add points to the current user's balance.
      */
     public void addPoints(int amount, String reason, UserRepository.SimpleCallback callback) {

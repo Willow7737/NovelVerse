@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Dedicated scrim that fades as user drags — decoupled from the image view -->
+    <View
+        android:id="@+id/scrim_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="1.0" />
+
+    <!-- The actual image — dragged during swipe-to-dismiss -->
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:contentDescription="Full screen image" />
+
+    <!-- Close button — top start -->
+    <FrameLayout
+        android:id="@+id/btn_close"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/bg_cover_edit_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="8dp">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_close"
+            android:tint="#FFFFFF"
+            android:contentDescription="Close" />
+    </FrameLayout>
+
+</FrameLayout>

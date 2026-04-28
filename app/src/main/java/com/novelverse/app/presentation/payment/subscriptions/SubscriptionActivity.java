@@ -1,27 +1,32 @@
 package com.novelverse.app.presentation.payment.subscriptions;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.novelverse.app.ui.banner.BannerHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.Purchase;
 import com.novelverse.app.R;
 import com.novelverse.app.billing.BillingManager;
 import com.novelverse.app.presentation.auth.AuthViewModel;
+import com.novelverse.app.ui.banner.BannerHelper;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -30,6 +35,13 @@ public class SubscriptionActivity extends AppCompatActivity {
     @Inject BillingManager billingManager;
 
     private AuthViewModel authViewModel;
+
+    private TextView tabMonthly;
+    private TextView tabAnnual;
+    private View indicatorView;
+    private LinearLayout plansContainer;
+
+    private boolean isAnnual = false;
 
     private static final String[] BENEFITS = {
         "Ad-free reading experience",
@@ -40,6 +52,16 @@ public class SubscriptionActivity extends AppCompatActivity {
         "Priority customer support",
     };
 
+    private final List<PlanData> monthlyPlans = Arrays.asList(
+        new PlanData("Premium", "$9.99/mo", "#6366F1", ""),
+        new PlanData("VIP", "$18.99/mo", "#F59E0B", "")
+    );
+
+    private final List<PlanData> annualPlans = Arrays.asList(
+        new PlanData("Premium", "$6.99/mo", "#6366F1", "Most Popular"),
+        new PlanData("VIP", "$12.99/mo", "#F59E0B", "Best Value")
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,92 +69,123 @@ public class SubscriptionActivity extends AppCompatActivity {
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
+        initViews();
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+        setupTabSwitcher();
         buildBenefits();
-        buildPlans(false);
-
-        findViewById(R.id.tab_monthly).setOnClickListener(v -> buildPlans(false));
-        findViewById(R.id.tab_annual).setOnClickListener(v  -> buildPlans(true));
+        showPlans(false);
     }
 
-    private void buildPlans(boolean annual) {
-        LinearLayout container = findViewById(R.id.plans_container);
-        container.removeAllViews();
+    private void initViews() {
+        tabMonthly = findViewById(R.id.tab_monthly);
+        tabAnnual = findViewById(R.id.tab_annual);
+        indicatorView = findViewById(R.id.tab_indicator);
+        plansContainer = findViewById(R.id.plans_container);
+    }
 
-        String[][] plans = annual
-                ? new String[][]{{"Premium", "$6.99/mo", "#6366F1", "Most Popular"}, {"VIP", "$12.99/mo", "#F59E0B", "Best Value"}}
-                : new String[][]{{"Premium", "$9.99/mo", "#6366F1", ""}, {"VIP", "$18.99/mo", "#F59E0B", ""}};
+    private void setupTabSwitcher() {
+        tabMonthly.setOnClickListener(v -> {
+            if (!isAnnual) return;
+            isAnnual = false;
+            animateTabSwitch(tabMonthly, tabAnnual);
+            animatePlansChange(false);
+        });
 
-        for (String[] plan : plans) {
-            addPlanCard(container, plan[0], plan[1], plan[2], plan[3]);
+        tabAnnual.setOnClickListener(v -> {
+            if (isAnnual) return;
+            isAnnual = true;
+            animateTabSwitch(tabAnnual, tabMonthly);
+            animatePlansChange(true);
+        });
+    }
+
+    private void animateTabSwitch(TextView selected, TextView unselected) {
+        float targetX = selected.getX();
+        ObjectAnimator indicatorAnim = ObjectAnimator.ofFloat(indicatorView, "x", targetX);
+        indicatorAnim.setDuration(300);
+        indicatorAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+        indicatorAnim.start();
+
+        selected.setTextColor(Color.WHITE);
+        selected.setTypeface(null, Typeface.BOLD);
+        unselected.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+        unselected.setTypeface(null, Typeface.NORMAL);
+
+        selected.animate()
+            .scaleX(1.05f)
+            .scaleY(1.05f)
+            .setDuration(200)
+            .start();
+
+        unselected.animate()
+            .scaleX(1.0f)
+            .scaleY(1.0f)
+            .setDuration(200)
+            .start();
+    }
+
+    private void animatePlansChange(boolean annual) {
+        plansContainer.animate()
+            .alpha(0f)
+            .translationY(-30)
+            .setDuration(200)
+            .withEndAction(() -> {
+                showPlans(annual);
+                plansContainer.setAlpha(0f);
+                plansContainer.setTranslationY(30);
+                plansContainer.animate()
+                    .alpha(1f)
+                    .translationY(0)
+                    .setDuration(300)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .start();
+            })
+            .start();
+    }
+
+    private void showPlans(boolean annual) {
+        plansContainer.removeAllViews();
+        List<PlanData> plans = annual ? annualPlans : monthlyPlans;
+
+        for (int i = 0; i < plans.size(); i++) {
+            PlanData plan = plans.get(i);
+            View planView = getLayoutInflater().inflate(R.layout.item_subscription_plan, plansContainer, false);
+
+            TextView name = planView.findViewById(R.id.tv_plan_name);
+            TextView price = planView.findViewById(R.id.tv_plan_price);
+            TextView badge = planView.findViewById(R.id.tv_badge);
+            View card = planView.findViewById(R.id.plan_card);
+            TextView btnSubscribe = planView.findViewById(R.id.btn_subscribe);
+
+            name.setText(plan.name);
+            price.setText(plan.price);
+            badge.setText(plan.badge);
+            badge.setVisibility(plan.badge.isEmpty() ? View.GONE : View.VISIBLE);
+
+            int color = Color.parseColor(plan.colorHex);
+            ((GradientDrawable) card.getBackground()).setStroke(dp(2), color);
+            name.setTextColor(color);
+            ((GradientDrawable) btnSubscribe.getBackground()).setColor(color);
+            ((GradientDrawable) badge.getBackground()).setColor(color);
+
+            btnSubscribe.setOnClickListener(v -> launchSubscription(plan.name.toLowerCase()));
+
+            planView.setAlpha(0f);
+            planView.setTranslationY(50);
+            plansContainer.addView(planView);
+
+            planView.animate()
+                .alpha(1f)
+                .translationY(0)
+                .setDuration(400)
+                .setStartDelay(i * 100)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .start();
         }
     }
 
-    private void addPlanCard(LinearLayout container, String name, String price, String hex, String badge) {
-        LinearLayout card = new LinearLayout(this);
-        card.setOrientation(LinearLayout.HORIZONTAL);
-        card.setGravity(Gravity.CENTER_VERTICAL);
-        card.setPadding(dp(16), dp(16), dp(16), dp(16));
-        GradientDrawable bg = new GradientDrawable();
-        bg.setColor(Color.WHITE);
-        bg.setCornerRadius(dp(16));
-        bg.setStroke(dp(2), Color.parseColor(hex));
-        card.setBackground(bg);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.bottomMargin = dp(10);
-        card.setLayoutParams(lp);
-
-        LinearLayout info = new LinearLayout(this);
-        info.setOrientation(LinearLayout.VERTICAL);
-        info.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
-        TextView tvName = new TextView(this);
-        tvName.setText(name);
-        tvName.setTextColor(Color.parseColor(hex));
-        tvName.setTextSize(18f);
-        tvName.setTypeface(tvName.getTypeface(), Typeface.BOLD);
-        info.addView(tvName);
-        TextView tvPrice = new TextView(this);
-        tvPrice.setText(price);
-        tvPrice.setTextColor(resolveAttrColor(android.R.attr.textColorSecondary));
-        tvPrice.setTextSize(14f);
-        info.addView(tvPrice);
-        if (!badge.isEmpty()) {
-            TextView tvBadge = new TextView(this);
-            tvBadge.setText(badge);
-            tvBadge.setTextColor(Color.WHITE);
-            tvBadge.setTextSize(11f);
-            tvBadge.setPadding(dp(8), dp(3), dp(8), dp(3));
-            GradientDrawable bb = new GradientDrawable();
-            bb.setColor(Color.parseColor(hex));
-            bb.setCornerRadius(dp(100));
-            tvBadge.setBackground(bb);
-            LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            blp.topMargin = dp(4);
-            tvBadge.setLayoutParams(blp);
-            info.addView(tvBadge);
-        }
-        card.addView(info);
-
-        TextView btn = new TextView(this);
-        btn.setText("Subscribe");
-        btn.setTextColor(Color.WHITE);
-        btn.setTextSize(14f);
-        btn.setTypeface(btn.getTypeface(), Typeface.BOLD);
-        btn.setGravity(Gravity.CENTER);
-        btn.setPadding(dp(16), dp(10), dp(16), dp(10));
-        GradientDrawable btnBg = new GradientDrawable();
-        btnBg.setColor(Color.parseColor(hex));
-        btnBg.setCornerRadius(dp(100));
-        btn.setBackground(btnBg);
-        btn.setOnClickListener(v -> launchSubscription(name.toLowerCase().equals("vip")
-                ? "subs_vip" : "subs_monthly"));
-        card.addView(btn);
-        container.addView(card);
-    }
-
-    private void launchSubscription(String productId) {
+    private void launchSubscription(String planName) {
+        String productId = planName.equals("vip") ? "subs_vip" : "subs_monthly";
         ProductDetails details = billingManager.getProductDetails(productId);
         if (details == null) {
             BannerHelper.warning(this, "Billing not ready", "Please wait a moment and try again.");
@@ -141,8 +194,8 @@ public class SubscriptionActivity extends AppCompatActivity {
         billingManager.setBillingListener(new BillingManager.BillingListener() {
             @Override public void onProductsLoaded(List<ProductDetails> list) {}
             @Override public void onPurchaseCancelled() {}
-            @Override public void onPurchaseConsumed(com.android.billingclient.api.Purchase p) {}
-            @Override public void onPurchaseSuccess(com.android.billingclient.api.Purchase purchase) {
+            @Override public void onPurchaseConsumed(Purchase p) {}
+            @Override public void onPurchaseSuccess(Purchase purchase) {
                 runOnUiThread(() -> {
                     BannerHelper.success(SubscriptionActivity.this,
                             "Subscribed!", "Welcome to Premium. Enjoy your benefits!");
@@ -160,35 +213,30 @@ public class SubscriptionActivity extends AppCompatActivity {
 
     private void buildBenefits() {
         LinearLayout container = findViewById(R.id.benefits_container);
+        container.removeAllViews();
         for (String benefit : BENEFITS) {
-            LinearLayout row = new LinearLayout(this);
-            row.setOrientation(LinearLayout.HORIZONTAL);
-            row.setGravity(Gravity.CENTER_VERTICAL);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.bottomMargin = dp(10);
-            row.setLayoutParams(lp);
-            ImageView check = new ImageView(this);
-            check.setImageResource(R.drawable.ic_check);
-            check.setColorFilter(Color.parseColor("#6366F1"));
-            LinearLayout.LayoutParams ilp = new LinearLayout.LayoutParams(dp(20), dp(20));
-            ilp.rightMargin = dp(12);
-            check.setLayoutParams(ilp);
-            row.addView(check);
-            TextView tv = new TextView(this);
+            View benefitView = getLayoutInflater().inflate(R.layout.item_benefit, container, false);
+            TextView tv = benefitView.findViewById(R.id.tv_benefit);
             tv.setText(benefit);
-            tv.setTextColor(resolveAttrColor(android.R.attr.textColorPrimary));
-            tv.setTextSize(15f);
-            row.addView(tv);
-            container.addView(row);
+            container.addView(benefitView);
         }
     }
 
-    private int dp(int v) { return Math.round(v * getResources().getDisplayMetrics().density); }
-    private int resolveAttrColor(int attr) {
-        android.util.TypedValue tv = new android.util.TypedValue();
-        getTheme().resolveAttribute(attr, tv, true);
-        return tv.data;
+    private int dp(int v) {
+        return Math.round(v * getResources().getDisplayMetrics().density);
     }
 
+    private static class PlanData {
+        String name;
+        String price;
+        String colorHex;
+        String badge;
+
+        PlanData(String name, String price, String colorHex, String badge) {
+            this.name = name;
+            this.price = price;
+            this.colorHex = colorHex;
+            this.badge = badge;
+        }
+    }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/benefit_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="10dp">
+
+    <ImageView
+        android:id="@+id/ic_check"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_check"
+        android:tint="#6366F1"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="Check" />
+
+    <TextView
+        android:id="@+id/tv_benefit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="?android:attr/textColorPrimary"
+        android:text="Benefit description" />
+
+</LinearLayout>

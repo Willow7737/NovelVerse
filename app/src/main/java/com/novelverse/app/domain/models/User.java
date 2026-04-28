@@ -40,6 +40,10 @@ public class User {
     private int followersCount;
     private int followingCount;
 
+    // Profile redesign fields
+    private String coverUrl;      // Full-width banner/cover photo URL (nullable)
+    private String userStatus;    // "online" | "away" | "offline" — stored for quick read; derived from last_active_at
+
     // Constructor
     public User() {
         this.pointsBalance = 0;
@@ -156,6 +160,15 @@ public class User {
 
     public int getFollowingCount() { return followingCount; }
     public void setFollowingCount(int followingCount) { this.followingCount = followingCount; }
+
+    // ── Profile redesign: cover photo + status ──────────────────────────────
+
+    public String getCoverUrl() { return coverUrl; }
+    public void setCoverUrl(String coverUrl) { this.coverUrl = coverUrl; }
+
+    /** Persisted status string: "online", "away", or "offline". */
+    public String getUserStatus() { return userStatus; }
+    public void setUserStatus(String userStatus) { this.userStatus = userStatus; }
 
     /**
      * Check if user is a guest

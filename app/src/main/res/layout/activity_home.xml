@@ -13,6 +13,7 @@
          app:liftOnScroll="false"
          app:elevation="0dp"
          android:stateListAnimator="@null"
+         android:fitsSystemWindows="true"
          android:id="@+id/app_bar">
 
         <androidx.appcompat.widget.Toolbar
@@ -128,7 +129,6 @@
     <FrameLayout
          android:layout_height="match_parent"
          android:layout_width="match_parent"
-         app:layout_behavior="@string/appbar_scrolling_view_behavior"
          android:background="@android:color/transparent"
          android:paddingBottom="10dp"
          android:id="@+id/fragment_container">

@@ -39,7 +39,7 @@ import com.novelverse.app.data.local.entities.UserStreakEntity;
         TokenTransactionEntity.class, UserLevelEntity.class, UserStreakEntity.class,
         DailyCapEntity.class
     },
-    version = 4,
+    version = 5, // v5: added cover_url, user_status to users table (profile redesign)
     exportSchema = true
 )
 @TypeConverters({Converters.class})

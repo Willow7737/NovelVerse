@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,6 +65,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (checkCrashAndRedirect()) return;
         setContentView(R.layout.activity_home);
+        // Go edge-to-edge once here. AppBarLayout's own fitsSystemWindows="true"
+        // handles status-bar inset when visible; profile fills full-bleed when AppBar is GONE.
+        // Toggling this per-fragment (the old approach) caused double status-bar offset on
+        // non-profile fragments and timing-dependent gaps on profile.
+        androidx.core.view.WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
         handleDeepLink(getIntent());
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
@@ -235,6 +242,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void navigateToIndex(int index) {
         Fragment fragment;
+        boolean isProfile;
         switch (currentRole) {
             case "admin":
                 switch (index) {
@@ -244,6 +252,7 @@ public class HomeActivity extends AppCompatActivity {
                     case 4:  fragment = new ProfileFragment(); break;
                     default: fragment = new HomeFragment();    break;
                 }
+                isProfile = (index == 4);
                 break;
             case "author":
                 switch (index) {
@@ -252,6 +261,7 @@ public class HomeActivity extends AppCompatActivity {
                     case 3:  fragment = new ProfileFragment(); break;
                     default: fragment = new HomeFragment();    break;
                 }
+                isProfile = (index == 3);
                 break;
             default:
                 switch (index) {
@@ -259,13 +269,54 @@ public class HomeActivity extends AppCompatActivity {
                     case 2:  fragment = new ProfileFragment(); break;
                     default: fragment = new HomeFragment();    break;
                 }
+                isProfile = (index == 2);
                 break;
         }
+        // Hide the top toolbar when the Profile tab is active
+        setAppBarVisible(!isProfile);
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    /**
+     * Show / hide the header AppBarLayout.
+     *
+     * fragment_container has NO appbar_scrolling_view_behavior — it is always full-screen
+     * (top=0, behind the status bar). We push its content down manually by setting
+     * paddingTop = appBar.getHeight() for non-profile tabs, and 0 for profile so the
+     * cover photo bleeds into the status bar with zero timing dependency.
+     */
+    public void setAppBarVisible(boolean visible) {
+        com.google.android.material.appbar.AppBarLayout appBar = findViewById(R.id.app_bar);
+        FrameLayout fragmentContainer = findViewById(R.id.fragment_container);
+
+        if (visible) {
+            if (appBar != null) {
+                appBar.setVisibility(View.VISIBLE);
+                appBar.animate().alpha(1f).setDuration(180).start();
+                // Measure AppBar height after layout so paddingTop is exact
+                // (it includes statusBar inset because AppBar has fitsSystemWindows=true).
+                appBar.post(() -> {
+                    if (fragmentContainer != null && appBar.getHeight() > 0) {
+                        fragmentContainer.setPadding(
+                            0, appBar.getHeight(), 0, fragmentContainer.getPaddingBottom());
+                    }
+                });
+            }
+        } else {
+            // Zero out top padding immediately — no behavior, no timing race.
+            // Profile cover now starts at y=0, edge-to-edge behind the status bar.
+            if (fragmentContainer != null)
+                fragmentContainer.setPadding(0, 0, 0, fragmentContainer.getPaddingBottom());
+            if (appBar != null) {
+                appBar.animate().cancel();
+                appBar.setAlpha(1f);
+                appBar.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void showTab(int index) {

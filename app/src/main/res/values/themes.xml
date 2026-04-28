@@ -393,4 +393,16 @@
 
     <style name="BottomSheetStyle" parent="Widget.NovelVerse.BottomSheet" />
 
+
+    <!-- Full-screen image viewer: true black, no action bar, edge-to-edge -->
+    <style name="Theme.NovelVerse.ImageViewer" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">#FF000000</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
 </resources>

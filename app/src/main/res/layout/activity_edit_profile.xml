@@ -56,6 +56,43 @@
             android:orientation="vertical"
             android:paddingBottom="40dp">
 
+            <!-- Cover photo change -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <ImageView
+                    android:id="@+id/edit_cover_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_profile_banner"
+                    android:contentDescription="Cover photo" />
+
+                <!-- Camera button - bottom right -->
+                <FrameLayout
+                    android:id="@+id/btn_change_cover"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_cover_edit_btn"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_camera"
+                        android:tint="#FFFFFF"
+                        android:contentDescription="Change cover photo" />
+
+                </FrameLayout>
+
+            </FrameLayout>
+
             <!-- Avatar change -->
             <LinearLayout
                 android:layout_width="match_parent"

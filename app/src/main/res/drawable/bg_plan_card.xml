@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- bg_surface_card.xml — Light mode: pure white card, 24dp radius -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid android:color="@color/surface" />
-    <corners android:radius="24dp" />
+    <corners android:radius="16dp" />
+    <stroke
+        android:width="2dp"
+        android:color="#6366F1" />
 </shape>

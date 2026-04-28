@@ -61,9 +61,11 @@
                  android:text="0 pts" />
 
         </LinearLayout>
-    <!-- Bluesky hairline divider -->
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
 
+        <View
+             android:layout_height="1dp"
+             android:layout_width="match_parent"
+             android:background="@color/divider" />
 
     </LinearLayout>
 

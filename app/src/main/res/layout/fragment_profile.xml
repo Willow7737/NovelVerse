@@ -1,55 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
      xmlns:android="http://schemas.android.com/apk/res/android"
-     android:id="@+id/profile_scroll"
      android:layout_height="match_parent"
      android:layout_width="match_parent"
-     android:background="@android:color/transparent"
-     android:fillViewport="true">
+     android:background="@color/background"
+     android:fillViewport="true"
+     android:fitsSystemWindows="false"
+     android:id="@+id/profile_scroll"
+     android:overScrollMode="never">
 
     <LinearLayout
          android:layout_height="wrap_content"
          android:layout_width="match_parent"
          android:orientation="vertical"
-         android:paddingBottom="48dp"
-         android:paddingTop="16dp">
+         android:paddingBottom="80dp"
+         android:paddingTop="0dp">
 
-        <LinearLayout
+        <FrameLayout
              android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:background="@drawable/bg_surface_card"
-             android:layout_marginHorizontal="14dp"
-             android:orientation="vertical"
-             android:clipToOutline="true">
+             android:layout_width="match_parent">
 
-            <View
-                 android:layout_height="88dp"
+            <FrameLayout
+                 android:layout_height="130dp"
                  android:layout_width="match_parent"
-                 android:background="@drawable/bg_profile_banner" />
+                 android:clickable="true"
+                 android:focusable="true"
+                 android:id="@+id/banner_container">
 
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:gravity="center_vertical"
-                 android:orientation="horizontal"
-                 android:layout_marginTop="-32dp"
-                 android:paddingHorizontal="16dp">
+                <View
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:background="@drawable/bg_profile_banner"
+                     android:id="@+id/banner_gradient" />
+
+                <ImageView
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:visibility="gone"
+                     android:scaleType="centerCrop"
+                     android:contentDescription="Cover photo"
+                     android:id="@+id/cover_image" />
+
+                <View
+                     android:layout_height="80dp"
+                     android:layout_width="match_parent"
+                     android:background="@drawable/bg_cover_scrim"
+                     android:layout_gravity="bottom" />
 
                 <FrameLayout
-                     android:layout_height="72dp"
-                     android:layout_width="72dp"
-                     android:background="@drawable/bg_avatar_ring"
+                     android:layout_height="34dp"
+                     android:layout_width="34dp"
+                     android:background="@drawable/bg_cover_edit_btn"
                      android:clickable="true"
-                     android:elevation="2dp"
-                     android:padding="3dp"
-                     android:focusable="true">
+                     android:elevation="4dp"
+                     android:layout_margin="12dp"
+                     android:focusable="true"
+                     android:id="@+id/btn_edit_cover"
+                     android:layout_gravity="bottom|end">
+
+                    <ImageView
+                         android:layout_height="16dp"
+                         android:layout_width="16dp"
+                         android:src="@drawable/ic_camera"
+                         android:contentDescription="Edit cover"
+                         android:tint="#FFFFFF"
+                         android:layout_gravity="center" />
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                 android:layout_height="88dp"
+                 android:layout_width="88dp"
+                 android:elevation="6dp"
+                 android:layout_marginTop="86dp"
+                 android:layout_marginStart="20dp"
+                 android:id="@+id/avatar_frame">
+
+                <FrameLayout
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:background="@drawable/bg_avatar_ring"
+                     android:padding="3dp">
 
                     <ImageView
                          android:layout_height="match_parent"
                          android:layout_width="match_parent"
                          android:visibility="gone"
                          android:scaleType="centerCrop"
-                         android:contentDescription="Profile avatar"
+                         android:contentDescription="Avatar"
+                         android:background="@drawable/bg_avatar_circle"
                          android:id="@+id/avatar_image" />
 
                     <TextView
@@ -57,261 +98,187 @@
                          android:layout_width="match_parent"
                          android:gravity="center"
                          android:background="@drawable/bg_avatar_circle"
-                         android:textSize="28sp"
+                         android:textSize="30sp"
                          android:fontFamily="@font/inter_semibold"
                          android:textColor="?attr/colorSurface"
                          android:id="@+id/avatar_initials" />
 
                 </FrameLayout>
 
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:orientation="vertical"
-                     android:layout_marginTop="34dp"
-                     android:layout_marginStart="12dp"
-                     android:layout_weight="1">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:ellipsize="end"
-                         android:textSize="20sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:maxLines="1"
-                         android:id="@+id/display_name_text"
-                         android:text="—" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="16sp"
-                         android:fontFamily="@font/inter_regular"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="1dp"
-                         android:id="@+id/username_text" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="match_parent"
-                         android:visibility="gone"
-                         android:ellipsize="end"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_regular"
-                         android:textColor="?attr/colorOnSurface"
-                         android:layout_marginTop="4dp"
-                         android:lineSpacingMultiplier="1.3"
-                         android:maxLines="2"
-                         android:id="@+id/bio_text" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:clickable="true"
-                         android:textSize="14sp"
-                         android:fontFamily="@font/inter_regular"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="2dp"
-                         android:focusable="true"
-                         android:id="@+id/email_text" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:layout_marginHorizontal="8dp"
-                 android:orientation="horizontal"
-                 android:layout_marginTop="20dp">
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:orientation="vertical"
-                     android:layout_weight="1">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="24sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:id="@+id/stat_books_read"
-                         android:text="0" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="1dp"
-                         android:text="Books" />
-
-                </LinearLayout>
-
-                <View
-                     android:layout_height="28dp"
-                     android:layout_width="1dp"
-                     android:background="@color/divider"
-                     android:layout_gravity="center_vertical" />
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:orientation="vertical"
-                     android:layout_weight="1">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="24sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:id="@+id/stat_followers"
-                         android:text="0" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="1dp"
-                         android:text="Followers" />
-
-                </LinearLayout>
-
-                <View
-                     android:layout_height="28dp"
-                     android:layout_width="1dp"
-                     android:background="@color/divider"
-                     android:layout_gravity="center_vertical" />
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:orientation="vertical"
-                     android:layout_weight="1">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="24sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:id="@+id/stat_following"
-                         android:text="0" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="1dp"
-                         android:text="Following" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:layout_marginBottom="18dp"
-                 android:gravity="center_vertical"
-                 android:layout_marginHorizontal="14dp"
-                 android:orientation="horizontal"
-                 android:layout_marginTop="14dp">
-
-                <TextView
-                     android:layout_height="34dp"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:background="@drawable/bg_btn_surface"
-                     android:clickable="true"
-                     android:textSize="15sp"
-                     android:fontFamily="@font/inter_semibold"
-                     android:textColor="?attr/colorOnSurface"
-                     android:layout_weight="1"
-                     android:focusable="true"
-                     android:id="@+id/btn_edit_profile"
-                     android:text="Edit Profile" />
-
-                <View
-                     android:layout_height="1dp"
-                     android:layout_width="7dp" />
-
-                <LinearLayout
-                     android:layout_height="34dp"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:background="@drawable/bg_role_badge"
-                     android:clickable="true"
-                     android:orientation="horizontal"
-                     android:layout_weight="1"
-                     android:focusable="true"
-                     android:id="@+id/points_container">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="16sp"
-                         android:textColor="@color/points"
-                         android:text="★ " />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/points"
-                         android:id="@+id/points_text"
-                         android:text="0 pts" />
-
-                </LinearLayout>
-
-                <View
-                     android:layout_height="1dp"
-                     android:layout_width="7dp" />
-
-                <LinearLayout
-                     android:layout_height="34dp"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:background="@drawable/bg_btn_surface"
-                     android:orientation="horizontal"
-                     android:layout_weight="1">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorPrimary"
-                         android:id="@+id/role_badge"
-                         android:text="Reader" />
+                <FrameLayout
+                     android:layout_height="22dp"
+                     android:layout_width="22dp"
+                     android:layout_marginBottom="3dp"
+                     android:layout_marginEnd="3dp"
+                     android:background="@drawable/bg_status_ring"
+                     android:elevation="7dp"
+                     android:padding="3dp"
+                     android:id="@+id/status_bubble_ring"
+                     android:layout_gravity="bottom|end">
 
                     <View
-                         android:layout_height="11dp"
-                         android:layout_width="1dp"
-                         android:background="@color/divider"
-                         android:layout_marginHorizontal="6dp" />
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"
+                         android:background="@drawable/bg_status_offline"
+                         android:id="@+id/status_bubble_dot" />
 
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/warning"
-                         android:id="@+id/subscription_badge"
-                         android:text="Free" />
+                </FrameLayout>
 
-                </LinearLayout>
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="vertical"
+             android:paddingHorizontal="20dp"
+             android:paddingTop="10dp">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:ellipsize="end"
+                 android:textSize="22sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="?attr/colorOnSurface"
+                 android:maxLines="1"
+                 android:id="@+id/display_name_text"
+                 android:text="—" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="?attr/colorOnSurfaceVariant"
+                 android:layout_marginTop="2dp"
+                 android:id="@+id/username_text" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:visibility="gone"
+                 android:ellipsize="end"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="?attr/colorOnSurfaceVariant"
+                 android:layout_marginTop="6dp"
+                 android:lineSpacingMultiplier="1.35"
+                 android:maxLines="3"
+                 android:id="@+id/bio_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:orientation="horizontal"
+             android:layout_marginTop="16dp"
+             android:paddingHorizontal="10dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="0dp"
+                 android:gravity="center"
+                 android:clickable="true"
+                 android:paddingVertical="8dp"
+                 android:orientation="vertical"
+                 android:layout_weight="1"
+                 android:focusable="true"
+                 android:id="@+id/stat_books_container">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:id="@+id/stat_books_read"
+                     android:text="0" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="12sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="?attr/colorOnSurfaceVariant"
+                     android:layout_marginTop="1dp"
+                     android:text="Books" />
+
+            </LinearLayout>
+
+            <View
+                 android:layout_height="28dp"
+                 android:layout_width="1dp"
+                 android:background="@color/divider"
+                 android:layout_gravity="center_vertical" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="0dp"
+                 android:gravity="center"
+                 android:clickable="true"
+                 android:paddingVertical="8dp"
+                 android:orientation="vertical"
+                 android:layout_weight="1"
+                 android:focusable="true"
+                 android:id="@+id/stat_followers_container">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:id="@+id/stat_followers"
+                     android:text="0" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="12sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="?attr/colorOnSurfaceVariant"
+                     android:layout_marginTop="1dp"
+                     android:text="Followers" />
+
+            </LinearLayout>
+
+            <View
+                 android:layout_height="28dp"
+                 android:layout_width="1dp"
+                 android:background="@color/divider"
+                 android:layout_gravity="center_vertical" />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="0dp"
+                 android:gravity="center"
+                 android:clickable="true"
+                 android:paddingVertical="8dp"
+                 android:orientation="vertical"
+                 android:layout_weight="1"
+                 android:focusable="true"
+                 android:id="@+id/stat_following_container">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:id="@+id/stat_following"
+                     android:text="0" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="12sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="?attr/colorOnSurfaceVariant"
+                     android:layout_marginTop="1dp"
+                     android:text="Following" />
 
             </LinearLayout>
 
@@ -320,11 +287,113 @@
         <LinearLayout
              android:layout_height="wrap_content"
              android:layout_width="match_parent"
+             android:gravity="center_vertical"
+             android:layout_marginHorizontal="16dp"
+             android:orientation="horizontal"
+             android:layout_marginTop="14dp">
+
+            <TextView
+                 android:layout_height="40dp"
+                 android:layout_width="0dp"
+                 android:gravity="center"
+                 android:background="@drawable/bg_btn_surface"
+                 android:clickable="true"
+                 android:textSize="14sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="?attr/colorOnSurface"
+                 android:layout_weight="1"
+                 android:focusable="true"
+                 android:id="@+id/btn_edit_profile"
+                 android:text="Edit Profile" />
+
+            <View
+                 android:layout_height="1dp"
+                 android:layout_width="8dp" />
+
+            <LinearLayout
+                 android:layout_height="40dp"
+                 android:layout_width="0dp"
+                 android:gravity="center"
+                 android:background="@drawable/bg_role_badge"
+                 android:clickable="true"
+                 android:orientation="horizontal"
+                 android:layout_weight="1"
+                 android:focusable="true"
+                 android:id="@+id/points_container">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="14sp"
+                     android:textColor="@color/points"
+                     android:text="★ " />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="13sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="@color/points"
+                     android:id="@+id/points_text"
+                     android:text="0 pts" />
+
+            </LinearLayout>
+
+            <View
+                 android:layout_height="1dp"
+                 android:layout_width="8dp" />
+
+            <LinearLayout
+                 android:layout_height="40dp"
+                 android:layout_width="0dp"
+                 android:gravity="center"
+                 android:background="@drawable/bg_btn_surface"
+                 android:orientation="horizontal"
+                 android:layout_weight="1">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="13sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorPrimary"
+                     android:id="@+id/role_badge"
+                     android:text="Reader" />
+
+                <View
+                     android:layout_height="11dp"
+                     android:layout_width="1dp"
+                     android:background="@color/divider"
+                     android:layout_marginHorizontal="6dp" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textSize="13sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="@color/warning"
+                     android:id="@+id/subscription_badge"
+                     android:text="Free" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+             android:layout_height="1dp"
+             android:layout_width="match_parent"
+             android:background="@color/divider"
+             android:alpha="0.5"
+             android:layout_marginTop="18dp" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
              android:background="@drawable/bg_surface_card"
              android:layout_marginHorizontal="14dp"
-             android:padding="16dp"
+             android:padding="18dp"
              android:orientation="vertical"
-             android:layout_marginTop="10dp">
+             android:layout_marginTop="14dp">
 
             <LinearLayout
                  android:layout_height="wrap_content"
@@ -333,8 +402,8 @@
                  android:orientation="horizontal">
 
                 <ImageView
-                     android:layout_height="44dp"
-                     android:layout_width="44dp"
+                     android:layout_height="56dp"
+                     android:layout_width="56dp"
                      android:scaleType="fitCenter"
                      android:contentDescription="Level badge"
                      android:id="@+id/level_badge_image" />
@@ -343,13 +412,13 @@
                      android:layout_height="wrap_content"
                      android:layout_width="0dp"
                      android:orientation="vertical"
-                     android:layout_marginStart="10dp"
+                     android:layout_marginStart="14dp"
                      android:layout_weight="1">
 
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:textSize="16sp"
+                         android:textSize="15sp"
                          android:fontFamily="@font/inter_semibold"
                          android:textColor="?attr/colorPrimary"
                          android:id="@+id/level_name_text"
@@ -358,59 +427,69 @@
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:textColor="@color/text_tertiary"
-                         android:layout_marginTop="1dp"
+                         android:textSize="12sp"
+                         android:textColor="?attr/colorOnSurfaceVariant"
+                         android:layout_marginTop="2dp"
                          android:id="@+id/level_progress_text"
                          android:text="0 / 100 XP" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:visibility="gone"
+                     android:gravity="center_vertical"
+                     android:background="@drawable/bg_stat_card"
+                     android:paddingVertical="6dp"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="10dp"
+                     android:id="@+id/streak_row">
+
+                    <ImageView
+                         android:layout_height="16dp"
+                         android:layout_width="16dp"
+                         android:src="@drawable/ic_streak_flame"
+                         android:contentDescription="Streak" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/warning"
+                         android:layout_marginStart="4dp"
+                         android:id="@+id/streak_count_text" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:textColor="?attr/colorOnSurfaceVariant"
+                         android:layout_marginStart="2dp"
+                         android:text="d" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="8dp"
+                 android:layout_width="match_parent"
+                 android:orientation="horizontal"
+                 android:layout_marginTop="14dp"
+                 android:id="@+id/xp_segments_container">
 
             </LinearLayout>
 
             <ProgressBar
                  android:layout_height="5dp"
                  android:layout_width="match_parent"
+                 android:visibility="gone"
                  android:max="100"
                  style="@android:style/Widget.ProgressBar.Horizontal"
-                 android:layout_marginTop="8dp"
                  android:progress="0"
                  android:id="@+id/level_progress_bar" />
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:visibility="gone"
-                 android:gravity="center_vertical"
-                 android:orientation="horizontal"
-                 android:layout_marginTop="10dp"
-                 android:id="@+id/streak_row">
-
-                <ImageView
-                     android:layout_height="17dp"
-                     android:layout_width="17dp"
-                     android:src="@drawable/ic_streak_flame"
-                     android:contentDescription="Streak" />
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="16sp"
-                     android:fontFamily="@font/inter_semibold"
-                     android:textColor="@color/warning"
-                     android:layout_marginStart="4dp"
-                     android:id="@+id/streak_count_text" />
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="16sp"
-                     android:fontFamily="@font/inter_regular"
-                     android:textColor="?attr/colorOnSurfaceVariant"
-                     android:layout_marginStart="3dp"
-                     android:text="day streak" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -420,7 +499,7 @@
              android:background="@drawable/bg_surface_card"
              android:clickable="true"
              android:layout_marginHorizontal="14dp"
-             android:padding="16dp"
+             android:padding="18dp"
              android:orientation="vertical"
              android:layout_marginTop="10dp"
              android:focusable="true"
@@ -438,32 +517,31 @@
                      android:textSize="16sp"
                      android:fontFamily="@font/inter_semibold"
                      android:textColor="?attr/colorOnSurface"
-                     android:layout_marginStart="6dp"
                      android:layout_weight="1"
                      android:text="Achievements" />
 
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
-                     android:textSize="16sp"
-                     android:fontFamily="@font/inter_semibold"
-                     android:textColor="?attr/colorPrimary"
+                     android:textSize="14sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="@color/accent_gold"
                      android:id="@+id/achievements_unlocked_count"
                      android:text="0 / 0" />
 
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
-                     android:textSize="19sp"
-                     android:textColor="@color/text_disabled"
-                     android:layout_marginStart="6dp"
-                     android:text="›" />
+                     android:textSize="18sp"
+                     android:textColor="?attr/colorOnSurfaceVariant"
+                     android:text=" ›" />
 
             </LinearLayout>
 
             <LinearLayout
                  android:layout_height="wrap_content"
                  android:layout_width="match_parent"
+                 android:visibility="gone"
                  android:gravity="center_vertical"
                  android:orientation="horizontal"
                  android:layout_marginTop="14dp"
@@ -480,7 +558,7 @@
                          android:layout_width="32dp"
                          android:visibility="gone"
                          android:scaleType="fitCenter"
-                         android:contentDescription="Achievement badge"
+                         android:contentDescription="Badge"
                          android:id="@+id/achievement_preview_1"
                          android:layout_gravity="center" />
 
@@ -497,7 +575,7 @@
                          android:layout_width="32dp"
                          android:visibility="gone"
                          android:scaleType="fitCenter"
-                         android:contentDescription="Achievement badge"
+                         android:contentDescription="Badge"
                          android:id="@+id/achievement_preview_2"
                          android:layout_gravity="center" />
 
@@ -514,7 +592,7 @@
                          android:layout_width="32dp"
                          android:visibility="gone"
                          android:scaleType="fitCenter"
-                         android:contentDescription="Achievement badge"
+                         android:contentDescription="Badge"
                          android:id="@+id/achievement_preview_3"
                          android:layout_gravity="center" />
 
@@ -531,7 +609,7 @@
                          android:layout_width="32dp"
                          android:visibility="gone"
                          android:scaleType="fitCenter"
-                         android:contentDescription="Achievement badge"
+                         android:contentDescription="Badge"
                          android:id="@+id/achievement_preview_4"
                          android:layout_gravity="center" />
 
@@ -540,7 +618,6 @@
                 <FrameLayout
                      android:layout_height="46dp"
                      android:layout_width="46dp"
-                     android:layout_marginEnd="8dp"
                      android:background="@drawable/bg_stat_card">
 
                     <ImageView
@@ -548,7 +625,7 @@
                          android:layout_width="32dp"
                          android:visibility="gone"
                          android:scaleType="fitCenter"
-                         android:contentDescription="Achievement badge"
+                         android:contentDescription="Badge"
                          android:id="@+id/achievement_preview_5"
                          android:layout_gravity="center" />
 
@@ -562,7 +639,7 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
-                     android:textSize="15sp"
+                     android:textSize="13sp"
                      android:fontFamily="@font/inter_medium"
                      android:textColor="?attr/colorPrimary"
                      android:id="@+id/btn_view_all_achievements"
@@ -575,12 +652,118 @@
                  android:layout_width="match_parent"
                  android:visibility="gone"
                  android:gravity="center"
-                 android:textSize="15sp"
+                 android:textSize="14sp"
                  android:fontFamily="@font/inter_regular"
                  android:textColor="?attr/colorOnSurfaceVariant"
-                 android:layout_marginTop="10dp"
+                 android:layout_marginTop="12dp"
                  android:id="@+id/achievements_empty_hint"
-                 android:text="Keep reading to unlock your first achievement!" />
+                 android:text="Keep reading to unlock your first badge!" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:visibility="gone"
+             android:background="@drawable/bg_surface_card"
+             android:clickable="true"
+             android:layout_marginHorizontal="14dp"
+             android:padding="18dp"
+             android:orientation="vertical"
+             android:layout_marginTop="10dp"
+             android:focusable="true"
+             android:id="@+id/author_stats_section">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="14dp"
+                 android:gravity="center_vertical"
+                 android:orientation="horizontal">
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:textSize="16sp"
+                     android:fontFamily="@font/inter_semibold"
+                     android:textColor="?attr/colorOnSurface"
+                     android:layout_weight="1"
+                     android:text="Author Dashboard" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:clickable="true"
+                     android:textSize="14sp"
+                     android:fontFamily="@font/inter_medium"
+                     android:textColor="?attr/colorPrimary"
+                     android:focusable="true"
+                     android:id="@+id/btn_view_dashboard"
+                     android:text="View ›" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:orientation="horizontal">
+
+                <LinearLayout
+                     android:layout_height="68dp"
+                     android:layout_width="0dp"
+                     android:layout_marginEnd="8dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_stat_card"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="20sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="?attr/colorOnSurface"
+                         android:id="@+id/stat_total_earnings"
+                         android:text="$0.00" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:textColor="?attr/colorOnSurfaceVariant"
+                         android:layout_marginTop="2dp"
+                         android:text="Lifetime" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="68dp"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:background="@drawable/bg_stat_card"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="20sp"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textColor="@color/success"
+                         android:id="@+id/stat_payout"
+                         android:text="$0.00" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:textColor="?attr/colorOnSurfaceVariant"
+                         android:layout_marginTop="2dp"
+                         android:text="Ready to withdraw" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -626,7 +809,7 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="match_parent"
-                     android:textSize="16sp"
+                     android:textSize="15sp"
                      android:fontFamily="@font/inter_regular"
                      android:textColor="?attr/colorOnSurfaceVariant"
                      android:layout_marginTop="6dp"
@@ -637,7 +820,7 @@
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:clickable="true"
-                     android:textSize="16sp"
+                     android:textSize="15sp"
                      android:textColor="?attr/colorSurface"
                      android:layout_marginTop="14dp"
                      android:focusable="true"
@@ -652,112 +835,142 @@
 
         </FrameLayout>
 
-        <LinearLayout
+        <HorizontalScrollView
              android:layout_height="wrap_content"
              android:layout_width="match_parent"
-             android:visibility="gone"
-             android:background="@drawable/bg_surface_card"
-             android:clickable="true"
-             android:layout_marginHorizontal="14dp"
-             android:padding="16dp"
-             android:orientation="vertical"
-             android:layout_marginTop="10dp"
-             android:focusable="true"
-             android:id="@+id/author_stats_section">
+             android:scrollbars="none"
+             android:clipToPadding="false"
+             android:layout_marginTop="14dp"
+             android:paddingHorizontal="14dp"
+             android:overScrollMode="never">
 
             <LinearLayout
                  android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:layout_marginBottom="14dp"
-                 android:gravity="center_vertical"
+                 android:layout_width="wrap_content"
                  android:orientation="horizontal">
 
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:textSize="16sp"
-                     android:fontFamily="@font/inter_semibold"
-                     android:textColor="?attr/colorOnSurface"
-                     android:layout_marginStart="7dp"
-                     android:layout_weight="1"
-                     android:text="Author Dashboard" />
-
-                <TextView
-                     android:layout_height="wrap_content"
+                <LinearLayout
+                     android:layout_height="40dp"
                      android:layout_width="wrap_content"
-                     android:clickable="true"
-                     android:textSize="16sp"
-                     android:fontFamily="@font/inter_medium"
-                     android:textColor="?attr/colorPrimary"
-                     android:focusable="true"
-                     android:id="@+id/btn_view_dashboard"
-                     android:text="View  ›" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:orientation="horizontal">
-
-                <LinearLayout
-                     android:layout_height="68dp"
-                     android:layout_width="0dp"
                      android:layout_marginEnd="8dp"
-                     android:gravity="center"
-                     android:background="@drawable/bg_stat_card"
-                     android:orientation="vertical"
-                     android:layout_weight="1">
+                     android:background="@drawable/bg_quick_action_chip"
+                     android:gravity="center_vertical"
+                     android:clickable="true"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="14dp"
+                     android:focusable="true"
+                     android:id="@+id/quick_share">
+
+                    <ImageView
+                         android:layout_height="15dp"
+                         android:layout_width="15dp"
+                         android:src="@drawable/ic_share"
+                         android:contentDescription="Share"
+                         android:tint="?attr/colorOnSurface" />
 
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:textSize="19sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/warning"
-                         android:id="@+id/stat_total_earnings"
-                         android:text="$0.00" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="2dp"
-                         android:text="Total Earnings" />
+                         android:textSize="12sp"
+                         android:fontFamily="@font/inter_medium"
+                         android:textColor="?attr/colorOnSurface"
+                         android:layout_marginStart="6dp"
+                         android:text="Share" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                     android:layout_height="68dp"
-                     android:layout_width="0dp"
-                     android:gravity="center"
-                     android:background="@drawable/bg_stat_card"
-                     android:orientation="vertical"
-                     android:layout_weight="1">
+                     android:layout_height="40dp"
+                     android:layout_width="wrap_content"
+                     android:layout_marginEnd="8dp"
+                     android:background="@drawable/bg_quick_action_chip"
+                     android:gravity="center_vertical"
+                     android:clickable="true"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="14dp"
+                     android:focusable="true"
+                     android:id="@+id/quick_copy_link">
+
+                    <ImageView
+                         android:layout_height="15dp"
+                         android:layout_width="15dp"
+                         android:src="@drawable/ic_link"
+                         android:contentDescription="Copy link"
+                         android:tint="?attr/colorOnSurface" />
 
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:textSize="19sp"
+                         android:textSize="12sp"
+                         android:fontFamily="@font/inter_medium"
+                         android:textColor="?attr/colorOnSurface"
+                         android:layout_marginStart="6dp"
+                         android:text="Copy Link" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="40dp"
+                     android:layout_width="wrap_content"
+                     android:layout_marginEnd="8dp"
+                     android:background="@drawable/bg_quick_action_chip"
+                     android:gravity="center_vertical"
+                     android:clickable="true"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="14dp"
+                     android:focusable="true"
+                     android:id="@+id/quick_settings">
+
+                    <ImageView
+                         android:layout_height="15dp"
+                         android:layout_width="15dp"
+                         android:src="@drawable/ic_gear"
+                         android:contentDescription="Settings"
+                         android:tint="?attr/colorOnSurface" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:fontFamily="@font/inter_medium"
+                         android:textColor="?attr/colorOnSurface"
+                         android:layout_marginStart="6dp"
+                         android:text="Settings" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                     android:layout_height="40dp"
+                     android:layout_width="wrap_content"
+                     android:background="@drawable/bg_quick_action_premium"
+                     android:gravity="center_vertical"
+                     android:clickable="true"
+                     android:elevation="3dp"
+                     android:orientation="horizontal"
+                     android:paddingHorizontal="14dp"
+                     android:focusable="true"
+                     android:id="@+id/quick_premium">
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="13sp"
+                         android:textColor="#FFFFFF"
+                         android:text="⭐ " />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
                          android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/success"
-                         android:id="@+id/stat_payout"
-                         android:text="$0.00" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="14sp"
-                         android:textColor="?attr/colorOnSurfaceVariant"
-                         android:layout_marginTop="2dp"
-                         android:text="Available" />
+                         android:textColor="#FFFFFF"
+                         android:text="Get Premium" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
              android:layout_height="wrap_content"
@@ -765,10 +978,10 @@
              android:background="@drawable/bg_surface_card"
              android:layout_marginHorizontal="14dp"
              android:orientation="vertical"
-             android:layout_marginTop="10dp">
+             android:layout_marginTop="14dp">
 
             <LinearLayout
-                 android:layout_height="52dp"
+                 android:layout_height="54dp"
                  android:layout_width="match_parent"
                  android:gravity="center_vertical"
                  android:background="?android:attr/selectableItemBackground"
@@ -796,7 +1009,7 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="0dp"
-                     android:textSize="17sp"
+                     android:textSize="16sp"
                      android:fontFamily="@font/inter_regular"
                      android:textColor="?attr/colorOnSurface"
                      android:layout_marginStart="12dp"
@@ -806,161 +1019,8 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
-                     android:textSize="19sp"
-                     android:textColor="@color/text_disabled"
-                     android:text="›" />
-
-            </LinearLayout>
-
-            <View
-                 android:layout_height="0.5dp"
-                 android:layout_width="match_parent"
-                 android:background="@color/divider"
-                 android:layout_marginStart="58dp" />
-
-            <LinearLayout
-                 android:layout_height="52dp"
-                 android:layout_width="match_parent"
-                 android:gravity="center_vertical"
-                 android:background="?android:attr/selectableItemBackground"
-                 android:clickable="true"
-                 android:orientation="horizontal"
-                 android:paddingHorizontal="16dp"
-                 android:focusable="true"
-                 android:id="@+id/btn_reading_prefs">
-
-                <FrameLayout
-                     android:layout_height="30dp"
-                     android:layout_width="30dp"
-                     android:background="@drawable/bg_btn_squircle_secondary">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_document"
-                         android:contentDescription="Reading Preferences"
-                         android:tint="?attr/colorOnSurface"
-                         android:layout_gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:textSize="17sp"
-                     android:fontFamily="@font/inter_regular"
-                     android:textColor="?attr/colorOnSurface"
-                     android:layout_marginStart="12dp"
-                     android:layout_weight="1"
-                     android:text="Reading Preferences" />
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="19sp"
-                     android:textColor="@color/text_disabled"
-                     android:text="›" />
-
-            </LinearLayout>
-
-            <View
-                 android:layout_height="0.5dp"
-                 android:layout_width="match_parent"
-                 android:background="@color/divider"
-                 android:layout_marginStart="58dp" />
-
-            <LinearLayout
-                 android:layout_height="52dp"
-                 android:layout_width="match_parent"
-                 android:gravity="center_vertical"
-                 android:background="?android:attr/selectableItemBackground"
-                 android:clickable="true"
-                 android:orientation="horizontal"
-                 android:paddingHorizontal="16dp"
-                 android:focusable="true"
-                 android:id="@+id/btn_downloads">
-
-                <FrameLayout
-                     android:layout_height="30dp"
-                     android:layout_width="30dp"
-                     android:background="@drawable/bg_btn_squircle_secondary">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_download"
-                         android:contentDescription="Downloads"
-                         android:tint="?attr/colorOnSurface"
-                         android:layout_gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:textSize="17sp"
-                     android:fontFamily="@font/inter_regular"
-                     android:textColor="?attr/colorOnSurface"
-                     android:layout_marginStart="12dp"
-                     android:layout_weight="1"
-                     android:text="Downloads" />
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="19sp"
-                     android:textColor="@color/text_disabled"
-                     android:text="›" />
-
-            </LinearLayout>
-
-            <View
-                 android:layout_height="0.5dp"
-                 android:layout_width="match_parent"
-                 android:background="@color/divider"
-                 android:layout_marginStart="58dp" />
-
-            <LinearLayout
-                 android:layout_height="52dp"
-                 android:layout_width="match_parent"
-                 android:gravity="center_vertical"
-                 android:background="?android:attr/selectableItemBackground"
-                 android:clickable="true"
-                 android:orientation="horizontal"
-                 android:paddingHorizontal="16dp"
-                 android:focusable="true"
-                 android:id="@+id/btn_help">
-
-                <FrameLayout
-                     android:layout_height="30dp"
-                     android:layout_width="30dp"
-                     android:background="@drawable/bg_btn_squircle_secondary">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_shield"
-                         android:contentDescription="Help"
-                         android:tint="?attr/colorOnSurface"
-                         android:layout_gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:textSize="17sp"
-                     android:fontFamily="@font/inter_regular"
-                     android:textColor="?attr/colorOnSurface"
-                     android:layout_marginStart="12dp"
-                     android:layout_weight="1"
-                     android:text="Help and Support" />
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="19sp"
-                     android:textColor="@color/text_disabled"
+                     android:textSize="20sp"
+                     android:textColor="?attr/colorOnSurfaceVariant"
                      android:text="›" />
 
             </LinearLayout>
@@ -968,10 +1028,10 @@
         </LinearLayout>
 
         <LinearLayout
-             android:layout_height="52dp"
+             android:layout_height="54dp"
              android:layout_width="match_parent"
-             android:gravity="center_vertical"
              android:background="@drawable/bg_surface_card"
+             android:gravity="center_vertical"
              android:clickable="true"
              android:layout_marginHorizontal="14dp"
              android:orientation="horizontal"
@@ -998,7 +1058,7 @@
             <TextView
                  android:layout_height="wrap_content"
                  android:layout_width="0dp"
-                 android:textSize="17sp"
+                 android:textSize="16sp"
                  android:fontFamily="@font/inter_medium"
                  android:textColor="@color/error"
                  android:layout_marginStart="12dp"
@@ -1008,8 +1068,8 @@
             <TextView
                  android:layout_height="wrap_content"
                  android:layout_width="wrap_content"
-                 android:alpha="0.45"
-                 android:textSize="19sp"
+                 android:alpha="0.4"
+                 android:textSize="20sp"
                  android:textColor="@color/error"
                  android:text="›" />
 

@@ -122,6 +122,16 @@ public class UserEntity {
     @ColumnInfo(name = "following_count")
     private Integer followingCount;
 
+    // ── Profile redesign ────────────────────────────────────────────────────
+
+    /** Full-width cover photo / banner URL. Nullable — falls back to genre gradient. */
+    @ColumnInfo(name = "cover_url")
+    private String coverUrl;
+
+    /** Cached status string: "online", "away", "offline". Refreshed from last_active_at. */
+    @ColumnInfo(name = "user_status")
+    private String userStatus;
+
     // Local fields
     @ColumnInfo(name = "is_current_user")
     private Boolean isCurrentUser;
@@ -263,6 +273,14 @@ public class UserEntity {
 
     public Integer getFollowingCount() { return followingCount; }
     public void setFollowingCount(Integer followingCount) { this.followingCount = followingCount; }
+
+    // ── Profile redesign ────────────────────────────────────────────────────
+
+    public String getCoverUrl() { return coverUrl; }
+    public void setCoverUrl(String coverUrl) { this.coverUrl = coverUrl; }
+
+    public String getUserStatus() { return userStatus; }
+    public void setUserStatus(String userStatus) { this.userStatus = userStatus; }
 
     public Boolean getIsCurrentUser() { return isCurrentUser; }
     public void setIsCurrentUser(Boolean isCurrentUser) { this.isCurrentUser = isCurrentUser; }

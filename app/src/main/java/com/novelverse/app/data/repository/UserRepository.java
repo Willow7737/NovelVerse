@@ -210,6 +210,9 @@ public class UserRepository {
         if (user.getBio() != null) body.addProperty("bio", user.getBio());
         if (user.getAvatarUrl() != null) body.addProperty("avatar_url", user.getAvatarUrl());
         if (user.getRole() != null) body.addProperty("role", user.getRole());
+        // Profile redesign
+        if (user.getCoverUrl() != null) body.addProperty("cover_url", user.getCoverUrl());
+        if (user.getUserStatus() != null) body.addProperty("user_status", user.getUserStatus());
 
         if (user.getFontSize() > 0) body.addProperty("font_size", user.getFontSize());
         if (user.getLineSpacing() > 0) body.addProperty("line_spacing", user.getLineSpacing());
@@ -429,6 +432,24 @@ public class UserRepository {
                 });
     }
 
+    /**
+     * Generic file upload to any Supabase Storage bucket.
+     * Used for profile cover photos (bucket = "cover-photos").
+     */
+    public void uploadFile(String bucket, String path, byte[] bytes, String mimeType,
+                           com.novelverse.app.domain.utils.BiCallback<String> cb) {
+        String token = userPreferences.getAccessToken();
+        dbService.uploadFile(bucket, path, bytes, mimeType, token,
+            new SupabaseDatabaseService.DatabaseCallback() {
+                @Override public void onSuccess(String r) {
+                    String publicUrl = dbService.getPublicUrl(bucket, path)
+                        + "?t=" + System.currentTimeMillis();
+                    cb.onResult(publicUrl, null);
+                }
+                @Override public void onError(String e) { cb.onResult(null, e); }
+            });
+    }
+
     // ── Session management ────────────────────────────────────────────────────
 
     private void checkExistingSession() {
@@ -518,6 +539,48 @@ public class UserRepository {
         if (has(p, "is_email_verified"))
             user.setEmailVerified(p.get("is_email_verified").getAsBoolean());
         if (has(p, "is_banned")) user.setBanned(p.get("is_banned").getAsBoolean());
+        // Profile redesign
+        if (has(p, "cover_url"))    user.setCoverUrl(p.get("cover_url").getAsString());
+        if (has(p, "user_status"))  user.setUserStatus(p.get("user_status").getAsString());
+        // Parse last_active_at — ISO-8601 string from Supabase e.g. "2026-04-27T10:00:00.000Z"
+        if (has(p, "last_active_at")) {
+            try {
+                String iso = p.get("last_active_at").getAsString();
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.US);
+                sdf.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+                // Strip microseconds / trailing Z for parsing
+                String clean = iso.replaceAll("\\.\\d+Z?$", "");
+                user.setLastActiveAt(sdf.parse(clean));
+            } catch (Exception ignored) { /* keep null — shows offline */ }
+        }
+        // Always stamp the current time — this user is online right now
+        java.util.Date now = new java.util.Date();
+        user.setLastActiveAt(now);
+        // Push last_active_at to Supabase asynchronously (fire-and-forget)
+        touchLastActiveAt(user.getId());
+    }
+
+    /**
+     * Updates last_active_at to NOW() in Supabase so the server trigger
+     * can flip user_status → 'online'. Fire-and-forget; errors are silently ignored.
+     */
+    private void touchLastActiveAt(String userId) {
+        if (userId == null) return;
+        String token = userPreferences.getAccessToken();
+        if (token == null) return;
+        com.google.gson.JsonObject body = new com.google.gson.JsonObject();
+        body.addProperty("id", userId);
+        body.addProperty("last_active_at",
+            new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US) {{
+                setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+            }}.format(new java.util.Date()));
+        dbService.upsert(PROFILES, body, token, new SupabaseDatabaseService.DatabaseCallback() {
+            @Override public void onSuccess(String r) { /* silent */ }
+            @Override public void onError(String e) {
+                android.util.Log.w(TAG, "touchLastActiveAt failed: " + e);
+            }
+        });
     }
 
     private boolean has(JsonObject o, String key) {
@@ -613,6 +676,9 @@ public class UserRepository {
         e.setBanned(user.isBanned());
         e.setFollowersCount(user.getFollowersCount());
         e.setFollowingCount(user.getFollowingCount());
+        // Profile redesign
+        e.setCoverUrl(user.getCoverUrl());
+        e.setUserStatus(user.getUserStatus());
         return e;
     }
 

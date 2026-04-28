@@ -212,6 +212,14 @@
             android:exported="false"
             android:label="@string/settings" />
 
+        <!-- Full-screen Image Viewer (swipe-to-dismiss, edge-to-edge) -->
+        <activity
+            android:name=".presentation.common.ImageViewerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NovelVerse.ImageViewer"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" />
+
         <!-- Legal/Privacy Activity -->
         <activity
             android:name=".presentation.common.legal.LegalActivity"
