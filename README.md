@@ -2,7 +2,7 @@
   <img src="./metadata/logo/logo.webp" alt="NovelVerse Logo" width="200">
 </p>
 
-# <p align="center">📖 NovelVerse Android App</p>
+# <p align="center">NovelVerse Android App</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status">
