@@ -176,8 +176,3 @@ We welcome contributions! Please follow these steps:
 
 Distributed under the **Apache License, Version 2.0**. See `LICENSE` for more information.
 
----
-
-<p align="center">
-  Built with ❤️ by the <b>NovelVerse Team</b>
-</p>
