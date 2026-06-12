@@ -102,6 +102,9 @@ public class UserRepository {
                     if (result.isSuccess()) {
                         saveUserSession(result);
                         cb.onSuccess(result.getUser());
+                    } else if (result.isPendingVerification()) {
+                        // Account created but email confirmation required — not an error.
+                        cb.onPendingVerification(result.getUser());
                     } else {
                         cb.onError(result.getErrorMessage());
                     }
@@ -123,14 +126,40 @@ public class UserRepository {
     }
 
     /**
-     * FIX: now accepts the Google idToken and delegates to {@link
-     * SupabaseAuthService#signInWithGoogleToken}, which exchanges it for a real Supabase session
-     * via the id_token grant type. The old signInWithOAuth("google", ...) hit the browser-redirect
-     * endpoint which is not usable from a native Android app.
+     * Sign in with a Google ID token obtained via the native Google Sign-In SDK.
+     *
+     * @param idToken  The ID token from GoogleSignInAccount.getIdToken().
+     * @param rawNonce The raw nonce used to build the hashed nonce passed to
+     *                 GoogleSignInOptions.requestNonce(). Supabase validates it
+     *                 by comparing sha256(rawNonce) to the nonce in the ID token.
      */
-    public void signInWithGoogle(String idToken, AuthCallback cb) {
-        authService.signInWithGoogleToken(
+    public void signInWithGoogle(String idToken, String rawNonce, AuthCallback cb) {
+        authService.signInWithGoogleIdToken(
                 idToken,
+                rawNonce,
+                result -> {
+                    if (result.isSuccess()) {
+                        saveUserSession(result);
+                        fetchAndMergeProfile(result.getUser(), result.getAccessToken(), cb);
+                    } else if (result.isPendingVerification()) {
+                        cb.onSuccess(result.getUser());
+                    } else {
+                        cb.onError(result.getErrorMessage());
+                    }
+                });
+    }
+
+    /**
+     * Exchanges a Supabase PKCE authorization code for a full session.
+     * Called after the OAuth PKCE callback deep-link is received.
+     *
+     * @param authCode     The code from the deep-link query parameter.
+     * @param codeVerifier The original code verifier generated before opening the browser.
+     */
+    public void exchangeOAuthCode(String authCode, String codeVerifier, AuthCallback cb) {
+        authService.exchangeOAuthCode(
+                authCode,
+                codeVerifier,
                 result -> {
                     if (result.isSuccess()) {
                         saveUserSession(result);
@@ -163,8 +192,21 @@ public class UserRepository {
         }
     }
 
+    /** The deep-link URI Supabase will redirect to after verifying the recovery token. */
+    private static final String RESET_REDIRECT_URI = "novelverse://auth/reset";
+
     public void resetPassword(String email, SimpleCallback cb) {
-        authService.resetPassword(email, (success, error) -> cb.onResult(success, error));
+        authService.resetPassword(email, RESET_REDIRECT_URI,
+                (success, error) -> cb.onResult(success, error));
+    }
+
+    /**
+     * Updates the password for a user who arrived via a recovery deep link.
+     * Uses the temporary access token extracted from the link's URL fragment.
+     */
+    public void updatePasswordWithToken(String accessToken, String newPassword, SimpleCallback cb) {
+        authService.updatePasswordWithToken(accessToken, newPassword,
+                (success, error) -> cb.onResult(success, error));
     }
 
     public void resendVerification(String email, SimpleCallback cb) {
@@ -194,16 +236,12 @@ public class UserRepository {
         }
 
         JsonObject body = new JsonObject();
-        body.addProperty("id", user.getId());
-
-        String email = user.getEmail();
-        if (email != null && !email.isEmpty()) body.addProperty("email", email);
+        // Note: id is not included — it's in the PATCH URL filter (?id=eq.{id}).
+        // Email is intentionally excluded: changing it requires going through auth, not profiles.
 
         String username = user.getUsername();
         if (username != null && !username.isEmpty()) {
             body.addProperty("username", username);
-        } else if (email != null) {
-            body.addProperty("username", email.split("@")[0]);
         }
 
         if (user.getDisplayName() != null) body.addProperty("display_name", user.getDisplayName());
@@ -219,8 +257,12 @@ public class UserRepository {
         if (user.getThemePreference() != null)
             body.addProperty("theme_preference", user.getThemePreference());
 
-        dbService.upsert(
+        // PATCH instead of upsert: profile rows always exist after sign-up.
+        // POST upsert caused NOT NULL failures (username) when any required column
+        // was absent from the body, because the INSERT phase runs unconditionally.
+        dbService.update(
                 PROFILES,
+                user.getId(),
                 body,
                 token,
                 new SupabaseDatabaseService.DatabaseCallback() {
@@ -440,14 +482,14 @@ public class UserRepository {
                            com.novelverse.app.domain.utils.BiCallback<String> cb) {
         String token = userPreferences.getAccessToken();
         dbService.uploadFile(bucket, path, bytes, mimeType, token,
-            new SupabaseDatabaseService.DatabaseCallback() {
-                @Override public void onSuccess(String r) {
-                    String publicUrl = dbService.getPublicUrl(bucket, path)
-                        + "?t=" + System.currentTimeMillis();
-                    cb.onResult(publicUrl, null);
-                }
-                @Override public void onError(String e) { cb.onResult(null, e); }
-            });
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override public void onSuccess(String r) {
+                        String publicUrl = dbService.getPublicUrl(bucket, path)
+                                + "?t=" + System.currentTimeMillis();
+                        cb.onResult(publicUrl, null);
+                    }
+                    @Override public void onError(String e) { cb.onResult(null, e); }
+                });
     }
 
     // ── Session management ────────────────────────────────────────────────────
@@ -547,7 +589,7 @@ public class UserRepository {
             try {
                 String iso = p.get("last_active_at").getAsString();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.US);
+                        "yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.US);
                 sdf.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
                 // Strip microseconds / trailing Z for parsing
                 String clean = iso.replaceAll("\\.\\d+Z?$", "");
@@ -569,13 +611,13 @@ public class UserRepository {
         if (userId == null) return;
         String token = userPreferences.getAccessToken();
         if (token == null) return;
+        // Use PATCH not UPSERT - UPSERT would require username (NOT NULL) which we may not have.
         com.google.gson.JsonObject body = new com.google.gson.JsonObject();
-        body.addProperty("id", userId);
         body.addProperty("last_active_at",
-            new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US) {{
-                setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
-            }}.format(new java.util.Date()));
-        dbService.upsert(PROFILES, body, token, new SupabaseDatabaseService.DatabaseCallback() {
+                new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US) {{
+                    setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+                }}.format(new java.util.Date()));
+        dbService.update(PROFILES, userId, body, token, new SupabaseDatabaseService.DatabaseCallback() {
             @Override public void onSuccess(String r) { /* silent */ }
             @Override public void onError(String e) {
                 android.util.Log.w(TAG, "touchLastActiveAt failed: " + e);
@@ -686,6 +728,14 @@ public class UserRepository {
 
     public interface AuthCallback {
         void onSuccess(User user);
+
+        /**
+         * Called when the account was created but email confirmation is still required.
+         * Default falls back to onError so existing call-sites continue to compile.
+         */
+        default void onPendingVerification(User user) {
+            onError("Account created! Please check your email to verify your address, then sign in.");
+        }
 
         void onError(String error);
     }

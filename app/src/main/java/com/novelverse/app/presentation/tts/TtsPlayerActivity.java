@@ -72,7 +72,7 @@ public class TtsPlayerActivity extends AppCompatActivity
     public static final String EXTRA_NOVEL_ID      = "tts_novel_id";
     public static final String EXTRA_CHAPTER_ID    = "tts_chapter_id";
 
-    // ── Sentence colours (resolved from resources in onCreate) ────────
+    // ── Sentence colors (resolved from resources in onCreate) ────────
     private int colorPast;
     private int colorCurrent;
     private int colorFuture;

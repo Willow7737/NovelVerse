@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:id="@+id/write_scroll"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:background="?attr/colorSurface">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/write_scroll"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="?attr/colorSurface">
 
     <LinearLayout
          android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                          android:fontFamily="@font/inter_semibold"
                          android:textColor="?attr/colorOnSurface"
                          android:id="@+id/txt_total_works"
-                         android:text="0" />
+                         android:text="-" />
 
                     <TextView
                          android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                          android:fontFamily="@font/inter_semibold"
                          android:textColor="?attr/colorOnSurface"
                          android:id="@+id/txt_total_views"
-                         android:text="0" />
+                         android:text="-" />
 
                     <TextView
                          android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                  android:layout_marginEnd="5dp"
                  android:gravity="center"
                  android:background="@drawable/bg_surface_card"
-                 android:elevation="1dp"
+                 android:elevation="0dp"
                  android:paddingVertical="16dp"
                  android:orientation="vertical"
                  android:layout_weight="1"
@@ -176,7 +176,7 @@
                      android:layout_width="24dp"
                      android:src="@drawable/ic_write"
                      android:contentDescription="Add Chapter"
-                     android:tint="@color/primary" />
+                     app:tint="@color/primary" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                  android:layout_marginEnd="5dp"
                  android:gravity="center"
                  android:background="@drawable/bg_surface_card"
-                 android:elevation="1dp"
+                 android:elevation="0dp"
                  android:paddingVertical="16dp"
                  android:orientation="vertical"
                  android:layout_weight="1"
@@ -207,7 +207,7 @@
                      android:layout_width="24dp"
                      android:src="@drawable/ic_bar_chart"
                      android:contentDescription="Analytics"
-                     android:tint="@color/secondary" />
+                     app:tint="@color/secondary" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
                  android:layout_width="0dp"
                  android:gravity="center"
                  android:background="@drawable/bg_surface_card"
-                 android:elevation="1dp"
+                 android:elevation="0dp"
                  android:paddingVertical="16dp"
                  android:orientation="vertical"
                  android:layout_weight="1"
@@ -237,7 +237,7 @@
                      android:layout_width="24dp"
                      android:src="@drawable/ic_wallet"
                      android:contentDescription="Payout"
-                     android:tint="@color/accent" />
+                     app:tint="@color/accent" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -306,7 +306,7 @@
                  android:layout_width="56dp"
                  android:src="@drawable/ic_document"
                  android:contentDescription="No novels"
-                 android:tint="@color/text_tertiary" />
+                 app:tint="@color/text_tertiary" />
 
             <TextView
                  android:layout_height="wrap_content"
@@ -367,7 +367,7 @@
                      android:layout_width="18dp"
                      android:src="@drawable/ic_star"
                      android:contentDescription="Tips"
-                     android:tint="@color/warning" />
+                     app:tint="@color/warning" />
 
                 <TextView
                      android:layout_height="wrap_content"

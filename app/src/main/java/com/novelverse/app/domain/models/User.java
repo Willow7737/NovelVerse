@@ -39,6 +39,8 @@ public class User {
     private boolean isBanned;
     private int followersCount;
     private int followingCount;
+    /** Transient: set by the API layer — true if the current user follows this person. */
+    private boolean isFollowing;
 
     // Profile redesign fields
     private String coverUrl;      // Full-width banner/cover photo URL (nullable)
@@ -160,6 +162,9 @@ public class User {
 
     public int getFollowingCount() { return followingCount; }
     public void setFollowingCount(int followingCount) { this.followingCount = followingCount; }
+
+    public boolean isFollowing() { return isFollowing; }
+    public void setFollowing(boolean following) { isFollowing = following; }
 
     // ── Profile redesign: cover photo + status ──────────────────────────────
 

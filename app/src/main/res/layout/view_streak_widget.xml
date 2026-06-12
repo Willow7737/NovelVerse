@@ -20,17 +20,17 @@
             android:id="@+id/streak_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:fontFamily="@font/inter_semibold"
-            android:textColor="@color/warning"
+            android:textColor="@color/error"
             android:text="0" />
 
         <TextView
             android:id="@+id/streak_label_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:fontFamily="@font/inter_regular"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_medium"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:text="day streak" />
 

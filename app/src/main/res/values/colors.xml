@@ -27,6 +27,7 @@
     <color name="background">#F2F3F4</color> <!-- Always deep charcoal -->
     <color name="background_variant">#1A1A1A</color>
     <color name="background_dark">#F2F3F4</color> <!-- Alias — same value -->
+    <color name="background_opp">#E3E7EA</color>
 
     <!-- ═══════════════════════════════════════════════════════ SURFACE / CARDS — THE ONLY THINGS THAT CHANGE MODE Light mode → white / near-white cards Dark mode → iOS elevated dark cards ═══════════════════════════════════════════════════════ -->
     <color name="surface">#F2F2F7</color> <!-- Sheet / bottom-nav fill — light mode -->

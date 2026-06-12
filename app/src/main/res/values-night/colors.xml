@@ -11,6 +11,7 @@
     <color name="background">#141416</color>
     <color name="background_variant">#F2F3F4</color>
     <color name="background_dark">#141416</color>
+    <color name="background_opp">#1E1E1E</color>
 
     <!-- ─── SURFACES / CARDS — the ONLY things that switch ─── -->
     <color name="surface">#1C1C1E</color>               <!-- iOS dark base -->

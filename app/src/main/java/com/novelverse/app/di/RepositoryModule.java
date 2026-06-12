@@ -14,6 +14,7 @@ import com.novelverse.app.data.remote.supabase.SupabaseAuthService;
 import com.novelverse.app.data.remote.supabase.SupabaseDatabaseService;
 import com.novelverse.app.data.repository.ChapterRepository;
 import com.novelverse.app.data.repository.CommentRepository;
+import com.novelverse.app.data.repository.FollowsRepository;
 import com.novelverse.app.data.repository.LibraryRepository;
 import com.novelverse.app.data.repository.NovelRepository;
 import com.novelverse.app.data.repository.PaymentRepository;
@@ -67,7 +68,7 @@ public class RepositoryModule {
     @Provides @Singleton
     public SearchRepository provideSearchRepository(
             NovelDao novelDao, SupabaseDatabaseService databaseService,
-            com.novelverse.app.data.local.preferences.UserPreferences userPreferences) {
+            UserPreferences userPreferences) {
         return new SearchRepository(novelDao, databaseService, userPreferences);
     }
 
@@ -76,5 +77,10 @@ public class RepositoryModule {
             UserDao userDao, PaymentApi paymentApi,
             SupabaseDatabaseService databaseService) {
         return new PaymentRepository(userDao, paymentApi, databaseService);
+    }
+   
+    @Provides @Singleton
+    public FollowsRepository provideFollowsRepository(SupabaseDatabaseService dbService) {
+        return new FollowsRepository(dbService);
     }
 }

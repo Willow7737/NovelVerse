@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         APP CORE
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ APP CORE ════════════════════════════════════════════════════════════════ -->
 
     <!-- Info -->
     <string name="app_name">NovelVerse</string>
@@ -31,7 +29,6 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
     <string name="report">Report</string>
-    <string name="follow">Follow</string>
     <string name="unfollow">Unfollow</string>
     <string name="like">Like</string>
     <string name="reply">Reply</string>
@@ -97,9 +94,7 @@
     <string name="cd_settings">Settings</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         ONBOARDING
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ ONBOARDING ════════════════════════════════════════════════════════════════ -->
 
     <!-- Carousel -->
     <string name="onboarding_title_1">Discover Amazing Stories</string>
@@ -178,9 +173,7 @@
     <string name="age_confirmation">I confirm that I am %d years or older</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         AUTHENTICATION
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ AUTHENTICATION ════════════════════════════════════════════════════════════════ -->
 
     <!-- Fields -->
     <string name="email">Email</string>
@@ -203,9 +196,7 @@
     <string name="export_data">Export My Data</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         NOTIFICATIONS
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ NOTIFICATIONS ════════════════════════════════════════════════════════════════ -->
 
     <!-- Channels -->
     <string name="channel_general">General</string>
@@ -226,9 +217,7 @@
     <string name="social_notifications">Social Interactions</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         HOME
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ HOME ════════════════════════════════════════════════════════════════ -->
 
     <!-- Sections -->
     <string name="featured">Featured</string>
@@ -252,9 +241,7 @@
     <string name="continue_reading_cta">Explore novels</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         NOVEL DETAIL
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ NOVEL DETAIL ════════════════════════════════════════════════════════════════ -->
 
     <!-- Labels -->
     <string name="novel_details">Novel Details</string>
@@ -305,9 +292,7 @@
     <string name="share_body">Reading "%s" on NovelVerse!</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         CHAPTER & READER
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ CHAPTER & READER ════════════════════════════════════════════════════════════════ -->
 
     <!-- Chapter -->
     <string name="chapter">Chapter %d</string>
@@ -351,9 +336,7 @@
     <string name="bookmark_saved">Bookmark saved</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         LIBRARY
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ LIBRARY ════════════════════════════════════════════════════════════════ -->
 
     <!-- Tabs -->
     <string name="my_library">My Library</string>
@@ -390,9 +373,7 @@
     <string name="progress_format">%d%% complete</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         SEARCH
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ SEARCH ════════════════════════════════════════════════════════════════ -->
 
     <!-- Search -->
     <string name="search_hint">Search novels, authors, genres…</string>
@@ -415,9 +396,7 @@
     <string name="reset_filters">Reset</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         PROFILE
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ PROFILE ════════════════════════════════════════════════════════════════ -->
 
     <!-- Profile -->
     <string name="my_profile">My Profile</string>
@@ -434,6 +413,9 @@
     <string name="member_since">Member since %s</string>
     <string name="followers">%d Followers</string>
     <string name="following">%d Following</string>
+    <string name="follows_title">Follows</string>
+    <string name="follow">Follow</string>
+    <string name="cd_avatar">User avatar</string>
     <string name="following_author">Following ✓</string>
     <string name="follow_success">Now following!</string>
     <string name="follow_author">Follow Author</string>
@@ -457,9 +439,7 @@
     <string name="private_profile">Private</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         AUTHOR DASHBOARD
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ AUTHOR DASHBOARD ════════════════════════════════════════════════════════════════ -->
 
     <!-- Dashboard -->
     <string name="author_dashboard">Author Dashboard</string>
@@ -513,9 +493,7 @@
     <string name="filter_completed">Completed</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         POINTS & PAYMENT
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ POINTS & PAYMENT ════════════════════════════════════════════════════════════════ -->
 
     <!-- Points Store -->
     <string name="point_store">Point Store</string>
@@ -556,9 +534,7 @@
     <string name="already_checked_in">Already checked in today!</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         SOCIAL
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ SOCIAL ════════════════════════════════════════════════════════════════ -->
 
     <!-- Following -->
     <string name="followers_list">Followers</string>
@@ -587,9 +563,7 @@
     <string name="block_user">Block User</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         GAMIFICATION
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ GAMIFICATION ════════════════════════════════════════════════════════════════ -->
 
     <!-- Reading Streak -->
     <string name="reading_streak">Reading Streak</string>
@@ -657,9 +631,7 @@
     <string name="profile_themes_label">Profile Themes</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         ADMIN
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ ADMIN ════════════════════════════════════════════════════════════════ -->
 
     <string name="nav_admin">Admin</string>
     <string name="admin_dashboard">Admin Dashboard</string>
@@ -677,9 +649,7 @@
     <string name="system_stats">System Statistics</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         OFFLINE
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ OFFLINE ════════════════════════════════════════════════════════════════ -->
 
     <string name="offline_mode">Offline Mode</string>
     <string name="no_internet">No internet connection</string>
@@ -692,17 +662,13 @@
     <string name="insufficient_storage">Insufficient storage</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         LEGAL
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ LEGAL ════════════════════════════════════════════════════════════════ -->
 
     <string name="dmca_notice">DMCA Takedown Notice</string>
     <string name="copyright_infringement">Report Copyright Infringement</string>
 
 
-    <!-- ════════════════════════════════════════════════════════════════
-         NAVIGATION LABELS
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════ NAVIGATION LABELS ════════════════════════════════════════════════════════════════ -->
 
     <string name="nav_home">Home</string>
     <string name="nav_library">Library</string>
@@ -711,5 +677,6 @@
     <string name="nav_author">Author</string>
     <string name="nav_write">Write</string>
     <string name="camera">Camera</string>
+    <string name="daily">Daily</string>
 
 </resources>

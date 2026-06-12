@@ -76,7 +76,7 @@
         android:background="@drawable/bg_btn_squircle_secondary"
         android:fontFamily="@font/inter_semibold"
         android:text="Create Free Account"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/white"
         android:textSize="15sp" />
 
     <!-- Dismiss link -->

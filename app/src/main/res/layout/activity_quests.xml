@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="#0A0A0F"
+     android:fitsSystemWindows="false">
+
+    <ImageView
+         android:layout_height="0dp"
+         android:layout_width="0dp"
+         android:src="@drawable/img_top_gradient"
+         android:scaleType="centerCrop"
+         app:layout_constraintTop_toTopOf="parent"
+         android:importantForAccessibility="no"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintBottom_toBottomOf="@id/quests_tab_bar"
+         android:id="@+id/top_gradient" />
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="0dp"
+         android:gravity="center_vertical"
+         app:layout_constraintTop_toTopOf="parent"
+         android:orientation="horizontal"
+         app:layout_constraintStart_toStartOf="parent"
+         android:paddingBottom="8dp"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:paddingHorizontal="8dp"
+         android:paddingTop="48dp"
+         android:id="@+id/quests_top_bar">
+
+        <ImageView
+             android:layout_height="44dp"
+             android:layout_width="44dp"
+             android:src="@drawable/ic_chevron_down"
+             android:contentDescription="Back"
+             android:background="?attr/selectableItemBackgroundBorderless"
+             android:rotation="90"
+             android:padding="10dp"
+             android:tint="#FAFAFA"
+             android:id="@+id/btn_back" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:textSize="22sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="#FAFAFA"
+             android:paddingStart="4dp"
+             android:letterSpacing="-0.01"
+             android:layout_weight="1"
+             android:text="Quests" />
+
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="0dp"
+         android:orientation="horizontal"
+         app:layout_constraintStart_toStartOf="parent"
+         android:paddingBottom="0dp"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:paddingHorizontal="16dp"
+         app:layout_constraintTop_toBottomOf="@id/quests_top_bar"
+         android:id="@+id/quests_tab_bar"
+         android:paddingTop="4dp">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:gravity="center"
+             android:background="?attr/selectableItemBackground"
+             android:paddingVertical="10dp"
+             android:orientation="vertical"
+             android:layout_weight="1"
+             android:id="@+id/tab_daily">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="16sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/primary"
+                 android:id="@+id/tab_daily_text"
+                 android:text="@string/daily" />
+
+            <View
+                 android:layout_height="2dp"
+                 android:layout_width="32dp"
+                 android:visibility="visible"
+                 android:background="@color/primary"
+                 android:layout_marginTop="6dp"
+                 android:id="@+id/tab_indicator_daily" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:gravity="center"
+             android:background="?attr/selectableItemBackground"
+             android:paddingVertical="10dp"
+             android:orientation="vertical"
+             android:layout_weight="1"
+             android:id="@+id/tab_weekly">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="16sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:id="@+id/tab_weekly_text"
+                 android:text="Weekly" />
+
+            <View
+                 android:layout_height="2dp"
+                 android:layout_width="32dp"
+                 android:visibility="invisible"
+                 android:background="@color/primary"
+                 android:layout_marginTop="6dp"
+                 android:id="@+id/tab_indicator_weekly" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="0dp"
+             android:gravity="center"
+             android:background="?attr/selectableItemBackground"
+             android:paddingVertical="10dp"
+             android:orientation="vertical"
+             android:layout_weight="1"
+             android:id="@+id/tab_one_time">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="16sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/text_tertiary"
+                 android:id="@+id/tab_one_time_text"
+                 android:text="One-Time" />
+
+            <View
+                 android:layout_height="2dp"
+                 android:layout_width="32dp"
+                 android:visibility="invisible"
+                 android:background="@color/primary"
+                 android:layout_marginTop="6dp"
+                 android:id="@+id/tab_indicator_one_time" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+         android:layout_height="0dp"
+         android:layout_width="0dp"
+         android:background="@drawable/bg_top_rounded_section_card"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:layout_marginTop="0dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/quests_tab_bar">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:visibility="visible"
+             android:orientation="vertical"
+             android:id="@+id/quests_shimmer"
+             android:paddingTop="8dp">
+
+            <include
+                 layout="@layout/shimmer_home_section" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:visibility="gone"
+             android:paddingBottom="32dp"
+             android:clipToPadding="false"
+             android:id="@+id/quests_recycler"
+             android:paddingTop="4dp"
+             android:overScrollMode="never" />
+
+        <LinearLayout
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:visibility="gone"
+             android:gravity="center"
+             android:orientation="vertical"
+             android:paddingBottom="60dp"
+             android:id="@+id/quests_empty">
+
+            <ImageView
+                 android:layout_height="100dp"
+                 android:layout_width="100dp"
+                 android:src="@drawable/ic_challenge"
+                 android:contentDescription="No quests"
+                 android:alpha="0.35" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:gravity="center"
+                 android:textSize="18sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="?attr/colorOnSurface"
+                 android:layout_marginTop="20dp"
+                 android:text="No Quests Available" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="260dp"
+                 android:gravity="center"
+                 android:textSize="15sp"
+                 android:fontFamily="@font/inter_regular"
+                 android:textColor="?attr/colorOnSurfaceVariant"
+                 android:layout_marginTop="8dp"
+                 android:lineSpacingMultiplier="1.4"
+                 android:text="Check back soon for new challenges and rewards." />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

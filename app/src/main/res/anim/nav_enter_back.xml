@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  nav_enter_back.xml  (popEnter)
+  The fragment that comes back into view when the user presses BACK.
+  Slides in from the left, grows from slightly shrunk, fades in.
+  This is the mirror of nav_exit_forward.
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <!-- Slide in from -28% (where nav_exit_forward left it) -->
+    <translate
+        android:duration="380"
+        android:fromXDelta="-28%"
+        android:toXDelta="0%"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <!-- Fade from semi-transparent back to fully opaque -->
+    <alpha
+        android:duration="320"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:startOffset="30"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <!-- Grow back to full size -->
+    <scale
+        android:duration="380"
+        android:fromXScale="0.94"
+        android:toXScale="1.0"
+        android:fromYScale="0.94"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+</set>

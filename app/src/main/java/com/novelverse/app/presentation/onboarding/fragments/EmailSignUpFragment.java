@@ -77,7 +77,9 @@ public class EmailSignUpFragment extends Fragment {
 
         backButton.setOnClickListener(v -> {
             HapticUtils.light(v);
-            requireActivity().onBackPressed();
+            if (getActivity() instanceof OnboardingActivity) {
+                ((OnboardingActivity) getActivity()).navigateBack();
+            }
         });
 
         headerLoginLink.setOnClickListener(v -> {
@@ -90,19 +92,25 @@ public class EmailSignUpFragment extends Fragment {
         if (btnSocialGoogle != null) {
             btnSocialGoogle.setOnClickListener(v -> {
                 HapticUtils.light(v);
-                BannerHelper.info(requireActivity(), "Use the Google button on the previous screen.");
+                // Go back to GetStarted so the user can tap the proper Google button there
+                BannerHelper.info(requireActivity(),
+                        "Tap \"Back\" to use Google sign-in from the previous screen.");
             });
         }
         if (btnSocialApple != null) {
             btnSocialApple.setOnClickListener(v -> {
                 HapticUtils.light(v);
-                BannerHelper.info(requireActivity(), "Apple Sign-In coming soon.");
+                if (getActivity() instanceof OnboardingActivity) {
+                    ((OnboardingActivity) getActivity()).startOAuthPkce("apple");
+                }
             });
         }
         if (btnSocialFacebook != null) {
             btnSocialFacebook.setOnClickListener(v -> {
                 HapticUtils.light(v);
-                BannerHelper.info(requireActivity(), "Facebook Sign-In coming soon.");
+                if (getActivity() instanceof OnboardingActivity) {
+                    ((OnboardingActivity) getActivity()).startOAuthPkce("facebook");
+                }
             });
         }
 
@@ -162,8 +170,22 @@ public class EmailSignUpFragment extends Fragment {
             }
 
             @Override
+            public void onPendingVerification(com.novelverse.app.domain.models.User user) {
+                // Account created — email confirmation sent.
+                // Show a success/info banner and lock the button so the user doesn't
+                // keep tapping and burning through Supabase's email rate limit.
+                if (analytics != null) analytics.logAuthSuccess("email_pending");
+                if (!isAdded()) return;
+                BannerHelper.success(requireActivity(),
+                        "Account created! Check your inbox for a confirmation email, then sign in.");
+                createAccountButton.setEnabled(false);
+                createAccountButton.setText("Check your email ✓");
+            }
+
+            @Override
             public void onError(String error) {
                 if (analytics != null) analytics.logAuthError("email", error);
+                if (!isAdded()) return;
                 BannerHelper.error(requireActivity(), error);
             }
         });

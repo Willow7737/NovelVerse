@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  nav_enter_forward.xml
+  The incoming fragment when navigating FORWARD.
+  Slides in from the right with a subtle depth-scale and fade.
+  Duration matches nav_exit_forward so both halves sync.
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <!-- Slide from 100% (off-screen right) to 0 -->
+    <translate
+        android:duration="380"
+        android:fromXDelta="100%"
+        android:toXDelta="0%"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <!-- Fade from nearly invisible to fully opaque -->
+    <alpha
+        android:duration="280"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:startOffset="60"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <!-- Subtle depth scale: grow from 0.94 to 1.0 (parallax depth feel) -->
+    <scale
+        android:duration="380"
+        android:fromXScale="0.94"
+        android:toXScale="1.0"
+        android:fromYScale="0.94"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+</set>

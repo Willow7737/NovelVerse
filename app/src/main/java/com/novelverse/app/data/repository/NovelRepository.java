@@ -371,17 +371,20 @@ public class NovelRepository {
         MutableLiveData<List<Novel>> ld = new MutableLiveData<>();
         String userId = prefs.getUserId();
         if (userId == null) { ld.setValue(new ArrayList<>()); return ld; }
-        // Join novels + author profiles + most-recent reading_progress row for progress bar
-        String select = "novels(*,profiles!author_id(display_name,avatar_url,username)),"
-                + "reading_progress(progress_percentage,chapter_id)";
+        // Step 1: fetch library items + nested novel+author (no reading_progress join — no FK exists
+        // between user_library and reading_progress, so PostgREST returns HTTP 400).
+        String select = "novel_id,novels(*,profiles!author_id(display_name,avatar_url,username))";
         String filter = "user_id=eq." + userId + "&status=eq.reading";
         String url    = db.buildSelectUrl("user_library", select, filter, "updated_at.desc");
-        db.rawSelect(url, prefs.getAccessToken(), new SupabaseDatabaseService.DatabaseCallback() {
+        String token  = prefs.getAccessToken();
+        db.rawSelect(url, token, new SupabaseDatabaseService.DatabaseCallback() {
             @Override public void onSuccess(String r) {
                 List<Novel> list = new ArrayList<>();
                 try {
                     com.google.gson.JsonArray rows = new com.google.gson.Gson().fromJson(r, com.google.gson.JsonArray.class);
-                    if (rows == null) { ld.postValue(list); return; }
+                    if (rows == null || rows.size() == 0) { ld.postValue(list); return; }
+                    // Build novel list and collect novel IDs for the progress query
+                    StringBuilder novelIds = new StringBuilder();
                     for (int i = 0; i < rows.size(); i++) {
                         com.google.gson.JsonObject row = rows.get(i).getAsJsonObject();
                         if (!row.has("novels") || row.get("novels").isJsonNull()) continue;
@@ -394,32 +397,47 @@ public class NovelRepository {
                             if (prof.has("avatar_url") && !prof.get("avatar_url").isJsonNull())
                                 novel.setAuthorAvatarUrl(prof.get("avatar_url").getAsString());
                         }
-                        // Extract reading progress (PostgREST may return object or single-element array)
-                        if (row.has("reading_progress") && !row.get("reading_progress").isJsonNull()) {
-                            com.google.gson.JsonElement rpEl = row.get("reading_progress");
-                            com.google.gson.JsonObject rp = null;
-                            if (rpEl.isJsonArray()) {
-                                com.google.gson.JsonArray rpArr = rpEl.getAsJsonArray();
-                                if (rpArr.size() > 0) rp = rpArr.get(0).getAsJsonObject();
-                            } else if (rpEl.isJsonObject()) {
-                                rp = rpEl.getAsJsonObject();
-                            }
-                            if (rp != null) {
-                                if (rp.has("progress_percentage") && !rp.get("progress_percentage").isJsonNull())
-                                    novel.setReadingProgressPercent(rp.get("progress_percentage").getAsDouble());
-                                if (rp.has("chapter_id") && !rp.get("chapter_id").isJsonNull())
-                                    novel.setCurrentChapterId(rp.get("chapter_id").getAsString());
-                                if (rp.has("chapters") && !rp.get("chapters").isJsonNull()) {
-                                    com.google.gson.JsonObject ch = rp.getAsJsonObject("chapters");
-                                    if (ch.has("chapter_number") && !ch.get("chapter_number").isJsonNull())
-                                        novel.setCurrentChapterNumber(ch.get("chapter_number").getAsInt());
-                                }
-                            }
-                        }
                         list.add(novel);
+                        if (novelIds.length() > 0) novelIds.append(",");
+                        novelIds.append(novel.getId());
                     }
-                } catch (Exception e) { Log.e(TAG, "getContinueReading parse error: " + e.getMessage()); }
-                ld.postValue(list);
+                    if (list.isEmpty()) { ld.postValue(list); return; }
+                    // Step 2: fetch reading_progress for this user + these novels (separate query, no FK needed)
+                    String rpFilter = "user_id=eq." + userId + "&novel_id=in.(" + novelIds + ")";
+                    String rpUrl = db.buildSelectUrl("reading_progress",
+                            "novel_id,progress_percentage,chapter_id", rpFilter, "updated_at.desc");
+                    db.rawSelect(rpUrl, token, new SupabaseDatabaseService.DatabaseCallback() {
+                        @Override public void onSuccess(String rpJson) {
+                            try {
+                                // Build map: novel_id -> most-recent progress row
+                                java.util.Map<String, com.google.gson.JsonObject> rpMap = new java.util.HashMap<>();
+                                com.google.gson.JsonArray rpArr = new com.google.gson.Gson()
+                                        .fromJson(rpJson, com.google.gson.JsonArray.class);
+                                if (rpArr != null) {
+                                    for (int j = 0; j < rpArr.size(); j++) {
+                                        com.google.gson.JsonObject rp = rpArr.get(j).getAsJsonObject();
+                                        String nid = rp.has("novel_id") && !rp.get("novel_id").isJsonNull()
+                                                ? rp.get("novel_id").getAsString() : null;
+                                        if (nid != null && !rpMap.containsKey(nid)) rpMap.put(nid, rp);
+                                    }
+                                }
+                                for (Novel novel : list) {
+                                    com.google.gson.JsonObject rp = rpMap.get(novel.getId());
+                                    if (rp == null) continue;
+                                    if (rp.has("progress_percentage") && !rp.get("progress_percentage").isJsonNull())
+                                        novel.setReadingProgressPercent(rp.get("progress_percentage").getAsDouble());
+                                    if (rp.has("chapter_id") && !rp.get("chapter_id").isJsonNull())
+                                        novel.setCurrentChapterId(rp.get("chapter_id").getAsString());
+                                }
+                            } catch (Exception e) { Log.e(TAG, "getContinueReading progress parse: " + e.getMessage()); }
+                            ld.postValue(list);
+                        }
+                        @Override public void onError(String e) {
+                            Log.w(TAG, "getContinueReading progress fetch failed (non-fatal): " + e);
+                            ld.postValue(list); // still return library items without progress
+                        }
+                    });
+                } catch (Exception e) { Log.e(TAG, "getContinueReading parse error: " + e.getMessage()); ld.postValue(list); }
             }
             @Override public void onError(String e) { Log.e(TAG, "getContinueReading error: " + e); ld.postValue(new ArrayList<>()); }
         });
@@ -453,7 +471,7 @@ public class NovelRepository {
     public LiveData<List<ReadingChallenge>> getActiveChallenges() {
         MutableLiveData<List<ReadingChallenge>> ld = new MutableLiveData<>();
         db.queryTable("challenges",
-            "select=id,title,description,target_count,reward_points,badge_drawable_id,expires_at&expires_at=gte." +
+            "select=id,title,description,goal_value,reward_ink,reward_xp,ends_at&is_active=eq.true&ends_at=gte." +
                 new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(new java.util.Date()),
             new SupabaseDatabaseService.DatabaseCallback() {
                 @Override public void onSuccess(String r) {
@@ -462,8 +480,23 @@ public class NovelRepository {
                         com.google.gson.JsonArray arr = gson.fromJson(r, com.google.gson.JsonArray.class);
                         if (arr != null) {
                             for (int i = 0; i < arr.size(); i++) {
-                                ReadingChallenge ch = gson.fromJson(arr.get(i), ReadingChallenge.class);
-                                if (ch != null) list.add(ch);
+                                com.google.gson.JsonObject o = arr.get(i).getAsJsonObject();
+                                ReadingChallenge ch = new ReadingChallenge();
+                                if (o.has("id"))          ch.setId(o.get("id").getAsString());
+                                if (o.has("title"))       ch.setTitle(o.get("title").getAsString());
+                                if (o.has("description") && !o.get("description").isJsonNull())
+                                    ch.setDescription(o.get("description").getAsString());
+                                // Map server column names → app model fields
+                                if (o.has("goal_value"))  ch.setTargetCount(o.get("goal_value").getAsInt());
+                                if (o.has("reward_ink"))  ch.setRewardPoints(o.get("reward_ink").getAsInt());
+                                if (o.has("ends_at") && !o.get("ends_at").isJsonNull()) {
+                                    try {
+                                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                                                "yyyy-MM-dd'T'HH:mm:ssXXX", java.util.Locale.US);
+                                        ch.setExpiresAt(sdf.parse(o.get("ends_at").getAsString()));
+                                    } catch (Exception ignored) {}
+                                }
+                                list.add(ch);
                             }
                         }
                     } catch (Exception e) { Log.e(TAG, "parse challenges: " + e.getMessage()); }

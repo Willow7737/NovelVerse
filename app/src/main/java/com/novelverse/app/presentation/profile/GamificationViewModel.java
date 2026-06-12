@@ -13,6 +13,7 @@ import com.novelverse.app.data.local.entities.UserLevelEntity;
 import com.novelverse.app.data.local.entities.UserStreakEntity;
 import com.novelverse.app.data.repository.GamificationRepository;
 import com.novelverse.app.domain.gamification.StreakEngine;
+import com.novelverse.app.utils.SingleLiveEvent;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 /**
  * ViewModel for all gamification UI.
  * Survives configuration changes; exposes LiveData streams from Room.
+ *
+ * <p>levelUpEvent fires exactly once per level-up via {@link SingleLiveEvent}.
+ * The payload is an int[] {newLevel, xpTotal} so callers can pass both extras
+ * to {@link com.novelverse.app.presentation.gamification.LevelUpActivity}.
  */
 @HiltViewModel
 public class GamificationViewModel extends ViewModel {
@@ -40,6 +45,17 @@ public class GamificationViewModel extends ViewModel {
     private final MutableLiveData<StreakEngine.StreakResult> lastStreakResult = new MutableLiveData<>();
     private final MutableLiveData<String> toastMessage = new MutableLiveData<>();
 
+    /**
+     * Fires once per level-up with int[] {newLevel, (int) xpTotal}.
+     * Observed only in HomeFragment — no other fragment should re-trigger it.
+     *
+     * Note: xpTotal is cast to int for the array. If a user ever exceeds
+     * Integer.MAX_VALUE XP (~2.1 billion) this will overflow, but that
+     * is not a real concern for the foreseeable future. If you want to be
+     * safe, switch to a long[] or a small wrapper object.
+     */
+    private final SingleLiveEvent<int[]> levelUpEvent = new SingleLiveEvent<>();
+
     private String currentUserId;
     private LiveData<UserCurrencyEntity> currencySource;
     private LiveData<UserLevelEntity>    levelSource;
@@ -54,6 +70,10 @@ public class GamificationViewModel extends ViewModel {
         // Wire catalog once (no userId dependency)
         catalogSource = repo.getCatalogLive();
         catalog.addSource(catalogSource, catalog::setValue);
+
+        // Wire level-up callback from repo → SingleLiveEvent
+        repo.setLevelUpListener((newLevel, xpTotal) ->
+                levelUpEvent.postValue(new int[]{newLevel, (int) xpTotal}));
     }
 
     /** Call after auth — wires all LiveData for the signed-in user. */
@@ -96,11 +116,18 @@ public class GamificationViewModel extends ViewModel {
     public LiveData<StreakEngine.StreakResult>    getLastStreakResult() { return lastStreakResult; }
     public LiveData<String> getToastMessage()               { return toastMessage; }
 
+    /**
+     * One-shot event: fires when the user levels up.
+     * Payload: int[] {newLevel, xpTotal (truncated to int)}.
+     * Observe this only in HomeFragment.
+     */
+    public LiveData<int[]> getLevelUpEvent() { return levelUpEvent; }
+
     // ── Actions ───────────────────────────────────────────────────────────────
 
     /** Call from ReaderActivity on stop or scroll milestone. */
     public void onReadingActivity(int secondsRead, double progressPct, double prevPct,
-                                   int totalNovelsRead, int totalChaptersRead) {
+                                  int totalNovelsRead, int totalChaptersRead) {
         if (currentUserId == null) return;
         long now = System.currentTimeMillis();
         // Streak update runs on repo's executor — result posted back via lastStreakResult
@@ -123,10 +150,10 @@ public class GamificationViewModel extends ViewModel {
     public void applyFreeze(boolean useFreeFreeze) {
         if (currentUserId == null) return;
         repo.applyStreakFreeze(
-            currentUserId,
-            useFreeFreeze,
-            System.currentTimeMillis(),
-            success -> toastMessage.postValue(success ? "Streak frozen! ❄️" : "No free freezes available")
+                currentUserId,
+                useFreeFreeze,
+                System.currentTimeMillis(),
+                success -> toastMessage.postValue(success ? "Streak frozen! ❄️" : "No free freezes available")
         );
     }
 
@@ -137,11 +164,11 @@ public class GamificationViewModel extends ViewModel {
     public void applyShieldRecovery(int recoveredStreak, boolean isFree) {
         if (currentUserId == null) return;
         repo.applyShieldRecovery(
-            currentUserId,
-            recoveredStreak,
-            isFree,
-            System.currentTimeMillis(),
-            success -> toastMessage.postValue(success ? "Streak restored! 🛡" : "Insufficient Quill")
+                currentUserId,
+                recoveredStreak,
+                isFree,
+                System.currentTimeMillis(),
+                success -> toastMessage.postValue(success ? "Streak restored! 🛡" : "Insufficient Quill")
         );
     }
 

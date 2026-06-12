@@ -118,7 +118,6 @@ public class EditProfileActivity extends AppCompatActivity {
             scaled.compress(Bitmap.CompressFormat.JPEG, 88, out);
             pendingAvatarBytes = out.toByteArray();          // ← FIX
 
-            BannerHelper.success(this, "Avatar selected", "Tap Save to apply.");
         } catch (Exception e) {
             pendingAvatarBytes = null;                        // ← FIX: clear on failure
             BannerHelper.error(this, "Couldn't load photo");
@@ -139,7 +138,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 scaled.compress(Bitmap.CompressFormat.JPEG, 88, out);
                 pendingCoverBytes = out.toByteArray();        // ← FIX
             }
-            BannerHelper.success(this, "Cover selected", "Tap Save to apply.");
         } catch (Exception e) {
             pendingCoverBytes = null;                         // ← FIX: clear on failure
             BannerHelper.error(this, "Couldn't load cover photo");

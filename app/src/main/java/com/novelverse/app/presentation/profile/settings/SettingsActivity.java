@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.novelverse.app.R;
-import com.novelverse.app.presentation.auth.AuthActivity;
 import com.novelverse.app.presentation.auth.AuthViewModel;
 import com.novelverse.app.presentation.common.legal.LegalActivity;
+import com.novelverse.app.presentation.onboarding.OnboardingActivity;
 import com.novelverse.app.presentation.payment.store.PointStoreActivity;
 import com.novelverse.app.presentation.payment.subscriptions.SubscriptionActivity;
 import com.novelverse.app.presentation.profile.downloads.DownloadsActivity;
@@ -261,7 +261,7 @@ public class SettingsActivity extends AppCompatActivity {
             sheet.dismiss();
             authViewModel.signOut((success, error) -> {
                 if (success) {
-                    Intent i = new Intent(this, AuthActivity.class);
+                    Intent i = new Intent(this, OnboardingActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 } else {

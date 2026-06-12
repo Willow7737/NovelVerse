@@ -34,7 +34,7 @@ android {
 
         buildConfigField "String", "SUPABASE_URL",         "\"${localProps.getProperty('SUPABASE_URL', 'https://ztfvifgtebptxfoasrae.supabase.co')}\""
         buildConfigField "String", "SUPABASE_ANON_KEY",    "\"${localProps.getProperty('SUPABASE_ANON_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0ZnZpZmd0ZWJwdHhmb2FzcmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NTk2MTcsImV4cCI6MjA4OTMzNTYxN30.kQpVSwPCK3vc4Xx2-ov3F9fnOkStadzAzJVk4Lxq6F0')}\""
-        buildConfigField "String", "GOOGLE_WEB_CLIENT_ID", "\"${localProps.getProperty('GOOGLE_WEB_CLIENT_ID', 'http://1029537581769-r4u4kp674itr4nlh158octq8fhben3on.apps.googleusercontent.com')}\""
+        buildConfigField "String", "GOOGLE_WEB_CLIENT_ID", "\"${localProps.getProperty('GOOGLE_WEB_CLIENT_ID', '1029537581769-r4u4kp674itr4nlh158octq8fhben3on.apps.googleusercontent.com')}\""
     }
 
     signingConfigs {
@@ -54,7 +54,6 @@ android {
         debug {
             minifyEnabled false
             debuggable true
-            applicationIdSuffix '.debug'
             versionNameSuffix '-debug'
         }
         release {
@@ -123,6 +122,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.7.0'
     implementation 'androidx.activity:activity-ktx:1.8.2'
     implementation 'androidx.fragment:fragment-ktx:1.6.2'
+    // Custom Tabs — used for OAuth PKCE browser flows (Facebook, Apple, etc.)
+    implementation 'androidx.browser:browser:1.7.0'
 
     // UI
     implementation 'com.google.android.material:material:1.12.0'
@@ -209,6 +210,8 @@ dependencies {
 
     // Progress indicators
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    
+    implementation 'androidx.palette:palette:1.0.0'
 
     // Blurred cover (Task 8)
     implementation 'jp.wasabeef:glide-transformations:4.3.0'

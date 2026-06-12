@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.novelverse.app.data.local.preferences.UserPreferences;
-import com.novelverse.app.presentation.auth.AuthActivity;
+import com.novelverse.app.presentation.onboarding.OnboardingActivity;
 import com.novelverse.app.ui.banner.BannerHelper;
 
 import javax.inject.Inject;
@@ -59,7 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void requireRole(String... allowedRoles) {
         String role = userPreferences != null ? userPreferences.getCachedRole() : null;
         if (role == null || role.isEmpty()) {
-            startActivity(new Intent(this, AuthActivity.class));
+            startActivity(new Intent(this, OnboardingActivity.class));
             finish();
             return;
         }

@@ -90,19 +90,16 @@ public class AuthViewModel extends ViewModel {
     /**
      * Sign in with Google.
      *
-     * FIX: now accepts the idToken obtained from GoogleSignInAccount so it can
-     * be forwarded all the way down to Supabase. The old no-arg version never
-     * passed the token anywhere, causing every Google sign-in to fail silently.
+     * @param idToken  The ID token from GoogleSignInAccount.getIdToken().
+     * @param rawNonce The raw nonce passed to sha256Hex() before requestNonce().
      */
-    public void signInWithGoogle(String idToken) {
+    public void signInWithGoogle(String idToken, String rawNonce) {
         authResult.setValue(Resource.loading(null));
-
-        userRepository.signInWithGoogle(idToken, new UserRepository.AuthCallback() {
+        userRepository.signInWithGoogle(idToken, rawNonce, new UserRepository.AuthCallback() {
             @Override
             public void onSuccess(User user) {
                 authResult.postValue(Resource.success(user));
             }
-
             @Override
             public void onError(String error) {
                 authResult.postValue(Resource.error(error, null));

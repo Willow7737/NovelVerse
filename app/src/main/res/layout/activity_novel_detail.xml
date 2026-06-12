@@ -13,7 +13,7 @@
          android:gravity="center_vertical"
          android:elevation="8dp"
          android:orientation="horizontal"
-         android:paddingBottom="24dp"
+         android:paddingBottom="20dp"
          android:paddingHorizontal="16dp"
          android:id="@+id/bottom_cta"
          android:layout_gravity="bottom"
@@ -22,46 +22,36 @@
         <ImageView
              android:layout_height="48dp"
              android:layout_width="48dp"
-             android:src="@drawable/ic_bookmark"
              android:layout_marginEnd="10dp"
              android:contentDescription="Add to library"
+             android:src="@drawable/ic_bookmark"
              android:background="@drawable/bg_surface_card"
-             android:padding="12dp"
+             android:padding="8dp"
              android:id="@+id/btn_bookmark" />
 
         <ImageView
              android:layout_height="48dp"
              android:layout_width="48dp"
-             android:src="@drawable/ic_star_filled"
+             android:visibility="gone"
              android:layout_marginEnd="10dp"
              android:contentDescription="Write review"
+             android:src="@drawable/ic_star_filled"
              android:background="@drawable/bg_surface_card"
-             android:padding="12dp"
+             android:padding="8dp"
              android:tint="@color/warning"
              android:id="@+id/btn_write_review" />
 
         <TextView
              android:layout_height="52dp"
              android:layout_width="0dp"
-             android:gravity="center"
              android:background="@drawable/bg_btn_primary"
-             android:textSize="16sp"
+             android:gravity="center"
              android:fontFamily="@font/inter_semibold"
+             android:textSize="16sp"
              android:textColor="@color/white"
              android:layout_weight="1"
              android:id="@+id/btn_read"
              android:text="Start Reading" />
-
-        <TextView
-             android:layout_height="48dp"
-             android:layout_width="wrap_content"
-             android:gravity="center"
-             android:textSize="14sp"
-             android:fontFamily="@font/inter_medium"
-             android:textColor="?attr/colorPrimary"
-             android:paddingHorizontal="12dp"
-             android:id="@+id/btn_download_next_10"
-             android:text="⬇ Next 10" />
 
     </LinearLayout>
 
@@ -77,83 +67,190 @@
              android:paddingBottom="120dp">
 
             <FrameLayout
-                 android:layout_height="280dp"
-                 android:layout_width="match_parent"
-                 android:background="@color/shimmer_base">
+                 android:layout_height="300dp"
+                 android:layout_width="match_parent">
 
                 <ImageView
                      android:layout_height="match_parent"
                      android:layout_width="match_parent"
-                     android:scaleType="centerCrop"
                      android:contentDescription="@null"
-                     android:alpha="0.12"
+                     android:scaleType="centerCrop"
+                     android:alpha="0.30"
                      android:id="@+id/novel_cover_blur_bg" />
 
                 <View
                      android:layout_height="match_parent"
                      android:layout_width="match_parent"
-                     android:background="@drawable/bg_header_fade" />
-
-                <ImageView
-                     android:layout_height="44dp"
-                     android:layout_width="44dp"
-                     android:src="@drawable/ic_back"
-                     android:contentDescription="Back"
-                     android:background="@drawable/bg_icon_btn_white"
-                     android:layout_margin="12dp"
-                     android:padding="10dp"
-                     android:tint="?attr/colorOnSurfaceVariant"
-                     android:id="@+id/btn_back"
-                     android:layout_gravity="top|start" />
+                     android:background="#E5060612"
+                     android:id="@+id/header_tint_overlay" />
 
                 <LinearLayout
                      android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:layout_margin="12dp"
+                     android:layout_width="match_parent"
+                     android:gravity="center_vertical"
                      android:orientation="horizontal"
-                     android:layout_gravity="top|end">
+                     android:paddingBottom="6dp"
+                     android:paddingHorizontal="10dp"
+                     android:id="@+id/top_nav_row"
+                     android:layout_gravity="top"
+                     android:paddingTop="10dp">
 
                     <ImageView
-                         android:layout_height="44dp"
-                         android:layout_width="44dp"
-                         android:src="@drawable/ic_share"
-                         android:layout_marginEnd="8dp"
+                         android:layout_height="38dp"
+                         android:layout_width="38dp"
+                         android:contentDescription="Back"
+                         android:src="@drawable/ic_back"
+                         android:padding="8dp"
+                         android:tint="@android:color/white"
+                         android:id="@+id/btn_back" />
+
+                    <View
+                         android:layout_height="1dp"
+                         android:layout_width="0dp"
+                         android:layout_weight="1" />
+
+                    <ImageView
+                         android:layout_height="38dp"
+                         android:layout_width="38dp"
                          android:contentDescription="Share"
-                         android:background="@drawable/bg_icon_btn_white"
-                         android:padding="10dp"
-                         android:tint="?attr/colorOnSurfaceVariant"
+                         android:src="@drawable/ic_share"
+                         android:padding="8dp"
+                         android:tint="@android:color/white"
                          android:id="@+id/btn_share" />
 
                     <ImageView
-                         android:layout_height="44dp"
-                         android:layout_width="44dp"
-                         android:src="@drawable/ic_more_vert"
+                         android:layout_height="38dp"
+                         android:layout_width="38dp"
+                         android:contentDescription="Download chapters"
+                         android:src="@drawable/ic_download"
+                         android:padding="8dp"
+                         android:tint="@android:color/white"
+                         android:layout_marginStart="4dp"
+                         android:id="@+id/btn_download_next_10" />
+
+                    <ImageView
+                         android:layout_height="38dp"
+                         android:layout_width="38dp"
                          android:contentDescription="More options"
-                         android:background="@drawable/bg_icon_btn_white"
-                         android:padding="10dp"
-                         android:tint="?attr/colorOnSurfaceVariant"
+                         android:src="@drawable/ic_more_vert"
+                         android:padding="8dp"
+                         android:tint="@android:color/white"
+                         android:layout_marginStart="4dp"
                          android:id="@+id/btn_more" />
 
                 </LinearLayout>
 
-                <com.google.android.material.card.MaterialCardView
-                     android:layout_height="180dp"
-                     android:layout_width="120dp"
-                     android:layout_marginBottom="16dp"
-                     app:cardElevation="12dp"
-                     app:cardCornerRadius="8dp"
-                     android:layout_gravity="bottom|center_horizontal">
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:gravity="top"
+                     android:orientation="horizontal"
+                     android:paddingBottom="20dp"
+                     android:paddingHorizontal="16dp"
+                     android:layout_gravity="bottom">
 
-                    <ImageView
-                         android:layout_height="match_parent"
-                         android:layout_width="match_parent"
-                         android:src="@drawable/img_placeholder_cover"
-                         android:scaleType="centerCrop"
-                         android:contentDescription="Novel cover"
-                         android:transitionName="novel_cover_detail"
-                         android:id="@+id/novel_cover" />
+                    <com.google.android.material.card.MaterialCardView
+                         android:layout_height="168dp"
+                         android:layout_width="112dp"
+                         app:cardElevation="20dp"
+                         app:cardCornerRadius="8dp">
 
-                </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                             android:layout_height="match_parent"
+                             android:layout_width="match_parent"
+                             android:contentDescription="Novel cover"
+                             android:scaleType="centerCrop"
+                             android:src="@drawable/img_placeholder_cover"
+                             android:transitionName="novel_cover_detail"
+                             android:id="@+id/novel_cover" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                         android:layout_height="168dp"
+                         android:layout_width="0dp"
+                         android:gravity="top"
+                         android:orientation="vertical"
+                         android:layout_marginStart="14dp"
+                         android:layout_weight="1"
+                         android:paddingTop="2dp">
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="match_parent"
+                             android:ellipsize="end"
+                             android:textSize="26sp"
+                             android:textColor="@android:color/white"
+                             android:letterSpacing="-0.02"
+                             android:shadowRadius="8"
+                             android:fontFamily="@font/inter_semibold"
+                             android:shadowColor="#BB000000"
+                             android:shadowDx="0"
+                             android:shadowDy="1"
+                             android:lineSpacingMultiplier="1.1"
+                             android:maxLines="2"
+                             android:id="@+id/novel_title"
+                             android:text="Novel Title" />
+
+                        <LinearLayout
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:gravity="center_vertical"
+                             android:clickable="true"
+                             android:orientation="horizontal"
+                             android:layout_marginTop="10dp"
+                             android:focusable="true"
+                             android:id="@+id/author_row"
+                             android:foreground="?attr/selectableItemBackground">
+
+                            <ImageView
+                                 android:layout_height="20dp"
+                                 android:layout_width="20dp"
+                                 android:layout_marginEnd="6dp"
+                                 android:contentDescription="Author avatar"
+                                 android:scaleType="centerCrop"
+                                 android:src="@drawable/ic_avatar_placeholder"
+                                 android:id="@+id/author_avatar" />
+
+                            <TextView
+                                 android:layout_height="wrap_content"
+                                 android:layout_width="wrap_content"
+                                 android:fontFamily="@font/inter_medium"
+                                 android:textSize="13sp"
+                                 android:textColor="#CCFFFFFF"
+                                 android:id="@+id/novel_author"
+                                 android:text="Author Name" />
+
+                            <ImageView
+                                 android:layout_height="13dp"
+                                 android:layout_width="13dp"
+                                 android:visibility="gone"
+                                 android:contentDescription="Verified"
+                                 android:src="@drawable/ic_verified"
+                                 android:layout_marginStart="4dp"
+                                 android:id="@+id/author_verified" />
+
+                        </LinearLayout>
+
+                        <HorizontalScrollView
+                             android:layout_height="wrap_content"
+                             android:layout_width="match_parent"
+                             android:scrollbars="none"
+                             android:layout_marginTop="10dp">
+
+                            <LinearLayout
+                                 android:layout_height="wrap_content"
+                                 android:layout_width="wrap_content"
+                                 android:orientation="horizontal"
+                                 android:id="@+id/genre_chips">
+
+                            </LinearLayout>
+
+                        </HorizontalScrollView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </FrameLayout>
 
@@ -161,196 +258,114 @@
                  android:layout_height="wrap_content"
                  android:layout_width="match_parent"
                  android:background="?attr/colorSurface"
-                 android:gravity="center_horizontal"
-                 android:orientation="vertical"
+                 android:gravity="center"
+                 android:orientation="horizontal"
                  android:paddingBottom="16dp"
                  android:paddingHorizontal="20dp"
                  android:paddingTop="18dp">
 
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:gravity="center"
-                     android:textSize="22sp"
-                     android:fontFamily="@font/inter_semibold"
-                     android:textColor="?attr/colorOnSurface"
-                     android:letterSpacing="-0.01"
-                     android:id="@+id/novel_title"
-                     android:text="Novel Title" />
-
                 <LinearLayout
                      android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:gravity="center_vertical"
-                     android:clickable="true"
-                     android:orientation="horizontal"
-                     android:layout_marginTop="8dp"
-                     android:focusable="true"
-                     android:id="@+id/author_row"
-                     android:foreground="?attr/selectableItemBackground">
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
 
-                    <ImageView
-                         android:layout_height="20dp"
-                         android:layout_width="20dp"
-                         android:src="@drawable/ic_avatar_placeholder"
-                         android:layout_marginEnd="8dp"
-                         android:contentDescription="Author avatar"
-                         android:scaleType="centerCrop"
-                         android:id="@+id/author_avatar" />
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:gravity="center_vertical"
+                         android:orientation="horizontal">
+
+                        <ImageView
+                             android:layout_height="16dp"
+                             android:layout_width="16dp"
+                             android:layout_marginEnd="4dp"
+                             android:contentDescription="Rating"
+                             android:src="@drawable/ic_star_filled"
+                             android:tint="@color/warning" />
+
+                        <TextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:fontFamily="@font/inter_semibold"
+                             android:textSize="16sp"
+                             android:textColor="?attr/colorOnSurface"
+                             android:id="@+id/novel_rating"
+                             android:text="0.0" />
+
+                    </LinearLayout>
 
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_medium"
-                         android:textColor="?attr/colorPrimary"
-                         android:id="@+id/novel_author"
-                         android:text="Author Name" />
-
-                    <ImageView
-                         android:layout_height="16dp"
-                         android:layout_width="16dp"
-                         android:visibility="gone"
-                         android:src="@drawable/ic_verified"
-                         android:contentDescription="Verified"
-                         android:layout_marginStart="4dp"
-                         android:id="@+id/author_verified" />
+                         android:textSize="12sp"
+                         android:textColor="@color/text_tertiary"
+                         android:text="Rating" />
 
                 </LinearLayout>
+
+                <View
+                     android:layout_height="32dp"
+                     android:layout_width="1dp"
+                     android:background="@color/divider" />
 
                 <LinearLayout
                      android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
+                     android:layout_width="0dp"
                      android:gravity="center"
-                     android:orientation="horizontal"
-                     android:layout_marginTop="14dp">
+                     android:orientation="vertical"
+                     android:layout_weight="1">
 
-                    <LinearLayout
+                    <TextView
                          android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:gravity="center"
-                         android:orientation="vertical"
-                         android:layout_weight="1">
+                         android:layout_width="wrap_content"
+                         android:fontFamily="@font/inter_semibold"
+                         android:textSize="16sp"
+                         android:textColor="?attr/colorOnSurface"
+                         android:id="@+id/novel_views"
+                         android:text="0" />
 
-                        <LinearLayout
-                             android:layout_height="wrap_content"
-                             android:layout_width="wrap_content"
-                             android:gravity="center_vertical"
-                             android:orientation="horizontal">
-
-                            <ImageView
-                                 android:layout_height="16dp"
-                                 android:layout_width="16dp"
-                                 android:src="@drawable/ic_star_filled"
-                                 android:layout_marginEnd="4dp"
-                                 android:contentDescription="Rating"
-                                 android:tint="@color/warning" />
-
-                            <TextView
-                                 android:layout_height="wrap_content"
-                                 android:layout_width="wrap_content"
-                                 android:textSize="16sp"
-                                 android:fontFamily="@font/inter_semibold"
-                                 android:textColor="?attr/colorOnSurface"
-                                 android:id="@+id/novel_rating"
-                                 android:text="0.0" />
-
-                        </LinearLayout>
-
-                        <TextView
-                             android:layout_height="wrap_content"
-                             android:layout_width="wrap_content"
-                             android:textSize="12sp"
-                             android:textColor="@color/text_tertiary"
-                             android:text="Rating" />
-
-                    </LinearLayout>
-
-                    <View
-                         android:layout_height="32dp"
-                         android:layout_width="1dp"
-                         android:background="@color/divider" />
-
-                    <LinearLayout
+                    <TextView
                          android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:gravity="center"
-                         android:orientation="vertical"
-                         android:layout_weight="1">
-
-                        <TextView
-                             android:layout_height="wrap_content"
-                             android:layout_width="wrap_content"
-                             android:textSize="16sp"
-                             android:fontFamily="@font/inter_semibold"
-                             android:textColor="?attr/colorOnSurface"
-                             android:id="@+id/novel_views"
-                             android:text="0" />
-
-                        <TextView
-                             android:layout_height="wrap_content"
-                             android:layout_width="wrap_content"
-                             android:textSize="12sp"
-                             android:textColor="@color/text_tertiary"
-                             android:text="Views" />
-
-                    </LinearLayout>
-
-                    <View
-                         android:layout_height="32dp"
-                         android:layout_width="1dp"
-                         android:background="@color/divider" />
-
-                    <LinearLayout
-                         android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:gravity="center"
-                         android:orientation="vertical"
-                         android:layout_weight="1">
-
-                        <TextView
-                             android:layout_height="wrap_content"
-                             android:layout_width="wrap_content"
-                             android:textSize="16sp"
-                             android:fontFamily="@font/inter_semibold"
-                             android:textColor="?attr/colorOnSurface"
-                             android:id="@+id/novel_chapters"
-                             android:text="0" />
-
-                        <TextView
-                             android:layout_height="wrap_content"
-                             android:layout_width="wrap_content"
-                             android:textSize="12sp"
-                             android:textColor="@color/text_tertiary"
-                             android:text="Chapters" />
-
-                    </LinearLayout>
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:textColor="@color/text_tertiary"
+                         android:text="Views" />
 
                 </LinearLayout>
 
-                <HorizontalScrollView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:scrollbars="none"
-                     android:layout_marginTop="14dp">
+                <View
+                     android:layout_height="32dp"
+                     android:layout_width="1dp"
+                     android:background="@color/divider" />
 
-                    <LinearLayout
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:gravity="center"
+                     android:orientation="vertical"
+                     android:layout_weight="1">
+
+                    <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:orientation="horizontal"
-                         android:id="@+id/genre_chips">
+                         android:fontFamily="@font/inter_semibold"
+                         android:textSize="16sp"
+                         android:textColor="?attr/colorOnSurface"
+                         android:id="@+id/novel_chapters"
+                         android:text="0" />
 
-                    </LinearLayout>
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textSize="12sp"
+                         android:textColor="@color/text_tertiary"
+                         android:text="Chapters" />
 
-                </HorizontalScrollView>
+                </LinearLayout>
 
             </LinearLayout>
-
-            <View
-                 android:layout_height="1dp"
-                 android:layout_width="match_parent"
-                 android:background="@color/divider"
-                 android:layout_marginHorizontal="14dp" />
 
             <LinearLayout
                  android:layout_height="wrap_content"
@@ -365,8 +380,8 @@
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:layout_marginBottom="10dp"
-                     android:textSize="16sp"
                      android:fontFamily="@font/inter_semibold"
+                     android:textSize="16sp"
                      android:textColor="?attr/colorOnSurface"
                      android:text="Synopsis" />
 
@@ -374,8 +389,8 @@
                      android:layout_height="wrap_content"
                      android:layout_width="match_parent"
                      android:ellipsize="end"
-                     android:textSize="15sp"
                      android:fontFamily="@font/inter_regular"
+                     android:textSize="15sp"
                      android:textColor="?attr/colorOnSurfaceVariant"
                      android:lineSpacingMultiplier="1.5"
                      android:maxLines="6"
@@ -386,8 +401,8 @@
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:visibility="gone"
-                     android:textSize="14sp"
                      android:fontFamily="@font/inter_medium"
+                     android:textSize="14sp"
                      android:textColor="?attr/colorPrimary"
                      android:layout_marginTop="8dp"
                      android:id="@+id/btn_read_more"
@@ -417,8 +432,8 @@
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="0dp"
-                         android:textSize="16sp"
                          android:fontFamily="@font/inter_semibold"
+                         android:textSize="16sp"
                          android:textColor="?attr/colorOnSurface"
                          android:layout_weight="1"
                          android:text="Reviews" />
@@ -426,8 +441,8 @@
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
-                         android:textSize="13sp"
                          android:fontFamily="@font/inter_regular"
+                         android:textSize="13sp"
                          android:textColor="?attr/colorOnSurfaceVariant"
                          android:id="@+id/reviews_count_label" />
 
@@ -456,8 +471,8 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="0dp"
-                     android:textSize="16sp"
                      android:fontFamily="@font/inter_semibold"
+                     android:textSize="16sp"
                      android:textColor="?attr/colorOnSurface"
                      android:layout_weight="1"
                      android:text="Chapters" />
@@ -465,8 +480,8 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
-                     android:textSize="14sp"
                      android:fontFamily="@font/inter_medium"
+                     android:textSize="14sp"
                      android:textColor="?attr/colorPrimary"
                      android:id="@+id/btn_sort_chapters"
                      android:text="Oldest first" />
@@ -484,11 +499,11 @@
             <TextView
                  android:layout_height="52dp"
                  android:layout_width="match_parent"
-                 android:gravity="center"
                  android:background="@drawable/bg_surface_card"
+                 android:gravity="center"
                  android:layout_marginHorizontal="14dp"
-                 android:textSize="15sp"
                  android:fontFamily="@font/inter_semibold"
+                 android:textSize="15sp"
                  android:textColor="?attr/colorPrimary"
                  android:layout_marginTop="4dp"
                  android:id="@+id/btn_all_chapters"

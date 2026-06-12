@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -177,13 +178,6 @@ public class ReaderActivity extends AppCompatActivity {
                         currencyHud.setVisibility(android.view.View.VISIBLE);
                     }
                 });
-        }
-
-        // Register level-up listener → show celebration toast on main thread
-        if (gamificationRepository != null) {
-            gamificationRepository.setLevelUpListener(newLevel ->
-                runOnUiThread(() ->
-                    com.novelverse.app.presentation.common.views.LevelUpToastView.show(this, newLevel)));
         }
 
         // Page adapter
@@ -613,7 +607,7 @@ public class ReaderActivity extends AppCompatActivity {
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                chapterContent.setJustificationMode(Layout.JUSTIFICATION_MODE_NONE);
+                chapterContent.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_NONE);
             }
             chapterContent.setGravity(Gravity.START);
         }

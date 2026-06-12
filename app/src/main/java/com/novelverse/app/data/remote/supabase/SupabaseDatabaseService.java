@@ -290,6 +290,34 @@ public class SupabaseDatabaseService {
         enqueue(http.newCall(base(url, token).post(body).build()), cb);
     }
 
+    // ── PATCH WHERE (filter-based, no id required) ────────────────────────
+
+    /**
+     * PATCH rows matching a PostgREST filter string.
+     * e.g. filter = "quest_id=eq.UUID&user_id=eq.UUID&is_completed=eq.true"
+     */
+    public void patchWhere(String table, String filter, JsonObject data,
+                           String token, DatabaseCallback cb) {
+        StringBuilder url = new StringBuilder(client.getRestUrl()).append("/").append(table);
+        if (filter != null && !filter.isEmpty()) url.append("?").append(filter);
+        RequestBody rb = RequestBody.create(JSON, data.toString());
+        enqueue(http.newCall(
+                base(url.toString(), token)
+                        .header("Prefer", "return=representation")
+                        .patch(rb)
+                        .build()), cb);
+    }
+
+    /**
+     * Build a fully-formed filter URL for a table.
+     * Useful when a repository needs the URL string directly.
+     */
+    public String buildFilterUrl(String table, String filter) {
+        StringBuilder url = new StringBuilder(client.getRestUrl()).append("/").append(table);
+        if (filter != null && !filter.isEmpty()) url.append("?").append(filter);
+        return url.toString();
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────
 
     private String urlEncode(String s) {

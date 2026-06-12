@@ -107,4 +107,19 @@
 
     <style name="BottomSheetStyle" parent="Widget.NovelVerse.BottomSheet" />
 
+
+    <!-- ════════════════════════════════════════════════════════════════
+         Onboarding Theme
+         ════════════════════════════════════════════════════════════════ -->
+    <style name="Theme.NovelVerse.Onboarding" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
 </resources>

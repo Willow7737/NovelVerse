@@ -54,7 +54,7 @@
                     android:layout_height="96dp"
                     android:scaleType="centerCrop"
                     android:background="@drawable/bg_avatar_circle"
-                    android:src="@drawable/ic_camera"
+                    
                     android:tint="@color/onboarding_text_tertiary"
                     android:contentDescription="@string/profile_photo" />
 

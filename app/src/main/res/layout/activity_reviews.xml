@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Community Reviews"
-                    android:textSize="17sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/nunito_semibold"
                     android:textColor="?attr/colorOnSurface"
                     android:letterSpacing="-0.01" />

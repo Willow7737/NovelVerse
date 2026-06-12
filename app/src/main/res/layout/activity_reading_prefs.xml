@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorSurface">
 
     <!-- Header -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
-        android:orientation="horizontal" android:gravity="center_vertical"
-        android:paddingHorizontal="12dp" android:background="?attr/colorSurface">
-        <ImageView android:id="@+id/btn_back" android:layout_width="44dp" android:layout_height="44dp"
-            android:background="@drawable/bg_icon_btn_white" android:src="@drawable/ic_back"
-            android:tint="?attr/colorOnSurfaceVariant" android:padding="10dp" android:contentDescription="Back" />
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:layout_marginStart="12dp" android:text="Reading Preferences"
-            android:textColor="?attr/colorOnSurface" android:textSize="20sp" android:fontFamily="@font/inter_semibold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:background="?attr/colorSurface">
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_icon_btn_white"
+            android:src="@drawable/ic_back"
+            android:tint="?attr/colorOnSurfaceVariant"
+            android:padding="10dp"
+            android:contentDescription="Back" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="Reading Preferences"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_semibold" />
         <TextView
             android:id="@+id/btn_save_prefs"
             android:layout_width="wrap_content"
@@ -28,135 +45,250 @@
             android:fontFamily="@font/inter_semibold" />
     </LinearLayout>
     <!-- Bluesky hairline divider -->
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
 
 
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:paddingBottom="40dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
             <!-- Font Size -->
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp" android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp" android:text="FONT"
-                android:textColor="@color/text_tertiary" android:textSize="12sp"
-                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.12" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="FONT"
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_semibold"
+                android:letterSpacing="0.12" />
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:layout_marginHorizontal="14dp"
-                android:background="@drawable/bg_surface_card" android:elevation="1dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card"
+                android:elevation="1dp"
                 android:padding="20dp">
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Font Size" android:textColor="@color/text_primary"
-                    android:textSize="17sp" android:fontFamily="@font/inter_medium" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Font Size"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/inter_medium" />
 
-                <SeekBar android:id="@+id/seekbar_font_size"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp" android:max="4" android:progress="2"
-                    android:progressTint="@color/primary" android:thumbTint="@color/primary" />
+                <SeekBar
+                    android:id="@+id/seekbar_font_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:max="4"
+                    android:progress="2"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary" />
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginTop="8dp">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Small" android:textSize="13sp"
-                        android:textColor="@color/text_tertiary" android:fontFamily="@font/inter_regular" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Large" android:textSize="13sp"
-                        android:textColor="@color/text_tertiary" android:fontFamily="@font/inter_regular" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Small"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_tertiary"
+                        android:fontFamily="@font/inter_regular" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Large"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_tertiary"
+                        android:fontFamily="@font/inter_regular" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/divider" android:layout_marginVertical="16dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginVertical="16dp" />
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Line Spacing" android:textColor="@color/text_primary"
-                    android:textSize="17sp" android:fontFamily="@font/inter_medium" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Line Spacing"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/inter_medium" />
 
-                <SeekBar android:id="@+id/seekbar_line_spacing"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp" android:max="4" android:progress="1"
-                    android:progressTint="@color/primary" android:thumbTint="@color/primary" />
+                <SeekBar
+                    android:id="@+id/seekbar_line_spacing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:max="4"
+                    android:progress="1"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary" />
             </LinearLayout>
 
             <!-- Theme -->
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp" android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp" android:text="THEME"
-                android:textColor="@color/text_tertiary" android:textSize="12sp"
-                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.12" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="THEME"
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_semibold"
+                android:letterSpacing="0.12" />
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:layout_marginHorizontal="14dp"
-                android:background="@drawable/bg_surface_card" android:elevation="1dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="14dp"
+                android:background="@drawable/bg_surface_card"
+                android:elevation="1dp"
                 android:padding="20dp">
 
                 <!-- Light -->
-                <LinearLayout android:id="@+id/theme_light"
-                    android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1"
-                    android:orientation="vertical" android:gravity="center"
-                    android:background="?attr/colorSurface" android:layout_marginEnd="8dp"
+                <LinearLayout
+                    android:id="@+id/theme_light"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="?attr/colorSurface"
+                    android:layout_marginEnd="8dp"
                     android:elevation="2dp">
-                    <View android:layout_width="32dp" android:layout_height="4dp"
-                        android:background="@color/divider" android:layout_marginBottom="6dp" />
-                    <View android:layout_width="40dp" android:layout_height="4dp"
+                    <View
+                        android:layout_width="32dp"
+                        android:layout_height="4dp"
+                        android:background="@color/divider"
+                        android:layout_marginBottom="6dp" />
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="4dp"
                         android:background="@color/divider" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Light"
-                        android:textColor="?attr/colorOnSurface" android:textSize="13sp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Light"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="13sp"
                         android:fontFamily="@font/inter_semibold" />
                 </LinearLayout>
 
                 <!-- Dark -->
-                <LinearLayout android:id="@+id/theme_dark"
-                    android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1"
-                    android:orientation="vertical" android:gravity="center"
-                    android:background="#1E293B" android:layout_marginEnd="8dp"
+                <LinearLayout
+                    android:id="@+id/theme_dark"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="#1E293B"
+                    android:layout_marginEnd="8dp"
                     android:elevation="2dp">
-                    <View android:layout_width="32dp" android:layout_height="4dp"
-                        android:background="#334155" android:layout_marginBottom="6dp" />
-                    <View android:layout_width="40dp" android:layout_height="4dp"
+                    <View
+                        android:layout_width="32dp"
+                        android:layout_height="4dp"
+                        android:background="#334155"
+                        android:layout_marginBottom="6dp" />
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="4dp"
                         android:background="#334155" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Dark"
-                        android:textColor="?attr/colorOnSurface" android:textSize="13sp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Dark"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="13sp"
                         android:fontFamily="@font/inter_semibold" />
                 </LinearLayout>
 
                 <!-- Sepia -->
-                <LinearLayout android:id="@+id/theme_sepia"
-                    android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1"
-                    android:orientation="vertical" android:gravity="center"
-                    android:background="#F4ECD8" android:elevation="2dp">
-                    <View android:layout_width="32dp" android:layout_height="4dp"
-                        android:background="#D4B896" android:layout_marginBottom="6dp" />
-                    <View android:layout_width="40dp" android:layout_height="4dp"
+                <LinearLayout
+                    android:id="@+id/theme_sepia"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="#F4ECD8"
+                    android:elevation="2dp">
+                    <View
+                        android:layout_width="32dp"
+                        android:layout_height="4dp"
+                        android:background="#D4B896"
+                        android:layout_marginBottom="6dp" />
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="4dp"
                         android:background="#D4B896" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Sepia"
-                        android:textColor="#5B4636" android:textSize="13sp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Sepia"
+                        android:textColor="#5B4636"
+                        android:textSize="13sp"
                         android:fontFamily="@font/inter_semibold" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <!-- Preview box -->
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp" android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp" android:text="PREVIEW"
-                android:textColor="@color/text_tertiary" android:textSize="12sp"
-                android:fontFamily="@font/inter_semibold" android:letterSpacing="0.12" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="PREVIEW"
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_semibold"
+                android:letterSpacing="0.12" />
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="14dp"
-                android:background="@drawable/bg_surface_card" android:elevation="1dp"
+                android:background="@drawable/bg_surface_card"
+                android:elevation="1dp"
                 android:padding="20dp">
-                <TextView android:id="@+id/txt_preview"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/txt_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="The dragon swept across the sky, wings wide as the horizon. Below, a single candle flickered in the tower window — the last light in a world that had forgotten how to dream."
-                    android:textColor="@color/text_primary" android:textSize="17sp"
-                    android:fontFamily="@font/inter_regular" android:lineSpacingMultiplier="1.6" />
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/inter_regular"
+                    android:lineSpacingMultiplier="1.6" />
             </LinearLayout>
 
         </LinearLayout>

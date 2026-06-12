@@ -1,422 +1,421 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:background="@android:color/transparent"
-     android:id="@+id/swipe_refresh">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@android:color/transparent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <androidx.core.widget.NestedScrollView
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         android:background="@android:color/transparent"
-         android:fillViewport="true"
-         android:id="@+id/home_scroll">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:id="@+id/swipe_refresh">
 
-        <LinearLayout
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:background="@android:color/transparent"
-             android:orientation="vertical"
-             android:paddingBottom="24dp">
+        <androidx.core.widget.NestedScrollView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:fillViewport="true"
+            android:id="@+id/home_scroll">
 
             <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:visibility="gone"
-                 android:background="@drawable/bg_home_section_card"
-                 android:layout_marginHorizontal="12dp"
-                 android:orientation="vertical"
-                 android:layout_marginTop="16dp"
-                 android:id="@+id/section_continue_reading">
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:paddingBottom="24dp">
 
                 <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal"
-                     android:paddingBottom="7dp"
-                     android:paddingHorizontal="16dp"
-                     android:paddingTop="14dp">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_home_section_card"
+                    android:layout_marginHorizontal="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/section_continue_reading">
 
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:textSize="19sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:letterSpacing="-0.01"
-                         android:layout_weight="1"
-                         android:text="@string/continue_reading" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:padding="4dp"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_regular"
-                         android:textColor="@color/primary"
-                         android:id="@+id/btn_see_all_continue"
-                         android:text="@string/see_all" />
-
-                </LinearLayout>
-
-                <com.novelverse.app.presentation.common.views.DottedDividerView
-                     android:layout_height="2dp"
-                     android:layout_width="match_parent"
-                     android:layout_marginHorizontal="16dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="horizontal"
-                     android:paddingBottom="14dp"
-                     android:clipToPadding="false"
-                     android:paddingHorizontal="12dp"
-                     android:paddingTop="12dp"
-                     android:id="@+id/continue_reading_recycler" />
-
-            </LinearLayout>
-
-            <!-- ══════════════════════════════════════════════════════════
-                 COMMUNITY REVIEWS — slideshow section
-                 5 random reviews, auto-advances every 5 s,
-                 refreshes every 10 min. ViewPager2 + dot indicators.
-                 "See All" navigates to ReviewsActivity.
-                 ══════════════════════════════════════════════════════════ -->
-            <LinearLayout
-                 android:id="@+id/section_community_reviews"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:background="@drawable/bg_home_section_card"
-                 android:layout_marginHorizontal="12dp"
-                 android:layout_marginTop="14dp"
-                 android:orientation="vertical">
-
-                <!-- ── Section header ── -->
-                <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal"
-                     android:paddingTop="14dp"
-                     android:paddingBottom="7dp"
-                     android:paddingHorizontal="16dp">
-
-                    <!-- 🗨 icon + title -->
                     <LinearLayout
-                         android:layout_width="0dp"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1"
-                         android:orientation="horizontal"
-                         android:gravity="center_vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="14dp">
 
                         <TextView
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Community Reviews"
-                             android:textSize="19sp"
-                             android:fontFamily="@font/nunito_semibold"
-                             android:textColor="?attr/colorOnSurface"
-                             android:letterSpacing="-0.01" />
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:textSize="19sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:letterSpacing="-0.01"
+                            android:layout_weight="1"
+                            android:text="@string/continue_reading" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:padding="4dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="@color/primary"
+                            android:id="@+id/btn_see_all_continue"
+                            android:text="@string/see_all" />
 
                     </LinearLayout>
 
-                    <!-- "See All" link -->
-                    <TextView
-                         android:id="@+id/btn_see_all_reviews"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:padding="4dp"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/primary"
-                         android:text="@string/see_all" />
+                    <com.novelverse.app.presentation.common.views.DottedDividerView
+                        android:layout_height="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="14dp"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="12dp"
+                        android:paddingTop="12dp"
+                        android:id="@+id/continue_reading_recycler" />
 
                 </LinearLayout>
 
-                <!-- ── Dotted divider ── -->
-                <com.novelverse.app.presentation.common.views.DottedDividerView
-                     android:layout_width="match_parent"
-                     android:layout_height="2dp"
-                     android:layout_marginHorizontal="16dp" />
-
-                <!-- ── ViewPager2 slideshow ── -->
-                <androidx.viewpager2.widget.ViewPager2
-                     android:id="@+id/reviews_pager"
-                     android:layout_width="match_parent"
-                     android:layout_height="194dp"
-                     android:layout_marginTop="4dp"
-                     android:overScrollMode="never" />
-
-                <!-- ── Dot indicators ── -->
                 <LinearLayout
-                     android:id="@+id/reviews_dots"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center_horizontal"
-                     android:orientation="horizontal"
-                     android:gravity="center"
-                     android:layout_marginTop="8dp"
-                     android:layout_marginBottom="14dp"
-                     android:layout_alignParentBottom="true" />
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_home_section_card"
+                    android:layout_marginHorizontal="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="14dp"
+                    android:id="@+id/section_for_you">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="14dp">
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:textSize="19sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:letterSpacing="-0.01"
+                            android:layout_weight="1"
+                            android:text="@string/for_you" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:padding="4dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="@color/primary"
+                            android:id="@+id/btn_see_all_for_you"
+                            android:text="@string/see_all" />
+
+                    </LinearLayout>
+
+                    <com.novelverse.app.presentation.common.views.DottedDividerView
+                        android:layout_height="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="14dp"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="12dp"
+                        android:paddingTop="12dp"
+                        android:id="@+id/for_you_recycler" />
+
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:scrollbars="none"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="4dp"
+                    android:paddingStart="16dp"
+                    android:paddingTop="18dp">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:id="@+id/genre_pill_container">
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/bg_home_section_card"
+                    android:layout_marginHorizontal="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="14dp">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="14dp">
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:letterSpacing="-0.01"
+                            android:layout_weight="1"
+                            android:text="@string/trending" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:padding="4dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="@color/primary"
+                            android:id="@+id/btn_see_all_trending"
+                            android:text="@string/view_all" />
+
+                    </LinearLayout>
+
+                    <com.novelverse.app.presentation.common.views.DottedDividerView
+                        android:layout_height="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/shimmer_trending">
+
+                        <include
+                            layout="@layout/shimmer_home_section" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="14dp"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="12dp"
+                        android:paddingTop="12dp"
+                        android:id="@+id/trending_recycler" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/bg_home_section_card"
+                    android:layout_marginHorizontal="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="14dp">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="14dp">
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:letterSpacing="-0.01"
+                            android:layout_weight="1"
+                            android:text="@string/new_releases" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:padding="4dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="@color/primary"
+                            android:id="@+id/btn_see_all_new_releases"
+                            android:text="@string/view_all" />
+
+                    </LinearLayout>
+
+                    <com.novelverse.app.presentation.common.views.DottedDividerView
+                        android:layout_height="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/shimmer_new_releases">
+
+                        <include
+                            layout="@layout/shimmer_home_section" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="14dp"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="12dp"
+                        android:paddingTop="12dp"
+                        android:id="@+id/new_releases_recycler" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/bg_home_section_card"
+                    android:layout_marginHorizontal="12dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/section_community_reviews">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="14dp">
+
+                        <LinearLayout
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textSize="19sp"
+                                android:fontFamily="@font/nunito_semibold"
+                                android:textColor="?attr/colorOnSurface"
+                                android:letterSpacing="-0.01"
+                                android:text="Community Reviews" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:padding="4dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="@color/primary"
+                            android:id="@+id/btn_see_all_reviews"
+                            android:text="@string/see_all" />
+
+                    </LinearLayout>
+
+                    <com.novelverse.app.presentation.common.views.DottedDividerView
+                        android:layout_height="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:layout_height="194dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/reviews_pager"
+                        android:overScrollMode="never" />
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/reviews_dots"
+                        android:layout_gravity="center_horizontal">
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:visibility="gone"
-                 android:background="@drawable/bg_home_section_card"
-                 android:layout_marginHorizontal="12dp"
-                 android:orientation="vertical"
-                 android:layout_marginTop="14dp"
-                 android:id="@+id/section_for_you">
+        </androidx.core.widget.NestedScrollView>
 
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal"
-                     android:paddingBottom="7dp"
-                     android:paddingHorizontal="16dp"
-                     android:paddingTop="14dp">
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:textSize="19sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:letterSpacing="-0.01"
-                         android:layout_weight="1"
-                         android:text="@string/for_you" />
+    <FrameLayout
+        android:id="@+id/btn_quests_fab_container"
+        android:layout_width="125dp"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/img_quests_text_bg"
+        android:clickable="true"
+        android:clipChildren="true"
+        android:elevation="6dp"
+        android:focusable="true">
 
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:padding="4dp"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/primary"
-                         android:id="@+id/btn_see_all_for_you"
-                         android:text="@string/see_all" />
+        <ImageView
+            android:id="@+id/quests_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="14dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_quests"
+            app:tint="#FFFFFF" />
 
-                </LinearLayout>
+        <TextView
+            android:id="@+id/quests_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="Quests"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
 
-                <com.novelverse.app.presentation.common.views.DottedDividerView
-                     android:layout_height="2dp"
-                     android:layout_width="match_parent"
-                     android:layout_marginHorizontal="16dp" />
+    </FrameLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="horizontal"
-                     android:paddingBottom="14dp"
-                     android:clipToPadding="false"
-                     android:paddingHorizontal="12dp"
-                     android:paddingTop="12dp"
-                     android:id="@+id/for_you_recycler" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:visibility="gone"
-                 android:background="@drawable/bg_home_section_card"
-                 android:layout_marginHorizontal="12dp"
-                 android:orientation="vertical"
-                 android:layout_marginTop="14dp"
-                 android:id="@+id/section_challenges">
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="19sp"
-                     android:fontFamily="@font/inter_semibold"
-                     android:paddingBottom="7dp"
-                     android:textColor="?attr/colorOnSurface"
-                     android:paddingHorizontal="16dp"
-                     android:paddingTop="14dp"
-                     android:text="@string/challenges_week" />
-
-                <com.novelverse.app.presentation.common.views.DottedDividerView
-                     android:layout_height="2dp"
-                     android:layout_width="match_parent"
-                     android:layout_marginHorizontal="16dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="horizontal"
-                     android:paddingBottom="14dp"
-                     android:clipToPadding="false"
-                     android:paddingHorizontal="12dp"
-                     android:paddingTop="12dp"
-                     android:id="@+id/challenges_recycler" />
-
-            </LinearLayout>
-
-            <HorizontalScrollView
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:scrollbars="none"
-                 android:paddingEnd="16dp"
-                 android:paddingBottom="4dp"
-                 android:paddingStart="16dp"
-                 android:paddingTop="18dp">
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal"
-                     android:id="@+id/genre_pill_container">
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:background="@drawable/bg_home_section_card"
-                 android:layout_marginHorizontal="12dp"
-                 android:orientation="vertical"
-                 android:layout_marginTop="14dp">
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal"
-                     android:paddingBottom="7dp"
-                     android:paddingHorizontal="16dp"
-                     android:paddingTop="14dp">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:textSize="20sp"
-                         android:fontFamily="@font/nunito_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:letterSpacing="-0.01"
-                         android:layout_weight="1"
-                         android:text="@string/trending" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:padding="4dp"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/primary"
-                         android:id="@+id/btn_see_all_trending"
-                         android:text="@string/view_all" />
-
-                </LinearLayout>
-
-                <com.novelverse.app.presentation.common.views.DottedDividerView
-                     android:layout_height="2dp"
-                     android:layout_width="match_parent"
-                     android:layout_marginHorizontal="16dp" />
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="vertical"
-                     android:id="@+id/shimmer_trending">
-
-                    <include
-                         layout="@layout/shimmer_home_section" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="horizontal"
-                     android:paddingBottom="14dp"
-                     android:clipToPadding="false"
-                     android:paddingHorizontal="12dp"
-                     android:paddingTop="12dp"
-                     android:id="@+id/trending_recycler" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:layout_marginBottom="8dp"
-                 android:background="@drawable/bg_home_section_card"
-                 android:layout_marginHorizontal="12dp"
-                 android:orientation="vertical"
-                 android:layout_marginTop="14dp">
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal"
-                     android:paddingBottom="7dp"
-                     android:paddingHorizontal="16dp"
-                     android:paddingTop="14dp">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="0dp"
-                         android:textSize="20sp"
-                         android:fontFamily="@font/nunito_semibold"
-                         android:textColor="?attr/colorOnSurface"
-                         android:letterSpacing="-0.01"
-                         android:layout_weight="1"
-                         android:text="@string/new_releases" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:padding="4dp"
-                         android:textSize="15sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="@color/primary"
-                         android:id="@+id/btn_see_all_new_releases"
-                         android:text="@string/view_all" />
-
-                </LinearLayout>
-
-                <com.novelverse.app.presentation.common.views.DottedDividerView
-                     android:layout_height="2dp"
-                     android:layout_width="match_parent"
-                     android:layout_marginHorizontal="16dp" />
-
-                <LinearLayout
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="vertical"
-                     android:id="@+id/shimmer_new_releases">
-
-                    <include
-                         layout="@layout/shimmer_home_section" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                     android:layout_height="wrap_content"
-                     android:layout_width="match_parent"
-                     android:orientation="horizontal"
-                     android:paddingBottom="14dp"
-                     android:clipToPadding="false"
-                     android:paddingHorizontal="12dp"
-                     android:paddingTop="12dp"
-                     android:id="@+id/new_releases_recycler" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</FrameLayout>

@@ -103,34 +103,33 @@ public class ReviewsActivity extends AppCompatActivity {
         // FIX 1: Use getAccessToken() instead of getAuthToken()
         String token  = userPreferences.getAccessToken();
         String select = "id,rating,review,created_at,user_id," +
-                        "profiles!inner(display_name,username,avatar_url)," +
-                        "novels!inner(id,title,author_name,cover_url,genre,total_views)";
+                "profiles!inner(display_name,username,avatar_url)," +
+                "novels!inner(id,title,cover_image_url,genres,total_views)";
         String filter = "review=not.is.null&rating=gte.1";
         String order  = "created_at.desc";
         String url    = dbService.buildSelectUrl("ratings", select, filter, order)
-                        + "&limit=40";
+                + "&limit=40";
 
         dbService.rawSelect(url, token, new SupabaseDatabaseService.DatabaseCallback() {
             @Override public void onSuccess(String json) {
                 runOnUiThread(() -> {
                     swipeRefresh.setRefreshing(false);
                     List<ReviewPost> parsed = parseReviews(json);
-                    if (parsed != null && !parsed.isEmpty()) {
-                        allReviews = parsed;
-                    } else {
-                        allReviews = buildMockReviews();
-                    }
+                    allReviews = (parsed != null) ? parsed : new ArrayList<>();
                     rebuildGenreChips();
                     applyFilter(activeGenre);
                 });
             }
-            // FIX 2: Changed onError(Exception e) to onError(String message)
             @Override public void onError(String message) {
                 runOnUiThread(() -> {
                     swipeRefresh.setRefreshing(false);
-                    allReviews = buildMockReviews();
-                    rebuildGenreChips();
-                    applyFilter(activeGenre);
+                    // Keep whatever was previously loaded; only reset on first load.
+                    if (allReviews.isEmpty()) {
+                        rebuildGenreChips();
+                        applyFilter(activeGenre);
+                    } else {
+                        swipeRefresh.setRefreshing(false);
+                    }
                 });
             }
         });
@@ -161,8 +160,8 @@ public class ReviewsActivity extends AppCompatActivity {
                     post.setDisplayName(str(p, "display_name"));
                     post.setUsername(str(p, "username") != null ? str(p, "username")
                             : (post.getDisplayName() != null
-                               ? post.getDisplayName().toLowerCase().replace(" ", "_")
-                               : "reader"));
+                            ? post.getDisplayName().toLowerCase().replace(" ", "_")
+                            : "reader"));
                     post.setUserAvatarUrl(str(p, "avatar_url"));
                 }
                 // Derive rank: use deterministic mock chapters if real value absent
@@ -172,9 +171,11 @@ public class ReviewsActivity extends AppCompatActivity {
                     JsonObject n = obj.getAsJsonObject("novels");
                     post.setNovelId(str(n, "id"));
                     post.setNovelTitle(str(n, "title"));
-                    post.setNovelAuthor(str(n, "author_name"));
-                    post.setNovelCoverUrl(str(n, "cover_url"));
-                    post.setNovelGenre(str(n, "genre"));
+                    post.setNovelCoverUrl(str(n, "cover_image_url"));
+                    if (n.has("genres") && n.get("genres").isJsonArray()
+                            && n.getAsJsonArray("genres").size() > 0) {
+                        post.setNovelGenre(n.getAsJsonArray("genres").get(0).getAsString());
+                    }
                     post.setNovelRecommendations(n.has("total_views")
                             && !n.get("total_views").isJsonNull()
                             ? n.get("total_views").getAsInt() : 0);
@@ -261,156 +262,6 @@ public class ReviewsActivity extends AppCompatActivity {
         adapter.submitList(filtered);
         int n = filtered.size();
         countLabel.setText(n + (n == 1 ? " review" : " reviews"));
-    }
-
-    // ── Mock data — rich, varied, gamification-tagged ─────────────────────
-
-    private List<ReviewPost> buildMockReviews() {
-        List<ReviewPost> list = new ArrayList<>();
-
-        list.add(new ReviewPost("r01","u01","shadow_quill","Shadow Quill",null,
-                520,
-                "n01","The Fallen Throne","Erisa Vale",null,"Fantasy",2024,
-                14200,5,
-                "An absolutely riveting read from start to finish. The world-building is "
-                + "breathtaking — Vale weaves political intrigue and magic into something "
-                + "that feels genuinely earned. The betrayal in chapter 22 had me audibly "
-                + "gasping. One of the best fantasy novels on this platform, full stop.",
-                87,14,"2025-04-16T08:23:00"));
-
-        list.add(new ReviewPost("r02","u02","moonreader99","Moon Reader",null,
-                112,
-                "n02","Crimson Letter","Dae-jung Oh",null,"Romance",2024,
-                9800,4,
-                "Sweet, warm, and beautifully paced. The slow burn between the two leads "
-                + "feels completely authentic — neither rushed nor dragged out. A few "
-                + "chapters in the middle could be tightened, but the ending made me tear "
-                + "up in the best way possible.",
-                54,8,"2025-04-15T21:05:00"));
-
-        list.add(new ReviewPost("r03","u03","loreseeker","Lore Seeker",null,
-                63,
-                "n03","Circuit Ghosts","Amara Nwosu",null,"Sci-Fi",2023,
-                6400,5,
-                "Nwosu has invented a cyberpunk voice that's entirely her own. The prose "
-                + "is sharp and the pacing relentless. I read all forty chapters in a single "
-                + "weekend. The AI ethics subplot is disturbingly prescient.",
-                102,22,"2025-04-15T14:30:00"));
-
-        list.add(new ReviewPost("r04","u04","nightowl_reads","Night Owl",null,
-                18,
-                "n04","Hollow Season","Park Ji-ho",null,"Mystery",2024,
-                5100,4,
-                "Ji-ho constructs the mystery with surgical precision. Every red herring is "
-                + "fair and every clue planted in plain sight. My only gripe is the detective "
-                + "protagonist feels underdeveloped compared to the antagonist, who steals "
-                + "every chapter they appear in.",
-                38,5,"2025-04-15T09:12:00"));
-
-        list.add(new ReviewPost("r05","u05","fantasy_fox","Fantasy Fox",null,
-                5,
-                "n05","Salt & Stars","Yemi Adeyemi",null,"Romance",2023,
-                3300,3,
-                "Gorgeous prose and a setting I never wanted to leave. The romance itself "
-                + "is a little predictable but Adeyemi's descriptions of the coastal town "
-                + "are worth the price of admission alone.",
-                21,3,"2025-04-14T18:44:00"));
-
-        list.add(new ReviewPost("r06","u06","chapter_hunter","Chapter Hunter",null,
-                145,
-                "n03","Circuit Ghosts","Amara Nwosu",null,"Sci-Fi",2023,
-                6400,5,
-                "Second read-through and it holds up perfectly. The foreshadowing in "
-                + "chapters 8 and 9 only makes sense in hindsight — a masterclass in "
-                + "tight plotting. The prose occasionally leans purple but never loses "
-                + "the thread.",
-                67,11,"2025-04-14T11:20:00"));
-
-        list.add(new ReviewPost("r07","u07","scrollmaster","Scroll Master",null,
-                480,
-                "n01","The Fallen Throne","Erisa Vale",null,"Fantasy",2024,
-                14200,4,
-                "Enormous in scope and mostly delivers on its ambition. The magic system "
-                + "is internally consistent and the ensemble cast is well-differentiated. "
-                + "Drops slightly in the second arc before recovering impressively for "
-                + "the finale.",
-                44,7,"2025-04-13T20:05:00"));
-
-        list.add(new ReviewPost("r08","u08","inkwhisperer","Ink Whisperer",null,
-                35,
-                "n06","The Paper Kingdom","Sofia Reyes",null,"Literary",2024,
-                2900,5,
-                "A quiet, devastating novel about grief and memory. Reyes writes with "
-                + "restraint that makes every emotional beat land twice as hard. "
-                + "I finished it on a rainy Sunday and sat with it for an hour afterwards.",
-                73,16,"2025-04-13T15:33:00"));
-
-        list.add(new ReviewPost("r09","u09","sageofstories","Sage of Stories",null,
-                72,
-                "n07","Iron Petal","Lindiwe Moyo",null,"Thriller",2023,
-                4700,4,
-                "Moyo keeps the tension relentlessly high without resorting to cheap "
-                + "tricks. The protagonist's moral compromises feel earned rather than "
-                + "gratuitous. A gripping read that earns its darkness.",
-                49,9,"2025-04-12T22:18:00"));
-
-        list.add(new ReviewPost("r10","u10","bookbound","Bookbound",null,
-                4,
-                "n08","Midnight Garden","Aiko Tanaka",null,"Fantasy",2024,
-                8600,5,
-                "From chapter one this one just grabbed me and wouldn't let go. "
-                + "The magic is whimsical but never silly and the friendship at "
-                + "the centre of the story is genuinely touching. My favourite "
-                + "discovery on NovelVerse this year.",
-                91,18,"2025-04-12T10:50:00"));
-
-        list.add(new ReviewPost("r11","u11","velvet_pages","Velvet Pages",null,
-                200,
-                "n02","Crimson Letter","Dae-jung Oh",null,"Romance",2024,
-                9800,5,
-                "Re-reading this for the third time and I still notice new layers in "
-                + "the dialogue. Oh writes romantic tension better than almost anyone "
-                + "working in the genre right now. An instant classic.",
-                115,20,"2025-04-11T17:00:00"));
-
-        list.add(new ReviewPost("r12","u12","quillrunner","Quill Runner",null,
-                28,
-                "n09","Dust and Neon","Cesar Lima",null,"Sci-Fi",2023,
-                3800,3,
-                "Has real flashes of brilliance — the first act in particular is "
-                + "excellent — but the pacing falls apart around the midpoint and "
-                + "never fully recovers. Lima's next novel will be one to watch.",
-                17,4,"2025-04-11T09:30:00"));
-
-        list.add(new ReviewPost("r13","u13","oracle_reads","Oracle Reads",null,
-                560,
-                "n06","The Paper Kingdom","Sofia Reyes",null,"Literary",2024,
-                2900,4,
-                "Reyes is clearly a talent to follow. The novel's structural ambition "
-                + "occasionally outpaces its emotional payoff, but the sentences are "
-                + "beautiful and the central metaphor lands with real weight.",
-                62,12,"2025-04-10T20:15:00"));
-
-        list.add(new ReviewPost("r14","u14","story_sage","Story Sage",null,
-                88,
-                "n07","Iron Petal","Lindiwe Moyo",null,"Thriller",2023,
-                4700,5,
-                "One of the most nerve-shredding thrillers I've read in years. "
-                + "Every chapter ends on a note that makes it impossible to stop. "
-                + "Moyo absolutely earns the ending — it's earned and satisfying "
-                + "rather than cheap.",
-                78,15,"2025-04-10T14:45:00"));
-
-        list.add(new ReviewPost("r15","u15","dusk_reader","Dusk Reader",null,
-                7,
-                "n08","Midnight Garden","Aiko Tanaka",null,"Fantasy",2024,
-                8600,4,
-                "Charming and imaginative with a handful of scenes that I'll "
-                + "remember for a long time. A little uneven in its middle section "
-                + "but Tanaka's voice is distinctive enough to carry you through.",
-                33,6,"2025-04-09T11:00:00"));
-
-        return list;
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────

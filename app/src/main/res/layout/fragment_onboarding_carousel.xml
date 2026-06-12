@@ -33,7 +33,7 @@
          android:layout_width="match_parent"
          android:gravity="center_horizontal"
          android:orientation="vertical"
-         android:paddingBottom="24dp"
+         android:paddingBottom="28dp"
          android:paddingHorizontal="16dp"
          android:layout_gravity="bottom">
 
@@ -84,7 +84,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-             android:layout_height="56dp"
+             android:layout_height="50dp"
              android:layout_width="match_parent"
              app:backgroundTint="@color/button_blue"
              android:textSize="16sp"
@@ -102,7 +102,7 @@
              android:background="?attr/selectableItemBackground"
              android:clickable="true"
              android:textSize="14sp"
-             android:fontFamily="@font/inter_medium"
+             android:fontFamily="@font/inter_semibold"
              android:textColor="@color/text_secondary"
              android:layout_marginTop="16dp"
              android:focusable="true"

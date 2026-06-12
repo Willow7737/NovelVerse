@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  LevelUpActivity root layout.
+  The activity window is transparent — this FrameLayout draws the dark scrim
+  and hosts the centered celebration card.
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/levelup_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000">
+
+    <!-- ── Centered card container ─────────────────────────────────────── -->
+    <LinearLayout
+        android:id="@+id/levelup_card_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:orientation="vertical">
+
+        <!-- Close button row — sits above the card, right-aligned -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/levelup_close_btn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_close"
+                android:padding="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#CCFFFFFF"
+                android:contentDescription="Close"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <!-- ── Main celebration card ───────────────────────────────────── -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardBackgroundColor="@color/surface_card_dark"
+            app:cardElevation="32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp"
+                android:paddingTop="32dp"
+                android:paddingBottom="32dp"
+                android:gravity="center">
+
+                <!-- Loading indicator (visible while fetching Supabase data) -->
+                <ProgressBar
+                    android:id="@+id/levelup_loading"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:indeterminateTint="#5856D6"
+                    android:visibility="visible" />
+
+                <!-- Content group — hidden until data is ready -->
+                <LinearLayout
+                    android:id="@+id/levelup_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <!-- Level badge icon loaded from Supabase / fallback drawable -->
+                    <FrameLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="20dp">
+
+                        <!-- Glow ring behind icon -->
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:background="@drawable/bg_levelup_glow"
+                            android:layout_gravity="center" />
+
+                        <ImageView
+                            android:id="@+id/levelup_icon"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_star"
+                            android:contentDescription="Level icon" />
+
+                    </FrameLayout>
+
+                    <!-- "LEVEL UP" eyebrow label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⬆  LEVEL UP"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textColor="#D4A853"
+                        android:letterSpacing="0.15"
+                        android:layout_marginBottom="6dp" />
+
+                    <!-- Level number — big hero text -->
+                    <TextView
+                        android:id="@+id/levelup_level_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 1"
+                        android:textSize="42sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#F0F0FF"
+                        android:layout_marginBottom="4dp" />
+
+                    <!-- Level title from Supabase (e.g. "Scholar", "Lorekeeper") -->
+                    <TextView
+                        android:id="@+id/levelup_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textColor="#9090C0"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="48dp"
+                        android:layout_height="1dp"
+                        android:background="#2A2A4A"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Perk text -->
+                    <TextView
+                        android:id="@+id/levelup_perk_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="13sp"
+                        android:fontFamily="@font/inter_regular"
+                        android:textColor="#B0B0D8"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.4"
+                        android:layout_marginBottom="24dp" />
+
+                    <!-- XP chip -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_xp_chip"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_star"
+                            app:tint="#FFD700"
+                            android:layout_marginEnd="6dp"
+                            android:contentDescription="XP" />
+
+                        <TextView
+                            android:id="@+id/levelup_xp_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 total XP"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:textColor="#FFD700" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</FrameLayout>

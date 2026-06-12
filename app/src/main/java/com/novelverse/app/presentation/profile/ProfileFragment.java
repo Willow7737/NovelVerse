@@ -31,11 +31,11 @@ import com.novelverse.app.data.local.entities.UserAchievementEntity;
 import com.novelverse.app.data.local.entities.UserLevelEntity;
 import com.novelverse.app.data.local.entities.UserStreakEntity;
 import com.novelverse.app.domain.models.User;
-import com.novelverse.app.presentation.auth.AuthActivity;
 import com.novelverse.app.presentation.auth.AuthViewModel;
 import com.novelverse.app.presentation.home.HomeActivity;
 import com.novelverse.app.presentation.profile.achievements.AchievementsActivity;
 import com.novelverse.app.presentation.profile.edit.EditProfileActivity;
+import com.novelverse.app.presentation.profile.follows.FollowsActivity;
 import com.novelverse.app.presentation.profile.settings.SettingsActivity;
 import com.novelverse.app.ui.banner.BannerHelper;
 import com.novelverse.app.utils.GameAssets;
@@ -103,9 +103,6 @@ public class ProfileFragment extends Fragment {
     private LinearLayout authorStatsSection;
     private TextView statTotalEarnings;
     private TextView statPayout;
-
-    // Bottom
-    private View logoutButton;
 
     private String currentUsername = "";
     private String currentAvatarUrl = "";
@@ -201,7 +198,6 @@ public class ProfileFragment extends Fragment {
                             }
                         });
 
-        logoutButton.setOnClickListener(x -> showLogoutDialog());
         observeGamification();
     }
 
@@ -246,7 +242,6 @@ public class ProfileFragment extends Fragment {
         authorStatsSection = v.findViewById(R.id.author_stats_section);
         statTotalEarnings = v.findViewById(R.id.stat_total_earnings);
         statPayout = v.findViewById(R.id.stat_payout);
-        logoutButton = v.findViewById(R.id.logout_button);
 
         // ── Click wiring ────────────────────────────────────────────────────
 
@@ -308,7 +303,7 @@ public class ProfileFragment extends Fragment {
         if (btnBecomeWriter != null)
             btnBecomeWriter.setOnClickListener(x -> showBecomeWriterDialog());
 
-        // Quick Actions
+        // Quick Actions (now live inside the banner, but IDs are unchanged)
         bindQuickAction(v, R.id.quick_share, x -> shareProfile());
         bindQuickAction(v, R.id.quick_copy_link, x -> copyProfileLink());
         bindQuickAction(v, R.id.quick_settings, x -> go(SettingsActivity.class));
@@ -316,10 +311,6 @@ public class ProfileFragment extends Fragment {
                 v,
                 R.id.quick_premium,
                 x -> go(com.novelverse.app.presentation.payment.store.PointStoreActivity.class));
-
-        // Settings row → SettingsActivity (Reading Prefs, Downloads, Help all live there)
-        View btnSettings = v.findViewById(R.id.btn_settings);
-        if (btnSettings != null) btnSettings.setOnClickListener(x -> go(SettingsActivity.class));
     }
 
     private void bindQuickAction(View root, int id, View.OnClickListener l) {
@@ -665,16 +656,23 @@ public class ProfileFragment extends Fragment {
         Toast.makeText(requireContext(), "Link copied!", Toast.LENGTH_SHORT).show();
     }
 
-    // ─── Follower sheets (stub — wire to your real FollowersFragment) ────────
+    // ─── Follower sheets ────────
 
     private void showFollowersSheet() {
-        // TODO: open FollowersActivity / BottomSheet with follower list
-        Toast.makeText(requireContext(), "Followers", Toast.LENGTH_SHORT).show();
+        openFollowsActivity(FollowsActivity.TAB_FOLLOWERS);
     }
 
     private void showFollowingSheet() {
-        // TODO: open FollowingActivity / BottomSheet with following list
-        Toast.makeText(requireContext(), "Following", Toast.LENGTH_SHORT).show();
+        openFollowsActivity(FollowsActivity.TAB_FOLLOWING);
+    }
+
+    private void openFollowsActivity(int tab) {
+        User user = viewModel.getCurrentUser().getValue();
+        if (user == null || user.getId() == null) return;
+        Intent intent = new Intent(requireContext(), FollowsActivity.class);
+        intent.putExtra(FollowsActivity.EXTRA_USER_ID, user.getId());
+        intent.putExtra(FollowsActivity.EXTRA_INITIAL_TAB, tab);
+        startActivity(intent);
     }
 
     // ─── Dialogs ─────────────────────────────────────────────────────────────
@@ -711,37 +709,6 @@ public class ProfileFragment extends Fragment {
                                                     requireActivity(),
                                                     "Welcome!",
                                                     "You're now a writer. Create your first novel!"));
-                });
-    }
-
-    private void showLogoutDialog() {
-        if (getContext() == null) return;
-        BottomSheetDialog sheet = new BottomSheetDialog(requireContext(), R.style.BottomSheetTheme);
-        View root =
-                LayoutInflater.from(requireContext()).inflate(R.layout.bottom_sheet_logout, null);
-        root.findViewById(R.id.btn_sign_out_confirm)
-                .setOnClickListener(
-                        v -> {
-                            sheet.dismiss();
-                            performLogout();
-                        });
-        root.findViewById(R.id.btn_keep_reading).setOnClickListener(v -> sheet.dismiss());
-        sheet.setContentView(root);
-        sheet.show();
-    }
-
-    private void performLogout() {
-        viewModel.signOut(
-                (success, error) -> {
-                    if (!isAdded()) return;
-                    if (success) {
-                        Intent i = new Intent(requireContext(), AuthActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        requireActivity().finish();
-                    } else {
-                        BannerHelper.error(requireActivity(), "Sign out failed. Try again.");
-                    }
                 });
     }
 

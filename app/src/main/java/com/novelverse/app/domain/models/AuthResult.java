@@ -6,6 +6,7 @@ package com.novelverse.app.domain.models;
 public class AuthResult {
 
     private boolean success;
+    private boolean pendingVerification;
     private User user;
     private String errorMessage;
     private String accessToken;
@@ -14,6 +15,7 @@ public class AuthResult {
 
     private AuthResult(Builder builder) {
         this.success = builder.success;
+        this.pendingVerification = builder.pendingVerification;
         this.user = builder.user;
         this.errorMessage = builder.errorMessage;
         this.accessToken = builder.accessToken;
@@ -23,6 +25,11 @@ public class AuthResult {
 
     public boolean isSuccess() {
         return success;
+    }
+
+    /** True when the account was created but email verification is still required. */
+    public boolean isPendingVerification() {
+        return pendingVerification;
     }
 
     public User getUser() {
@@ -47,23 +54,33 @@ public class AuthResult {
 
     public static AuthResult success(User user, String accessToken, String refreshToken, long expiresIn) {
         return new Builder()
-            .setSuccess(true)
-            .setUser(user)
-            .setAccessToken(accessToken)
-            .setRefreshToken(refreshToken)
-            .setExpiresIn(expiresIn)
-            .build();
+                .setSuccess(true)
+                .setUser(user)
+                .setAccessToken(accessToken)
+                .setRefreshToken(refreshToken)
+                .setExpiresIn(expiresIn)
+                .build();
+    }
+
+    /** Account created successfully; email confirmation email has been sent. */
+    public static AuthResult pendingVerification(User user) {
+        return new Builder()
+                .setSuccess(false)
+                .setPendingVerification(true)
+                .setUser(user)
+                .build();
     }
 
     public static AuthResult error(String errorMessage) {
         return new Builder()
-            .setSuccess(false)
-            .setErrorMessage(errorMessage)
-            .build();
+                .setSuccess(false)
+                .setErrorMessage(errorMessage)
+                .build();
     }
 
     public static class Builder {
         private boolean success;
+        private boolean pendingVerification;
         private User user;
         private String errorMessage;
         private String accessToken;
@@ -72,6 +89,11 @@ public class AuthResult {
 
         public Builder setSuccess(boolean success) {
             this.success = success;
+            return this;
+        }
+
+        public Builder setPendingVerification(boolean pendingVerification) {
+            this.pendingVerification = pendingVerification;
             return this;
         }
 

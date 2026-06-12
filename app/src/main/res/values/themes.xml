@@ -49,7 +49,7 @@
 
         <!-- ── Status / nav bar — always dark (charcoal bg = dark icons) ── -->
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -119,10 +119,10 @@
 
 
     <!-- ════════════════════════════════════════════════════════════════
-         Onboarding Theme — White background, light status bar
+         Onboarding Theme
          ════════════════════════════════════════════════════════════════ -->
     <style name="Theme.NovelVerse.Onboarding" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
@@ -393,7 +393,6 @@
 
     <style name="BottomSheetStyle" parent="Widget.NovelVerse.BottomSheet" />
 
-
     <!-- Full-screen image viewer: true black, no action bar, edge-to-edge -->
     <style name="Theme.NovelVerse.ImageViewer" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">#FF000000</item>
@@ -402,6 +401,21 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <!--
+      LevelUpActivity transparent overlay theme.
+      windowIsTranslucent + windowBackground transparent = home screen shows
+      dimmed underneath. The dark scrim is drawn by the layout itself (#CC000000).
+    -->
+    <style name="Theme.NovelVerse.LevelUpOverlay" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 

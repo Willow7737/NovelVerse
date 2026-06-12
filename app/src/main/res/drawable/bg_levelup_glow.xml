@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Soft glow ring behind the level badge icon in LevelUpActivity.
+  Uses a radial-ish layered gradient approach with oval shape.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer soft glow -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#1A5856D6" />
+            <size android:width="100dp" android:height="100dp" />
+        </shape>
+    </item>
+
+    <!-- Inner tighter glow -->
+    <item
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp">
+        <shape android:shape="oval">
+            <solid android:color="#265856D6" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.novelverse.app.R;
 import com.novelverse.app.crash.CrashActivity;
@@ -25,7 +22,7 @@ import com.novelverse.app.data.local.preferences.UserPreferences;
 import com.novelverse.app.data.repository.GamificationRepository;
 import com.novelverse.app.domain.gamification.DailyCheckInManager;
 import com.novelverse.app.domain.models.User;
-import com.novelverse.app.presentation.auth.AuthActivity;
+import com.novelverse.app.presentation.onboarding.OnboardingActivity;
 import com.novelverse.app.presentation.onboarding.OnboardingManager;
 import com.novelverse.app.presentation.auth.AuthViewModel;
 import com.novelverse.app.presentation.common.views.FloatingNavBar;
@@ -78,6 +75,14 @@ public class HomeActivity extends AppCompatActivity {
 
         streakFlameIcon = findViewById(R.id.ic_streak_flame_icon);
         startStreakFlameAnimation();
+        // ── Open StreakActivity on tap ────────────────────────────────────────
+        if (streakFlameIcon != null) {
+            streakFlameIcon.setOnClickListener(v -> {
+                if (isGuest()) { showAuthBottomSheet(); return; }
+                startActivity(new Intent(this,
+                        com.novelverse.app.presentation.streak.StreakActivity.class));
+            });
+        }
         floatingNavBar = findViewById(R.id.bottom_navigation);
 
         ImageButton btnSearch = findViewById(R.id.btn_search_header);
@@ -128,14 +133,14 @@ public class HomeActivity extends AppCompatActivity {
 
         long nowMs = System.currentTimeMillis();
         DailyCheckInManager.CheckInResult result =
-            DailyCheckInManager.checkIn(this, nowMs);
+                DailyCheckInManager.checkIn(this, nowMs);
 
         if (!result.isFirstToday) return; // already claimed today
 
         // Credit Ink
         if (gamificationRepository != null && result.inkReward > 0) {
             gamificationRepository.addInk(userId, result.inkReward,
-                "BONUS_DAILY", "Daily check-in bonus", nowMs);
+                    "BONUS_DAILY", "Daily check-in bonus", nowMs);
         }
 
         // Update the check-in card in the current fragment if visible
@@ -187,9 +192,9 @@ public class HomeActivity extends AppCompatActivity {
                             public void onResourceReady(
                                     @NonNull android.graphics.Bitmap resource,
                                     @Nullable
-                                            com.bumptech.glide.request.transition.Transition<
-                                                            ? super android.graphics.Bitmap>
-                                                    t) {
+                                    com.bumptech.glide.request.transition.Transition<
+                                            ? super android.graphics.Bitmap>
+                                            t) {
                                 if (floatingNavBar != null) {
                                     floatingNavBar.setProfileIcon(
                                             new android.graphics.drawable.BitmapDrawable(
@@ -208,22 +213,22 @@ public class HomeActivity extends AppCompatActivity {
             case "admin":
                 floatingNavBar.setIcons(
                         new int[] {
-                            R.drawable.ic_home, R.drawable.ic_library,
-                            R.drawable.ic_write, R.drawable.ic_admin,
-                            R.drawable.ic_profile
+                                R.drawable.ic_home, R.drawable.ic_library,
+                                R.drawable.ic_write, R.drawable.ic_admin,
+                                R.drawable.ic_profile
                         });
                 break;
             case "author":
                 floatingNavBar.setIcons(
                         new int[] {
-                            R.drawable.ic_home, R.drawable.ic_library,
-                            R.drawable.ic_write, R.drawable.ic_profile
+                                R.drawable.ic_home, R.drawable.ic_library,
+                                R.drawable.ic_write, R.drawable.ic_profile
                         });
                 break;
             default:
                 floatingNavBar.setIcons(
                         new int[] {
-                            R.drawable.ic_home, R.drawable.ic_library, R.drawable.ic_profile
+                                R.drawable.ic_home, R.drawable.ic_library, R.drawable.ic_profile
                         });
                 break;
         }
@@ -302,7 +307,7 @@ public class HomeActivity extends AppCompatActivity {
                 appBar.post(() -> {
                     if (fragmentContainer != null && appBar.getHeight() > 0) {
                         fragmentContainer.setPadding(
-                            0, appBar.getHeight(), 0, fragmentContainer.getPaddingBottom());
+                                0, appBar.getHeight(), 0, fragmentContainer.getPaddingBottom());
                     }
                 });
             }
@@ -332,6 +337,16 @@ public class HomeActivity extends AppCompatActivity {
     /** Called by LibraryFragment to wire scroll-hide via RecyclerView. */
     public void attachNavToRecyclerView(androidx.recyclerview.widget.RecyclerView rv) {
         if (floatingNavBar != null) floatingNavBar.attachToRecyclerView(rv);
+    }
+
+    /** Imperatively hide the floating nav bar (called from combined scroll listeners). */
+    public void hideNavBar() {
+        if (floatingNavBar != null) floatingNavBar.hide();
+    }
+
+    /** Imperatively show the floating nav bar (called from combined scroll listeners). */
+    public void showNavBar() {
+        if (floatingNavBar != null) floatingNavBar.show();
     }
 
     // ── Guest auth BottomSheet ────────────────────────────────────────────────
@@ -387,7 +402,7 @@ public class HomeActivity extends AppCompatActivity {
         authViewModel.signOut(
                 (success, error) -> {
                     OnboardingManager.get(HomeActivity.this).clearSession();
-                    Intent i = new Intent(HomeActivity.this, AuthActivity.class);
+                    Intent i = new Intent(HomeActivity.this, OnboardingActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
@@ -398,7 +413,7 @@ public class HomeActivity extends AppCompatActivity {
         authViewModel.signOut(
                 (success, error) -> {
                     OnboardingManager.get(HomeActivity.this).clearSession();
-                    Intent i = new Intent(HomeActivity.this, AuthActivity.class);
+                    Intent i = new Intent(HomeActivity.this, OnboardingActivity.class);
                     i.putExtra("start_register", true);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);

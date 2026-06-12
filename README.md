@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="./metadata/logo/logo.webp" alt="NovelVerse Logo" width="200">
-</p>
-
-# <p align="center">NovelVerse Android App</p>
+# <p align="center">📖 NovelVerse Android App</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status">
@@ -48,49 +44,6 @@
 
 ---
 
-## 📸 Screenshots
-
-Experience NovelVerse through these glimpses of its intuitive interface and powerful features.
-
-### Onboarding
-<p align="center">
-  <img src="./metadata/screenshots/onboarding_1.jpg" alt="Onboarding Screen 1" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/onboarding_2.jpg" alt="Onboarding Screen 2" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/onboarding_3.jpg" alt="Onboarding Screen 3" width="24%" style="padding: 5px;">
-</p>
-
-### Authentication
-<p align="center">
-  <img src="./metadata/screenshots/login_options.jpg" alt="Login Options" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/login_email.jpg" alt="Email Login" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/reset_password.jpg" alt="Reset Password" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/set_new_password.jpg" alt="Set New Password" width="24%" style="padding: 5px;">
-</p>
-
-### Home & Discovery
-<p align="center">
-  <img src="./metadata/screenshots/home_screen.jpg" alt="Home Screen" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/home_screen_2.jpg" alt="Home Screen 2" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/library.jpg" alt="Library Screen" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/search_screen.jpg" alt="Search Screen" width="24%" style="padding: 5px;">
-</p>
-
-### Reading & Authoring
-<p align="center">
-  <img src="./metadata/screenshots/novel_details.jpg" alt="Novel Details" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/reader_mode.jpg" alt="Reader Mode" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/author_dashboard.jpg" alt="Author Dashboard" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/create_novel.jpg" alt="Create Novel" width="24%" style="padding: 5px;">
-</p>
-
-### User & Notifications
-<p align="center">
-  <img src="./metadata/screenshots/profile_settings.jpg" alt="Profile Settings" width="24%" style="padding: 5px;">
-  <img src="./metadata/screenshots/notifications.jpg" alt="Notifications" width="24%" style="padding: 5px;">
-</p>
-
----
-
 ## 🛠️ Tech Stack
 
 ### 📱 Android (Client)
@@ -129,7 +82,7 @@ com.novelverse.app/
 
 ### 1️⃣ Clone & Open
 ```bash
-git clone https://github.com/Willow7737/NovelVerse.git
+git clone https://github.com/Spidroid-Technologies/NovelVerse.git
 cd NovelVerse
 ```
 Open the project in **Android Studio Hedgehog (2023.1.1)** or later.
@@ -176,3 +129,8 @@ We welcome contributions! Please follow these steps:
 
 Distributed under the **Apache License, Version 2.0**. See `LICENSE` for more information.
 
+---
+
+<p align="center">
+  Built with ❤️ by the <b>NovelVerse Team</b>
+</p>

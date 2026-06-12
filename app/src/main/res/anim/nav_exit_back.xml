@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  nav_exit_back.xml  (popExit)
+  The fragment being dismissed when the user presses BACK.
+  Slides out to the right, grows slightly (comes forward), then fades.
+  This is the mirror of nav_enter_forward.
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <!-- Slide out to 100% right (off screen) -->
+    <translate
+        android:duration="380"
+        android:fromXDelta="0%"
+        android:toXDelta="100%"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+    <!-- Fade out quickly -->
+    <alpha
+        android:duration="300"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+    <!-- Slight grow (feels like it's coming toward you before flying away) -->
+    <scale
+        android:duration="380"
+        android:fromXScale="1.0"
+        android:toXScale="1.04"
+        android:fromYScale="1.0"
+        android:toYScale="1.04"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+</set>

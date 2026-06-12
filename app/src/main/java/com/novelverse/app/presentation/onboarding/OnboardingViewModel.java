@@ -37,6 +37,8 @@ public class OnboardingViewModel extends AndroidViewModel {
     public static final int STEP_ATTRIBUTION = 5;
     public static final int STEP_PROFILE_SETUP = 6;
     public static final int STEP_COMPLETE = 7;
+    public static final int STEP_FORGOT_PASSWORD = 8;
+    public static final int STEP_NEW_PASSWORD = 9;
 
     private final UserPreferences userPreferences;
     private final UserRepository userRepository;
@@ -247,9 +249,31 @@ public class OnboardingViewModel extends AndroidViewModel {
         });
     }
 
-    public void signInWithGoogle(String idToken, UserRepository.AuthCallback callback) {
+    public void signInWithGoogle(String idToken, String rawNonce, UserRepository.AuthCallback callback) {
         isLoading.setValue(true);
-        userRepository.signInWithGoogle(idToken, new UserRepository.AuthCallback() {
+        userRepository.signInWithGoogle(idToken, rawNonce, new UserRepository.AuthCallback() {
+            @Override
+            public void onSuccess(User user) {
+                isLoading.postValue(false);
+                callback.onSuccess(user);
+            }
+
+            @Override
+            public void onError(String error) {
+                isLoading.postValue(false);
+                errorMessage.postValue(error);
+                callback.onError(error);
+            }
+        });
+    }
+
+    /**
+     * Exchanges a Supabase PKCE authorization code for a session.
+     * Called from OnboardingActivity after receiving the OAuth callback deep-link.
+     */
+    public void exchangeOAuthCode(String authCode, String codeVerifier, UserRepository.AuthCallback callback) {
+        isLoading.setValue(true);
+        userRepository.exchangeOAuthCode(authCode, codeVerifier, new UserRepository.AuthCallback() {
             @Override
             public void onSuccess(User user) {
                 isLoading.postValue(false);
@@ -348,4 +372,25 @@ public class OnboardingViewModel extends AndroidViewModel {
     public boolean passwordsMatch(String password, String confirmPassword) {
         return password != null && password.equals(confirmPassword);
     }
+    // ── Password reset ───────────────────────────────────────────────────────
+
+    public void resetPassword(String email,
+                              com.novelverse.app.data.repository.UserRepository.SimpleCallback cb) {
+        isLoading.postValue(true);
+        userRepository.resetPassword(email, (success, error) -> {
+            isLoading.postValue(false);
+            cb.onResult(success, error);
+        });
+    }
+
+    public void updatePasswordWithToken(String accessToken, String newPassword,
+                                        com.novelverse.app.data.repository.UserRepository.SimpleCallback cb) {
+        isLoading.postValue(true);
+        userRepository.updatePasswordWithToken(accessToken, newPassword, (success, error) -> {
+            isLoading.postValue(false);
+            cb.onResult(success, error);
+        });
+    }
+
 }
+

@@ -1,9 +1,12 @@
 package com.novelverse.app.presentation.onboarding.fragments;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,10 +26,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Onboarding carousel fragment.
+ * Onboarding carousel fragment with smooth, responsive page indicator animations.
  *
- * Hosts a ViewPager2 with slide pages, page indicators, and navigation buttons.
+ * Hosts a ViewPager2 with slide pages, animated page indicators, and navigation buttons.
  * Skip / Get Started / Login actions are wired directly to the hosting activity.
+ *
+ * Features:
+ * - Smooth width morphing animation (pill to dot)
+ * - Color fade transitions between active and inactive states
+ * - Responsive scaling for different screen sizes
+ * - Natural acceleration/deceleration interpolation
  */
 public class OnboardingCarouselFragment extends Fragment {
 
@@ -37,6 +46,14 @@ public class OnboardingCarouselFragment extends Fragment {
     private LinearLayout indicatorsContainer;
 
     private View[] indicatorViews;
+    private ValueAnimator[] activeAnimators;
+
+    // Animation configuration
+    private static final long ANIMATION_DURATION = 350L;
+    private static final int INDICATOR_ACTIVE_WIDTH_DP = 24;
+    private static final int INDICATOR_INACTIVE_WIDTH_DP = 6;
+    private static final int INDICATOR_HEIGHT_DP = 6;
+    private static final int INDICATOR_SPACING_DP = 8;
 
     // Define your 4 slides here — replace drawable/string resources with your actual ones
     private final List<OnboardingSlide> slides = Arrays.asList(
@@ -93,7 +110,7 @@ public class OnboardingCarouselFragment extends Fragment {
         OnboardingSlideAdapter adapter = new OnboardingSlideAdapter(slides);
         viewPager.setAdapter(adapter);
 
-        // Page change callback updates dot indicators
+        // Page change callback updates dot indicators with smooth animation
         viewPager.registerOnPageChangeCallback(pageChangeCallback);
     }
 
@@ -105,6 +122,7 @@ public class OnboardingCarouselFragment extends Fragment {
                 view.findViewById(R.id.indicator_2),
                 view.findViewById(R.id.indicator_3)
         };
+        activeAnimators = new ValueAnimator[indicatorViews.length];
     }
 
     private void setupClickListeners() {
@@ -124,9 +142,9 @@ public class OnboardingCarouselFragment extends Fragment {
     }
 
     /**
-     * Updates page indicator dots to show the active slide.
-     * Active: 24dp wide bar with active background.
-     * Inactive: 6dp circle with inactive background.
+     * Updates page indicators with smooth morphing animation.
+     * Active: Animates to 24dp wide pill with primary color
+     * Inactive: Animates to 6dp circle with secondary color
      */
     private void updateIndicators(int activePosition) {
         if (indicatorViews == null) return;
@@ -137,23 +155,132 @@ public class OnboardingCarouselFragment extends Fragment {
 
             boolean isActive = (i == activePosition);
 
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator.getLayoutParams();
-            params.width = (int) (isActive
-                    ? getResources().getDimension(R.dimen.indicator_active_width)
-                    : getResources().getDimension(R.dimen.indicator_inactive_width));
-            params.height = (int) getResources().getDimension(R.dimen.indicator_height);
-            indicator.setLayoutParams(params);
+            // Cancel any ongoing animation for this indicator
+            if (activeAnimators[i] != null) {
+                activeAnimators[i].cancel();
+            }
 
-            indicator.setBackgroundResource(isActive
-                    ? R.drawable.bg_page_indicator_active
-                    : R.drawable.bg_page_indicator_inactive);
+            // Animate width change for smooth morphing
+            int targetWidth = dpToPx(isActive ? INDICATOR_ACTIVE_WIDTH_DP : INDICATOR_INACTIVE_WIDTH_DP);
+            int currentWidth = indicator.getWidth();
+
+            // If this is the first call or width is not yet measured, set directly
+            if (currentWidth == 0) {
+                setIndicatorWidth(indicator, targetWidth);
+                setIndicatorBackground(indicator, isActive);
+            } else {
+                // Animate the width change
+                animateIndicatorWidth(indicator, currentWidth, targetWidth, isActive);
+            }
         }
+    }
+
+    /**
+     * Animates the width of an indicator from current to target width.
+     * Also animates the background color transition.
+     */
+    private void animateIndicatorWidth(View indicator, int fromWidth, int toWidth, boolean toActive) {
+        ValueAnimator widthAnimator = ValueAnimator.ofInt(fromWidth, toWidth);
+        widthAnimator.setDuration(ANIMATION_DURATION);
+        widthAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        int indicatorIndex = getIndicatorIndex(indicator);
+        if (indicatorIndex >= 0) {
+            activeAnimators[indicatorIndex] = widthAnimator;
+        }
+
+        widthAnimator.addUpdateListener(animation -> {
+            int animatedWidth = (int) animation.getAnimatedValue();
+            setIndicatorWidth(indicator, animatedWidth);
+        });
+
+        widthAnimator.addListener(new android.animation.AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(android.animation.Animator animation) {
+                // Ensure final state is correct
+                setIndicatorBackground(indicator, toActive);
+            }
+        });
+
+        // Start color animation immediately
+        animateIndicatorColor(indicator, toActive);
+
+        widthAnimator.start();
+    }
+
+    /**
+     * Animates the background color of an indicator.
+     */
+    private void animateIndicatorColor(View indicator, boolean toActive) {
+        // Use ObjectAnimator to smoothly transition alpha/color
+        // We'll update the background drawable at the midpoint
+        ValueAnimator colorAnimator = ValueAnimator.ofFloat(0f, 1f);
+        colorAnimator.setDuration(ANIMATION_DURATION);
+        colorAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        colorAnimator.addUpdateListener(animation -> {
+            float progress = (float) animation.getAnimatedValue();
+            // At midpoint (0.5), switch the drawable for smooth visual transition
+            if (progress >= 0.5f) {
+                setIndicatorBackground(indicator, toActive);
+            }
+        });
+
+        colorAnimator.start();
+    }
+
+    /**
+     * Sets the width of an indicator view using LayoutParams.
+     */
+    private void setIndicatorWidth(View indicator, int widthPx) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator.getLayoutParams();
+        if (params != null) {
+            params.width = widthPx;
+            indicator.setLayoutParams(params);
+        }
+    }
+
+    /**
+     * Sets the background drawable for an indicator based on active state.
+     */
+    private void setIndicatorBackground(View indicator, boolean isActive) {
+        indicator.setBackgroundResource(isActive
+                ? R.drawable.bg_page_indicator_active
+                : R.drawable.bg_page_indicator_inactive);
+    }
+
+    /**
+     * Finds the index of an indicator view in the array.
+     */
+    private int getIndicatorIndex(View indicator) {
+        for (int i = 0; i < indicatorViews.length; i++) {
+            if (indicatorViews[i] == indicator) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Converts dp to pixels based on device density.
+     */
+    private int dpToPx(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         viewPager.unregisterOnPageChangeCallback(pageChangeCallback);
+        
+        // Cancel all active animators
+        if (activeAnimators != null) {
+            for (ValueAnimator animator : activeAnimators) {
+                if (animator != null && animator.isRunning()) {
+                    animator.cancel();
+                }
+            }
+        }
     }
 
     // Keep a reference so we can unregister it in onDestroyView

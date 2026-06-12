@@ -8,11 +8,14 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,11 +33,13 @@ import com.novelverse.app.data.local.preferences.UserPreferences;
 import com.novelverse.app.data.remote.supabase.SupabaseDatabaseService;
 import com.novelverse.app.domain.models.ReviewPost;
 import com.novelverse.app.presentation.common.adapters.NovelAdapter;
-import com.novelverse.app.presentation.home.ReadingChallengeAdapter;
+import com.novelverse.app.presentation.quests.QuestActivity;
 import com.novelverse.app.presentation.home.ContinueReadingAdapter;
 import com.novelverse.app.presentation.novellist.NovelListActivity;
 import com.novelverse.app.presentation.reviews.ReviewSlideshowAdapter;
 import com.novelverse.app.presentation.reviews.ReviewsActivity;
+import com.novelverse.app.presentation.gamification.LevelUpActivity;
+import com.novelverse.app.presentation.profile.GamificationViewModel;
 import com.novelverse.app.ui.banner.BannerHelper;
 
 import java.util.ArrayList;
@@ -56,6 +61,7 @@ public class HomeFragment extends Fragment {
     @Inject SupabaseDatabaseService dbService;
 
     private HomeViewModel viewModel;
+    private GamificationViewModel gamificationVm;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView trendingRecyclerView;
     private RecyclerView newReleasesRecyclerView;
@@ -67,6 +73,11 @@ public class HomeFragment extends Fragment {
 
     private View shimmerTrending, shimmerNewReleases;
     private String selectedGenre = "All";
+
+    // ── Quests FAB ────────────────────────────────────────────────────────
+    private QuestsFabAnimator questsAnimator;
+    private final Handler scrollStopHandler = new Handler(Looper.getMainLooper());
+    private Runnable scrollStopRunnable;
 
     // ── Reviews slideshow ─────────────────────────────────────────────────
     private ViewPager2              reviewsPager;
@@ -125,12 +136,13 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         slideHandler.removeCallbacksAndMessages(null);
         refreshHandler.removeCallbacksAndMessages(null);
+        scrollStopHandler.removeCallbacksAndMessages(null);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -138,6 +150,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        // Gamification ViewModel — scoped to the Activity so the level-up
+        // callback survives fragment recreation without double-firing.
+        gamificationVm = new ViewModelProvider(requireActivity())
+                .get(GamificationViewModel.class);
+        String uid = userPreferences.getUserId();
+        if (uid != null) gamificationVm.init(uid);
+
         initViews(view);
         setupAdapters();
         setupReviewsSlideshow(view);
@@ -177,11 +197,6 @@ public class HomeFragment extends Fragment {
         genrePillContainer      = view.findViewById(R.id.genre_pill_container);
         shimmerTrending         = view.findViewById(R.id.shimmer_trending);
         shimmerNewReleases      = view.findViewById(R.id.shimmer_new_releases);
-
-        androidx.core.widget.NestedScrollView homeScroll = view.findViewById(R.id.home_scroll);
-        if (homeScroll != null && getActivity() instanceof HomeActivity) {
-            ((HomeActivity) getActivity()).attachNavToScroll(homeScroll);
-        }
     }
 
     private void setupAdapters() {
@@ -221,7 +236,7 @@ public class HomeFragment extends Fragment {
         View seeAll = view.findViewById(R.id.btn_see_all_reviews);
         if (seeAll != null) {
             seeAll.setOnClickListener(v ->
-                startActivity(new Intent(requireContext(), ReviewsActivity.class)));
+                    startActivity(new Intent(requireContext(), ReviewsActivity.class)));
         }
 
         // Initial data load + start periodic refresh
@@ -234,12 +249,11 @@ public class HomeFragment extends Fragment {
         if (!isAdded()) return;
         String token  = userPreferences.getAccessToken();
         String select = "id,rating,review,created_at,user_id," +
-                        "profiles!inner(display_name,username,avatar_url)," +
-                        "novels!inner(id,title,author_name,cover_url,genre,total_views)," +
-                        "user_levels!left(current_level,xp_total)";
+                "profiles!ratings_user_id_fkey(display_name,username,avatar_url)," +
+                "novels!inner(id,title,cover_image_url,genres,total_views)";
         String filter = "review=not.is.null&rating=gte.1";
         String url    = dbService.buildSelectUrl("ratings", select, filter, "created_at.desc")
-                        + "&limit=30";
+                + "&limit=30";
 
         dbService.rawSelect(url, token, new SupabaseDatabaseService.DatabaseCallback() {
             @Override public void onSuccess(String json) {
@@ -356,16 +370,18 @@ public class HomeFragment extends Fragment {
                     String uname = str(prof, "username");
                     p.setUsername(uname != null ? uname
                             : (p.getDisplayName() != null
-                               ? p.getDisplayName().toLowerCase().replace(" ", "_") : "reader"));
+                            ? p.getDisplayName().toLowerCase().replace(" ", "_") : "reader"));
                     p.setUserAvatarUrl(str(prof, "avatar_url"));
                 }
                 if (obj.has("novels") && !obj.get("novels").isJsonNull()) {
                     JsonObject nov = obj.getAsJsonObject("novels");
                     p.setNovelId(str(nov, "id"));
                     p.setNovelTitle(str(nov, "title"));
-                    p.setNovelAuthor(str(nov, "author_name"));
-                    p.setNovelCoverUrl(str(nov, "cover_url"));
-                    p.setNovelGenre(str(nov, "genre"));
+                    p.setNovelCoverUrl(str(nov, "cover_image_url"));
+                    if (nov.has("genres") && nov.get("genres").isJsonArray()
+                            && nov.getAsJsonArray("genres").size() > 0) {
+                        p.setNovelGenre(nov.getAsJsonArray("genres").get(0).getAsString());
+                    }
                 }
                 list.add(p);
             }
@@ -379,37 +395,6 @@ public class HomeFragment extends Fragment {
         return (o.has(key) && !o.get(key).isJsonNull()) ? o.get(key).getAsString() : null;
     }
 
-    /** Rich fallback slides — shown when network is unavailable. */
-    private List<ReviewPost> buildFallbackSlides() {
-        List<ReviewPost> slides = new ArrayList<>();
-        slides.add(new ReviewPost("s1","u1","shadow_quill","Shadow Quill",null,
-                520,"n1","The Fallen Throne","Erisa Vale",null,"Fantasy",2024,14200,5,
-                "An absolutely riveting read. The world-building is breathtaking — "
-                + "Vale weaves political intrigue and magic into something genuinely earned.",
-                87,14,"2025-04-16T08:23:00"));
-        slides.add(new ReviewPost("s2","u2","moonreader99","Moon Reader",null,
-                112,"n2","Crimson Letter","Dae-jung Oh",null,"Romance",2024,9800,4,
-                "Sweet, warm, and beautifully paced. The slow burn feels completely "
-                + "authentic. The ending made me tear up in the best way.",
-                54,8,"2025-04-15T21:05:00"));
-        slides.add(new ReviewPost("s3","u3","loreseeker","Lore Seeker",null,
-                63,"n3","Circuit Ghosts","Amara Nwosu",null,"Sci-Fi",2023,6400,5,
-                "Nwosu has a cyberpunk voice entirely her own. Sharp prose and "
-                + "relentless pacing. I read all forty chapters in one weekend.",
-                102,22,"2025-04-15T14:30:00"));
-        slides.add(new ReviewPost("s4","u4","inkwhisperer","Ink Whisperer",null,
-                35,"n4","The Paper Kingdom","Sofia Reyes",null,"Literary",2024,2900,5,
-                "A quiet, devastating novel about grief and memory. Reyes writes with "
-                + "restraint that makes every beat land twice as hard.",
-                73,16,"2025-04-13T15:33:00"));
-        slides.add(new ReviewPost("s5","u5","oracle_reads","Oracle Reads",null,
-                560,"n5","Midnight Garden","Aiko Tanaka",null,"Fantasy",2024,8600,5,
-                "From chapter one this grabbed me and wouldn't let go. My favourite "
-                + "discovery on NovelVerse this year.",
-                91,18,"2025-04-12T10:50:00"));
-        return slides;
-    }
-
     // ── Listeners ─────────────────────────────────────────────────────────
 
     private void setupListeners(View view) {
@@ -421,6 +406,51 @@ public class HomeFragment extends Fragment {
         wireViewAll(view, R.id.btn_see_all_new_releases, "new_releases", "New Releases");
         wireViewAll(view, R.id.btn_see_all_continue,     "continue",     "Continue Reading");
         wireViewAll(view, R.id.btn_see_all_for_you,      "for_you",      "For You");
+
+        // ── Quests FAB with icon + text + scroll animation ──────────────
+        FrameLayout questsContainer = view.findViewById(R.id.btn_quests_fab_container);
+        ImageView questsIcon = view.findViewById(R.id.quests_icon);
+        TextView questsText = view.findViewById(R.id.quests_text);
+
+        if (questsContainer != null && questsIcon != null && questsText != null) {
+            questsAnimator = new QuestsFabAnimator(questsContainer, questsText, questsIcon);
+            questsContainer.setOnClickListener(v ->
+                    startActivity(new Intent(requireContext(), QuestActivity.class)));
+        }
+
+        // ── Combined scroll listener: nav-bar hide/show + quests FAB collapse ──
+        NestedScrollView homeScroll = view.findViewById(R.id.home_scroll);
+        if (homeScroll != null) {
+            homeScroll.setOnScrollChangeListener(
+                    (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                        int dy = scrollY - oldScrollY;
+
+                        // 1. Nav-bar: hide on scroll down, reveal on scroll up
+                        if (getActivity() instanceof HomeActivity) {
+                            HomeActivity ha = (HomeActivity) getActivity();
+                            if (dy > 4)       ha.hideNavBar();
+                            else if (dy < -4) ha.showNavBar();
+                        }
+
+                        // 2. Quests FAB: collapse on any meaningful movement
+                        if (scrollStopRunnable != null) {
+                            scrollStopHandler.removeCallbacks(scrollStopRunnable);
+                        }
+                        if (Math.abs(dy) > 2 && questsAnimator != null) {
+                            questsAnimator.collapse();
+                        }
+
+                        // 3. Quests FAB: expand once scrolling stops near top or bottom
+                        scrollStopRunnable = () -> {
+                            boolean nearTop  = scrollY < 250;
+                            boolean atBottom = !v.canScrollVertically(1);
+                            if ((nearTop || atBottom) && questsAnimator != null) {
+                                questsAnimator.expand();
+                            }
+                        };
+                        scrollStopHandler.postDelayed(scrollStopRunnable, 180);
+                    });
+        }
     }
 
     private void wireViewAll(View root, int btnId, String section, String title) {
@@ -464,7 +494,7 @@ public class HomeFragment extends Fragment {
         viewModel.getGenres().observe(getViewLifecycleOwner(), this::buildGenrePills);
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(),
-            isLoading -> { if (isLoading != null && isLoading) swipeRefreshLayout.setRefreshing(true); });
+                isLoading -> { if (isLoading != null && isLoading) swipeRefreshLayout.setRefreshing(true); });
 
         viewModel.getContinueReadingNovels().observe(getViewLifecycleOwner(), novels -> {
             if (getView() == null) return;
@@ -484,32 +514,24 @@ public class HomeFragment extends Fragment {
             if (hasData) bindHorizontalShelf(section, R.id.for_you_recycler, novels);
         });
 
-        viewModel.getActiveChallenges().observe(getViewLifecycleOwner(), challenges -> {
-            if (getView() == null) return;
-            View section = getView().findViewById(R.id.section_challenges);
-            if (section == null) return;
-            boolean hasData = challenges != null && !challenges.isEmpty();
-            section.setVisibility(hasData ? View.VISIBLE : View.GONE);
-            if (hasData) {
-                RecyclerView rv = section.findViewById(R.id.challenges_recycler);
-                if (rv != null) {
-                    if (rv.getLayoutManager() == null)
-                        rv.setLayoutManager(new LinearLayoutManager(
-                            requireContext(), LinearLayoutManager.HORIZONTAL, false));
-                    if (rv.getAdapter() == null) rv.setAdapter(new ReadingChallengeAdapter());
-                    ((ReadingChallengeAdapter) rv.getAdapter()).submitList(challenges);
-                }
-            }
+        // ── Level-up takeover ─────────────────────────────────────────────
+        // SingleLiveEvent fires exactly once per level-up, even across rotation.
+        gamificationVm.getLevelUpEvent().observe(getViewLifecycleOwner(), payload -> {
+            if (payload == null || !isAdded()) return;
+            int  newLevel = payload[0];
+            long xpTotal  = payload[1];
+            startActivity(LevelUpActivity.buildIntent(requireContext(), newLevel, xpTotal));
         });
+
     }
 
     private void bindHorizontalShelf(View section, int rvId,
-            List<com.novelverse.app.domain.models.Novel> novels) {
+                                     List<com.novelverse.app.domain.models.Novel> novels) {
         RecyclerView rv = section.findViewById(rvId);
         if (rv == null) return;
         if (rv.getLayoutManager() == null)
             rv.setLayoutManager(new LinearLayoutManager(
-                requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                    requireContext(), LinearLayoutManager.HORIZONTAL, false));
         if (rv.getAdapter() == null) {
             NovelAdapter a = new NovelAdapter(NovelAdapter.VIEW_TYPE_HORIZONTAL);
             a.setOnItemClickListener(n -> navigateToDetail(n.getId()));
@@ -560,8 +582,8 @@ public class HomeFragment extends Fragment {
             pill.setBackground(bg);
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
             if (i < all.size() - 1) lp.setMarginEnd(dp(8));
             pill.setLayoutParams(lp);
             pill.setClickable(true);
@@ -581,10 +603,10 @@ public class HomeFragment extends Fragment {
 
     private void navigateToDetail(String novelId) {
         Intent intent = new Intent(requireContext(),
-            com.novelverse.app.presentation.novel.detail.NovelDetailActivity.class);
+                com.novelverse.app.presentation.novel.detail.NovelDetailActivity.class);
         intent.putExtra(
-            com.novelverse.app.presentation.novel.detail.NovelDetailActivity.EXTRA_NOVEL_ID,
-            novelId);
+                com.novelverse.app.presentation.novel.detail.NovelDetailActivity.EXTRA_NOVEL_ID,
+                novelId);
         startActivity(intent);
     }
 
@@ -605,7 +627,6 @@ public class HomeFragment extends Fragment {
         viewModel.loadGenres();
         viewModel.loadContinueReading();
         viewModel.loadForYou();
-        viewModel.loadActiveChallenges();
     }
 
     private void maybeShowOnboarding() {

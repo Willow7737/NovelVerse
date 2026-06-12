@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  nav_lateral_exit.xml
+  Exit side of lateral navigation.
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <translate
+        android:duration="260"
+        android:fromXDelta="0%"
+        android:toXDelta="-12%"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+    <alpha
+        android:duration="220"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+</set>

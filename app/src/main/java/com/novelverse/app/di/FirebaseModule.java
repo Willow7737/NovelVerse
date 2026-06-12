@@ -1,4 +1,4 @@
-package com.novelverse.app.di.module;
+package com.novelverse.app.di;
 
 import android.content.Context;
 

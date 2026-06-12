@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,22 +45,22 @@ public class SubscriptionActivity extends AppCompatActivity {
     private boolean isAnnual = false;
 
     private static final String[] BENEFITS = {
-        "Ad-free reading experience",
-        "Early access to new chapters",
-        "Exclusive Premium badge on your profile",
-        "Access to Premium-only novels",
-        "500 monthly bonus points",
-        "Priority customer support",
+            "Ad-free reading experience",
+            "Early access to new chapters",
+            "Exclusive Premium badge on your profile",
+            "Access to Premium-only novels",
+            "500 monthly bonus points",
+            "Priority customer support",
     };
 
     private final List<PlanData> monthlyPlans = Arrays.asList(
-        new PlanData("Premium", "$9.99/mo", "#6366F1", ""),
-        new PlanData("VIP", "$18.99/mo", "#F59E0B", "")
+            new PlanData("Premium", "$9.99/mo", "#6366F1", ""),
+            new PlanData("VIP", "$18.99/mo", "#F59E0B", "")
     );
 
     private final List<PlanData> annualPlans = Arrays.asList(
-        new PlanData("Premium", "$6.99/mo", "#6366F1", "Most Popular"),
-        new PlanData("VIP", "$12.99/mo", "#F59E0B", "Best Value")
+            new PlanData("Premium", "$6.99/mo", "#6366F1", "Most Popular"),
+            new PlanData("VIP", "$12.99/mo", "#F59E0B", "Best Value")
     );
 
     @Override
@@ -81,6 +82,17 @@ public class SubscriptionActivity extends AppCompatActivity {
         tabAnnual = findViewById(R.id.tab_annual);
         indicatorView = findViewById(R.id.tab_indicator);
         plansContainer = findViewById(R.id.plans_container);
+
+        // Match indicator width to tab width and snap it to the correct
+        // starting position once the layout pass has run.
+        indicatorView.post(() -> {
+            ViewGroup.LayoutParams lp = indicatorView.getLayoutParams();
+            lp.width = tabMonthly.getWidth();
+            indicatorView.setLayoutParams(lp);
+
+            // Snap to monthly tab position in FrameLayout coordinates.
+            indicatorView.setX(getIndicatorTarget(tabMonthly));
+        });
     }
 
     private void setupTabSwitcher() {
@@ -99,9 +111,21 @@ public class SubscriptionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Returns the X position the indicator should animate to, expressed in
+     * the FrameLayout's coordinate space (the indicator's direct parent).
+     *
+     * selected.getX() is relative to the inner tab LinearLayout, not the
+     * FrameLayout, so we add the LinearLayout's own left offset to convert.
+     */
+    private float getIndicatorTarget(TextView selected) {
+        View tabsRow = (View) selected.getParent();
+        return selected.getLeft() + tabsRow.getLeft();
+    }
+
     private void animateTabSwitch(TextView selected, TextView unselected) {
-        float targetX = selected.getX();
-        ObjectAnimator indicatorAnim = ObjectAnimator.ofFloat(indicatorView, "x", targetX);
+        ObjectAnimator indicatorAnim = ObjectAnimator.ofFloat(
+                indicatorView, "x", getIndicatorTarget(selected));
         indicatorAnim.setDuration(300);
         indicatorAnim.setInterpolator(new AccelerateDecelerateInterpolator());
         indicatorAnim.start();
@@ -112,35 +136,35 @@ public class SubscriptionActivity extends AppCompatActivity {
         unselected.setTypeface(null, Typeface.NORMAL);
 
         selected.animate()
-            .scaleX(1.05f)
-            .scaleY(1.05f)
-            .setDuration(200)
-            .start();
+                .scaleX(1.05f)
+                .scaleY(1.05f)
+                .setDuration(200)
+                .start();
 
         unselected.animate()
-            .scaleX(1.0f)
-            .scaleY(1.0f)
-            .setDuration(200)
-            .start();
+                .scaleX(1.0f)
+                .scaleY(1.0f)
+                .setDuration(200)
+                .start();
     }
 
     private void animatePlansChange(boolean annual) {
         plansContainer.animate()
-            .alpha(0f)
-            .translationY(-30)
-            .setDuration(200)
-            .withEndAction(() -> {
-                showPlans(annual);
-                plansContainer.setAlpha(0f);
-                plansContainer.setTranslationY(30);
-                plansContainer.animate()
-                    .alpha(1f)
-                    .translationY(0)
-                    .setDuration(300)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
-            })
-            .start();
+                .alpha(0f)
+                .translationY(-30)
+                .setDuration(200)
+                .withEndAction(() -> {
+                    showPlans(annual);
+                    plansContainer.setAlpha(0f);
+                    plansContainer.setTranslationY(30);
+                    plansContainer.animate()
+                            .alpha(1f)
+                            .translationY(0)
+                            .setDuration(300)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .start();
+                })
+                .start();
     }
 
     private void showPlans(boolean annual) {
@@ -175,12 +199,12 @@ public class SubscriptionActivity extends AppCompatActivity {
             plansContainer.addView(planView);
 
             planView.animate()
-                .alpha(1f)
-                .translationY(0)
-                .setDuration(400)
-                .setStartDelay(i * 100)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .start();
+                    .alpha(1f)
+                    .translationY(0)
+                    .setDuration(400)
+                    .setStartDelay(i * 100)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .start();
         }
     }
 
@@ -205,7 +229,7 @@ public class SubscriptionActivity extends AppCompatActivity {
             }
             @Override public void onPurchaseError(String error) {
                 runOnUiThread(() ->
-                    BannerHelper.error(SubscriptionActivity.this, "Subscription failed", error));
+                        BannerHelper.error(SubscriptionActivity.this, "Subscription failed", error));
             }
         });
         billingManager.launchPurchaseFlow(this, details);

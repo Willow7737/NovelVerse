@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="?attr/colorSurface"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:contentDescription="Back"
             android:background="@drawable/bg_icon_btn_white"
             android:padding="10dp"
-            android:tint="?attr/colorOnSurfaceVariant"
+            app:tint="?attr/colorOnSurfaceVariant"
             android:id="@+id/btn_back" />
 
         <TextView
@@ -65,7 +65,7 @@
                     android:layout_width="56dp"
                     android:src="@drawable/ic_crown"
                     android:contentDescription="Premium"
-                    android:tint="?attr/colorSurface" />
+                    app:tint="@color/points" />
 
                 <TextView
                     android:layout_height="wrap_content"
@@ -93,14 +93,14 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:background="@drawable/bg_surface_card"
-                android:elevation="2dp"
+                android:elevation="0dp"
                 android:padding="4dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal">
 
                 <View
                     android:id="@+id/tab_indicator"
-                    android:layout_width="120dp"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_tab_selected"
                     android:layout_gravity="start|center_vertical" />
@@ -108,11 +108,12 @@
                 <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_height="40dp"
-                        android:layout_width="120dp"
+                        android:layout_width="110dp"
                         android:gravity="center"
                         android:textSize="15sp"
                         android:fontFamily="@font/inter_semibold"
@@ -122,7 +123,7 @@
 
                     <TextView
                         android:layout_height="40dp"
-                        android:layout_width="120dp"
+                        android:layout_width="110dp"
                         android:gravity="center"
                         android:textSize="15sp"
                         android:fontFamily="@font/inter_regular"
@@ -148,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_surface_card"
-                android:elevation="1dp"
+                android:elevation="0dp"
                 android:layout_marginHorizontal="14dp"
                 android:padding="16dp"
                 android:orientation="vertical"

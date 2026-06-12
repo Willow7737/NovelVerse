@@ -78,7 +78,7 @@
 
                 <!-- ── RIGHT: Pill — search | divider | notifications ─ -->
                 <LinearLayout
-                     android:layout_height="38dp"
+                     android:layout_height="34dp"
                      android:layout_width="wrap_content"
                      android:layout_alignParentEnd="true"
                      android:layout_centerVertical="true"
@@ -93,7 +93,7 @@
                          android:background="@android:color/transparent"
                          android:padding="9dp"
                          android:src="@drawable/ic_search_outline"
-                         android:tint="?attr/colorOnSurfaceVariant"
+                         app:tint="?attr/colorOnSurfaceVariant"
                          android:contentDescription="Search" />
 
                     <!-- Broken vertical divider (inset from top/bottom gives the gap effect) -->
@@ -109,7 +109,7 @@
                          android:background="@android:color/transparent"
                          android:padding="9dp"
                          android:src="@drawable/ic_bell_outline"
-                         android:tint="?attr/colorOnSurfaceVariant"
+                         app:tint="?attr/colorOnSurfaceVariant"
                          android:contentDescription="Notifications" />
 
                 </LinearLayout>

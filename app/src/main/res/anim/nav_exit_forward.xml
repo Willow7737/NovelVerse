@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  nav_exit_forward.xml
+  The outgoing fragment when navigating FORWARD.
+  Slides to the left and slightly shrinks (recedes into background).
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <!-- Slide to -30% (partial exit — gives depth illusion) -->
+    <translate
+        android:duration="380"
+        android:fromXDelta="0%"
+        android:toXDelta="-28%"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+    <!-- Fade to semi-transparent (not fully gone — recedes behind) -->
+    <alpha
+        android:duration="320"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+    <!-- Shrink slightly to convey depth -->
+    <scale
+        android:duration="380"
+        android:fromXScale="1.0"
+        android:toXScale="0.94"
+        android:fromYScale="1.0"
+        android:toYScale="0.94"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@android:anim/accelerate_interpolator" />
+
+</set>

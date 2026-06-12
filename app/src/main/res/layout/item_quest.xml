@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="top"
+    android:background="?attr/selectableItemBackground"
+    android:paddingVertical="14dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
+
+    <FrameLayout
+         android:layout_height="48dp"
+         android:layout_width="48dp"
+         android:background="@drawable/bg_icon_circle_primary"
+         android:layout_marginTop="2dp">
+
+        <ImageView
+             android:layout_height="26dp"
+             android:layout_width="26dp"
+             android:src="@drawable/ic_challenge"
+             android:contentDescription="Quest icon"
+             app:tint="@color/chip_inactive_stroke_dark"
+             android:id="@+id/quest_icon"
+             android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="0dp"
+         android:orientation="vertical"
+         android:layout_marginStart="14dp"
+         android:layout_weight="1">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:ellipsize="end"
+             android:textSize="16sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorOnSurface"
+             android:maxLines="2"
+             android:id="@+id/quest_title" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:ellipsize="end"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="?attr/colorOnSurfaceVariant"
+             android:layout_marginTop="4dp"
+             android:lineSpacingMultiplier="1.35"
+             android:maxLines="2"
+             android:id="@+id/quest_description" />
+
+        <ProgressBar
+             android:layout_height="6dp"
+             android:layout_width="match_parent"
+             android:max="100"
+             style="@android:style/Widget.ProgressBar.Horizontal"
+             android:layout_marginTop="10dp"
+             android:progress="0"
+             android:id="@+id/quest_progress_bar" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:textSize="13sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="?attr/colorOnSurfaceVariant"
+             android:layout_marginTop="5dp"
+             android:id="@+id/quest_progress_text" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:gravity="center_vertical"
+             android:orientation="horizontal"
+             android:layout_marginTop="10dp">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:visibility="gone"
+                 android:layout_marginEnd="10dp"
+                 android:textSize="13sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/secondary"
+                 android:id="@+id/quest_reward_ink" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:visibility="gone"
+                 android:layout_marginEnd="10dp"
+                 android:textSize="13sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/warning"
+                 android:id="@+id/quest_reward_xp" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:visibility="gone"
+                 android:textSize="13sp"
+                 android:fontFamily="@font/inter_semibold"
+                 android:textColor="@color/primary"
+                 android:id="@+id/quest_reward_quill" />
+
+        </LinearLayout>
+
+        <TextView
+             android:layout_height="40dp"
+             android:layout_width="wrap_content"
+             android:visibility="gone"
+             android:gravity="center"
+             android:background="@drawable/bg_btn_primary"
+             android:textSize="14sp"
+             android:fontFamily="@font/inter_semibold"
+             android:textColor="?attr/colorSurface"
+             android:layout_marginTop="10dp"
+             android:paddingHorizontal="22dp"
+             android:id="@+id/quest_claim_btn"
+             android:text="Claim Reward" />
+
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:visibility="gone"
+         android:gravity="center"
+         android:orientation="vertical"
+         android:layout_marginStart="10dp"
+         android:id="@+id/quest_completed_badge"
+         android:layout_gravity="center_vertical">
+
+        <ImageView
+             android:layout_height="24dp"
+             android:layout_width="24dp"
+             android:src="@drawable/ic_badge_first_chapter"
+             android:contentDescription="Claimed" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textSize="11sp"
+             android:fontFamily="@font/inter_regular"
+             android:textColor="@color/text_secondary"
+             android:layout_marginTop="4dp"
+             android:text="Done" />
+
+    </LinearLayout>
+
+</LinearLayout>

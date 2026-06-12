@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,16 +11,16 @@
         android:id="@+id/scrim_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
-        android:alpha="1.0" />
+        android:alpha="1.0"
+        android:background="#000000" />
 
     <!-- The actual image — dragged during swipe-to-dismiss -->
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:contentDescription="Full screen image" />
+        android:contentDescription="Full screen image"
+        android:scaleType="fitCenter" />
 
     <!-- Close button — top start -->
     <FrameLayout
@@ -32,15 +32,16 @@
         android:layout_marginTop="52dp"
         android:background="@drawable/bg_cover_edit_btn"
         android:clickable="true"
-        android:focusable="true"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        android:focusable="true">
+
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
+            android:contentDescription="Close"
             android:src="@drawable/ic_close"
-            android:tint="#FFFFFF"
-            android:contentDescription="Close" />
+            app:tint="#FFFFFF" />
     </FrameLayout>
 
 </FrameLayout>

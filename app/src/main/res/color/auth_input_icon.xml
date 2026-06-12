@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: project's button blue -->
+    <item android:state_focused="true" android:color="@color/button_blue" />
+    <!-- Default: barely-visible dark border (no harsh edge on charcoal bg) -->
+    <item android:color="@color/icon_secondary" />
+</selector>

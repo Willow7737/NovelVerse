@@ -103,6 +103,21 @@
             </intent-filter>
         </activity>
 
+        <!-- Streak Activity -->
+        <activity
+            android:name=".presentation.streak.StreakActivity"
+            android:exported="false"
+            android:label="My Streak"
+            android:theme="@style/Theme.NovelVerse"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!-- Follows Activity -->
+        <activity
+            android:name=".presentation.profile.follows.FollowsActivity"
+            android:exported="false"
+            android:parentActivityName=".presentation.home.HomeActivity"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Leaderboard Activity -->
         <activity
             android:name=".presentation.social.LeaderboardActivity"
@@ -120,18 +135,41 @@
             android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
 
-        <!-- Auth Activity -->
-        <activity
-            android:name=".presentation.auth.AuthActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
         <!-- Onboarding Activity -->
         <activity
             android:name=".presentation.onboarding.OnboardingActivity"
-            android:exported="false"
+            android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.NovelVerse.Onboarding"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+
+            <!-- Password reset deep link: novelverse://auth/reset#access_token=...
+                 Supabase redirects here after verifying the recovery token.
+                 singleTask ensures onNewIntent fires if the app is already running. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="novelverse"
+                    android:host="auth"
+                    android:path="/reset" />
+            </intent-filter>
+
+            <!-- OAuth PKCE callback deep link: novelverse://auth/callback?code=...
+                 Supabase redirects here after the user completes Facebook/Apple/etc.
+                 OAuth in the Custom Tab. The code is then exchanged for a session. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="novelverse"
+                    android:host="auth"
+                    android:path="/callback" />
+            </intent-filter>
+
+        </activity>
 
         <!-- Reader Activity -->
         <activity
@@ -144,6 +182,7 @@
         <activity
             android:name=".presentation.tts.TtsPlayerActivity"
             android:exported="false"
+            android:label="Read Aloud"
             android:screenOrientation="portrait" />
 
         <!-- Author Dashboard -->
@@ -273,12 +312,19 @@
             android:exported="false"
             android:label="Analytics" />
 
-        <!-- TTS Player Activity -->
+        <!-- Achievements Screen -->
         <activity
-            android:name=".presentation.novel.reader.TtsPlayerActivity"
+            android:name=".presentation.profile.achievements.AchievementsActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:label="Read Aloud" />
+            android:label="Achievements"
+            android:parentActivityName=".presentation.home.HomeActivity" />
+
+        <!-- Level-Up Takeover — transparent overlay above HomeActivity -->
+        <activity
+            android:name=".presentation.gamification.LevelUpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NovelVerse.LevelUpOverlay"
+            android:windowSoftInputMode="stateHidden" />
 
         <!-- Writer System: WriterViewModel is a HiltViewModel, no registration needed -->
         <!-- TTS Service -->
@@ -326,9 +372,12 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+            <!-- tools:node="remove" disables auto-init so HiltWorkerFactory can be injected
+                 via Configuration.Provider in NovelVerseApplication before WorkManager starts. -->
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
-                android:value="androidx.startup" />
+                android:value="androidx.startup"
+                tools:node="remove" />
         </provider>
 
         <!-- File Provider -->
@@ -378,12 +427,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
 
-        <!-- Achievements Screen -->
+        <!-- Quests Screen -->
         <activity
-            android:name=".presentation.profile.achievements.AchievementsActivity"
+            android:name=".presentation.quests.QuestActivity"
             android:exported="false"
-            android:label="Achievements"
-            android:parentActivityName=".presentation.home.HomeActivity" />
+            android:label="Quests"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

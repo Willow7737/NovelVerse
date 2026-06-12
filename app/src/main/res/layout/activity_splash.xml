@@ -19,14 +19,10 @@
             android:src="@drawable/ic_logo"
             android:contentDescription="NovelVerse logo" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NovelVerse"
-            android:textSize="24sp"
-            android:fontFamily="@font/pogonia_semibold"
-            android:textColor="?attr/colorOnSurface"
-            android:letterSpacing="-0.01"
+            android:layout_height="24dp"
+            android:src="@drawable/logo_text"
             android:layout_marginTop="12dp" />
     </LinearLayout>
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:background="@color/background"
-     android:fillViewport="true"
-     android:fitsSystemWindows="false"
-     android:id="@+id/profile_scroll"
-     android:overScrollMode="never">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:fitsSystemWindows="false"
+    android:id="@+id/profile_scroll"
+    android:overScrollMode="never">
 
     <LinearLayout
          android:layout_height="wrap_content"
@@ -47,6 +47,7 @@
                      android:background="@drawable/bg_cover_scrim"
                      android:layout_gravity="bottom" />
 
+                <!-- Camera / cover edit -->
                 <FrameLayout
                      android:layout_height="34dp"
                      android:layout_width="34dp"
@@ -63,7 +64,7 @@
                          android:layout_width="16dp"
                          android:src="@drawable/ic_camera"
                          android:contentDescription="Edit cover"
-                         android:tint="#FFFFFF"
+                         app:tint="#FFFFFF"
                          android:layout_gravity="center" />
 
                 </FrameLayout>
@@ -125,6 +126,122 @@
                 </FrameLayout>
 
             </FrameLayout>
+
+            <!-- Top-right quick actions -->
+            <HorizontalScrollView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:scrollbars="none"
+                android:clipToPadding="false"
+                android:layout_gravity="bottom|end"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_height="34dp"
+                        android:layout_width="34dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_cover_edit_btn"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:focusable="true"
+                        android:id="@+id/quick_share">
+
+                        <ImageView
+                            android:layout_height="16dp"
+                            android:layout_width="16dp"
+                            android:src="@drawable/ic_share"
+                            android:contentDescription="Share"
+                            app:tint="#FFFFFF"
+                            android:layout_gravity="center" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_height="34dp"
+                        android:layout_width="34dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_cover_edit_btn"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:focusable="true"
+                        android:id="@+id/quick_copy_link">
+
+                        <ImageView
+                            android:layout_height="16dp"
+                            android:layout_width="16dp"
+                            android:src="@drawable/ic_link"
+                            android:contentDescription="Copy link"
+                            app:tint="#FFFFFF"
+                            android:layout_gravity="center" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_height="34dp"
+                        android:layout_width="34dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_cover_edit_btn"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:focusable="true"
+                        android:id="@+id/quick_settings">
+
+                        <ImageView
+                            android:layout_height="16dp"
+                            android:layout_width="16dp"
+                            android:src="@drawable/ic_gear"
+                            android:contentDescription="Settings"
+                            app:tint="#FFFFFF"
+                            android:layout_gravity="center" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_height="34dp"
+                        android:layout_width="wrap_content"
+                        android:minWidth="34dp"
+                        android:background="@drawable/bg_cover_btn_circular_ends"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:focusable="true"
+                        android:id="@+id/quick_premium">
+
+                        <LinearLayout
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:paddingHorizontal="10dp">
+
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#FFFFFF"
+                                android:text="⭐ " />
+
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter_semibold"
+                                android:textColor="#FFFFFF"
+                                android:text="Premium" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
         </FrameLayout>
 
@@ -195,7 +312,7 @@
                      android:fontFamily="@font/inter_semibold"
                      android:textColor="?attr/colorOnSurface"
                      android:id="@+id/stat_books_read"
-                     android:text="0" />
+                     android:text="-" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -232,7 +349,7 @@
                      android:fontFamily="@font/inter_semibold"
                      android:textColor="?attr/colorOnSurface"
                      android:id="@+id/stat_followers"
-                     android:text="0" />
+                     android:text="-" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -269,7 +386,7 @@
                      android:fontFamily="@font/inter_semibold"
                      android:textColor="?attr/colorOnSurface"
                      android:id="@+id/stat_following"
-                     android:text="0" />
+                     android:text="-" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -834,246 +951,6 @@
             </LinearLayout>
 
         </FrameLayout>
-
-        <HorizontalScrollView
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:scrollbars="none"
-             android:clipToPadding="false"
-             android:layout_marginTop="14dp"
-             android:paddingHorizontal="14dp"
-             android:overScrollMode="never">
-
-            <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:orientation="horizontal">
-
-                <LinearLayout
-                     android:layout_height="40dp"
-                     android:layout_width="wrap_content"
-                     android:layout_marginEnd="8dp"
-                     android:background="@drawable/bg_quick_action_chip"
-                     android:gravity="center_vertical"
-                     android:clickable="true"
-                     android:orientation="horizontal"
-                     android:paddingHorizontal="14dp"
-                     android:focusable="true"
-                     android:id="@+id/quick_share">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_share"
-                         android:contentDescription="Share"
-                         android:tint="?attr/colorOnSurface" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="12sp"
-                         android:fontFamily="@font/inter_medium"
-                         android:textColor="?attr/colorOnSurface"
-                         android:layout_marginStart="6dp"
-                         android:text="Share" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                     android:layout_height="40dp"
-                     android:layout_width="wrap_content"
-                     android:layout_marginEnd="8dp"
-                     android:background="@drawable/bg_quick_action_chip"
-                     android:gravity="center_vertical"
-                     android:clickable="true"
-                     android:orientation="horizontal"
-                     android:paddingHorizontal="14dp"
-                     android:focusable="true"
-                     android:id="@+id/quick_copy_link">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_link"
-                         android:contentDescription="Copy link"
-                         android:tint="?attr/colorOnSurface" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="12sp"
-                         android:fontFamily="@font/inter_medium"
-                         android:textColor="?attr/colorOnSurface"
-                         android:layout_marginStart="6dp"
-                         android:text="Copy Link" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                     android:layout_height="40dp"
-                     android:layout_width="wrap_content"
-                     android:layout_marginEnd="8dp"
-                     android:background="@drawable/bg_quick_action_chip"
-                     android:gravity="center_vertical"
-                     android:clickable="true"
-                     android:orientation="horizontal"
-                     android:paddingHorizontal="14dp"
-                     android:focusable="true"
-                     android:id="@+id/quick_settings">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_gear"
-                         android:contentDescription="Settings"
-                         android:tint="?attr/colorOnSurface" />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="12sp"
-                         android:fontFamily="@font/inter_medium"
-                         android:textColor="?attr/colorOnSurface"
-                         android:layout_marginStart="6dp"
-                         android:text="Settings" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                     android:layout_height="40dp"
-                     android:layout_width="wrap_content"
-                     android:background="@drawable/bg_quick_action_premium"
-                     android:gravity="center_vertical"
-                     android:clickable="true"
-                     android:elevation="3dp"
-                     android:orientation="horizontal"
-                     android:paddingHorizontal="14dp"
-                     android:focusable="true"
-                     android:id="@+id/quick_premium">
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="13sp"
-                         android:textColor="#FFFFFF"
-                         android:text="⭐ " />
-
-                    <TextView
-                         android:layout_height="wrap_content"
-                         android:layout_width="wrap_content"
-                         android:textSize="12sp"
-                         android:fontFamily="@font/inter_semibold"
-                         android:textColor="#FFFFFF"
-                         android:text="Get Premium" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <LinearLayout
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:background="@drawable/bg_surface_card"
-             android:layout_marginHorizontal="14dp"
-             android:orientation="vertical"
-             android:layout_marginTop="14dp">
-
-            <LinearLayout
-                 android:layout_height="54dp"
-                 android:layout_width="match_parent"
-                 android:gravity="center_vertical"
-                 android:background="?android:attr/selectableItemBackground"
-                 android:clickable="true"
-                 android:orientation="horizontal"
-                 android:paddingHorizontal="16dp"
-                 android:focusable="true"
-                 android:id="@+id/btn_settings">
-
-                <FrameLayout
-                     android:layout_height="30dp"
-                     android:layout_width="30dp"
-                     android:background="@drawable/bg_btn_squircle_secondary">
-
-                    <ImageView
-                         android:layout_height="15dp"
-                         android:layout_width="15dp"
-                         android:src="@drawable/ic_gear"
-                         android:contentDescription="Settings"
-                         android:tint="?attr/colorOnSurface"
-                         android:layout_gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="0dp"
-                     android:textSize="16sp"
-                     android:fontFamily="@font/inter_regular"
-                     android:textColor="?attr/colorOnSurface"
-                     android:layout_marginStart="12dp"
-                     android:layout_weight="1"
-                     android:text="Settings" />
-
-                <TextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:textSize="20sp"
-                     android:textColor="?attr/colorOnSurfaceVariant"
-                     android:text="›" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-             android:layout_height="54dp"
-             android:layout_width="match_parent"
-             android:background="@drawable/bg_surface_card"
-             android:gravity="center_vertical"
-             android:clickable="true"
-             android:layout_marginHorizontal="14dp"
-             android:orientation="horizontal"
-             android:layout_marginTop="10dp"
-             android:paddingHorizontal="16dp"
-             android:focusable="true"
-             android:id="@+id/logout_button">
-
-            <FrameLayout
-                 android:layout_height="30dp"
-                 android:layout_width="30dp"
-                 android:background="@drawable/bg_logout_icon_bg">
-
-                <ImageView
-                     android:layout_height="15dp"
-                     android:layout_width="15dp"
-                     android:src="@drawable/ic_logout"
-                     android:contentDescription="Sign out"
-                     android:tint="@color/error"
-                     android:layout_gravity="center" />
-
-            </FrameLayout>
-
-            <TextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="0dp"
-                 android:textSize="16sp"
-                 android:fontFamily="@font/inter_medium"
-                 android:textColor="@color/error"
-                 android:layout_marginStart="12dp"
-                 android:layout_weight="1"
-                 android:text="Sign Out" />
-
-            <TextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:alpha="0.4"
-                 android:textSize="20sp"
-                 android:textColor="@color/error"
-                 android:text="›" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

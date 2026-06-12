@@ -23,13 +23,20 @@ import com.novelverse.app.domain.gamification.AchievementDefinitions;
 import com.novelverse.app.domain.gamification.StreakEngine;
 import com.novelverse.app.domain.gamification.XpLevelEngine;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.novelverse.app.domain.models.StreakHistoryItem;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -65,10 +72,17 @@ public class GamificationRepository {
 
     /** Generic boolean result callback — delivered on the executor thread. */
     public interface ResultCallback {
-        /**
-         * @param success the boolean result of the operation
-         */
         void onResult(boolean success);
+    }
+
+    /** Callback that delivers the streak history list on the OkHttp thread. */
+    public interface HistoryCallback {
+        void onResult(List<StreakHistoryItem> items);
+    }
+
+    /** Callback for ad-reward RPCs: success + ink awarded + failure reason string. */
+    public interface AdRewardCallback {
+        void onResult(boolean success, int inkAwarded, String reason);
     }
 
     // ── Constructor ───────────────────────────────────────────────────────────
@@ -348,7 +362,7 @@ public class GamificationRepository {
                     result.updated.getXpLevelTarget(),
                     result.updated.getBadgeSlots());
             if (result.didLevelUp && levelUpListener != null) {
-                levelUpListener.onLevelUp(result.newLevel);
+                levelUpListener.onLevelUp(result.newLevel, result.updated.getXpTotal());
             }
         }
     }
@@ -356,7 +370,7 @@ public class GamificationRepository {
     // ── Level-up callback ─────────────────────────────────────────────────────
 
     public interface LevelUpListener {
-        void onLevelUp(int newLevel);
+        void onLevelUp(int newLevel, long xpTotal);
     }
 
     private LevelUpListener levelUpListener;
@@ -397,6 +411,13 @@ public class GamificationRepository {
                     after != null ? after.getQuillBalance() : 0,
                     "Daily streak bonus",
                     nowMs);
+        }
+        // ── Record a broken-streak run to the server history table ────────────
+        if (result.event == StreakEngine.StreakEvent.BROKEN && result.oldStreak > 1) {
+            // Approximate start: (oldStreak - 1) days before last activity date
+            long approxStartMs = current.getLastActivityDate()
+                    - (long)(result.oldStreak - 1) * TimeUnit.DAYS.toMillis(1);
+            recordStreakBreak(userId, result.oldStreak, approxStartMs, nowMs);
         }
         syncStreakToServer(userId);
         return result;
@@ -481,7 +502,219 @@ public class GamificationRepository {
                 });
     }
 
-    // ── Anti-exploit: rate limit ──────────────────────────────────────────────
+    // ── Streak history & ad rewards ───────────────────────────────────────────
+
+    /**
+     * Calls the {@code get_streak_history} RPC and delivers parsed results to {@code callback}.
+     * Delivered on the OkHttp callback thread — post to main if updating UI.
+     */
+    public void fetchStreakHistory(String userId, int limit, HistoryCallback callback) {
+        String token = userPreferences.getAccessToken();
+        if (token == null) {
+            if (callback != null) callback.onResult(new ArrayList<>());
+            return;
+        }
+        com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+        params.addProperty("p_user_id", userId);
+        params.addProperty("p_limit", limit);
+        supabase.callRpc("get_streak_history", params, token,
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override public void onSuccess(String result) {
+                        List<StreakHistoryItem> items = parseStreakHistory(result);
+                        if (callback != null) callback.onResult(items);
+                    }
+                    @Override public void onError(String error) {
+                        Log.e(TAG, "fetchStreakHistory error: " + error);
+                        if (callback != null) callback.onResult(new ArrayList<>());
+                    }
+                });
+    }
+
+    /**
+     * Fires the {@code record_streak_break} RPC asynchronously.
+     * Called inside {@link #recordReadingActivity} when StreakEvent.BROKEN is emitted, so the
+     * server keeps a permanent history of every broken run.
+     */
+    public void recordStreakBreak(String userId, int streakLength,
+                                  long startedAtMs, long endedAtMs) {
+        String token = userPreferences.getAccessToken();
+        if (token == null || streakLength <= 0) return;
+        com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+        params.addProperty("p_user_id",      userId);
+        params.addProperty("p_streak_length", streakLength);
+        params.addProperty("p_started_ms",   startedAtMs);
+        params.addProperty("p_ended_ms",     endedAtMs);
+        supabase.callRpc("record_streak_break", params, token,
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override public void onSuccess(String r) {
+                        Log.d(TAG, "Streak break recorded — length=" + streakLength);
+                    }
+                    @Override public void onError(String err) {
+                        Log.e(TAG, "record_streak_break error: " + err);
+                    }
+                });
+    }
+
+    /**
+     * Calls the {@code ad_earn_ink} RPC. On success the server credits +25 Ink and logs the ad
+     * watch. Delivers result on the OkHttp thread — ViewModel posts to LiveData.
+     */
+    public void adEarnInk(String userId, AdRewardCallback callback) {
+        String token = userPreferences.getAccessToken();
+        if (token == null) {
+            if (callback != null) callback.onResult(false, 0, "no_token");
+            return;
+        }
+        com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+        params.addProperty("p_user_id", userId);
+        supabase.callRpc("ad_earn_ink", params, token,
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override public void onSuccess(String result) {
+                        try {
+                            com.google.gson.JsonObject obj =
+                                    JsonParser.parseString(result).getAsJsonObject();
+                            boolean success = obj.get("success").getAsBoolean();
+                            int ink = success ? obj.get("ink_awarded").getAsInt() : 0;
+                            String reason = (!success && obj.has("reason"))
+                                    ? obj.get("reason").getAsString() : null;
+                            if (callback != null) callback.onResult(success, ink, reason);
+                        } catch (Exception e) {
+                            Log.e(TAG, "adEarnInk parse error", e);
+                            if (callback != null) callback.onResult(false, 0, "parse_error");
+                        }
+                    }
+                    @Override public void onError(String error) {
+                        Log.e(TAG, "adEarnInk error: " + error);
+                        if (callback != null) callback.onResult(false, 0, "network_error");
+                    }
+                });
+    }
+
+    /**
+     * Calls the {@code ad_restore_freeze} RPC and updates local Room with the new
+     * freeze_expires_at timestamp so the streak LiveData refreshes immediately.
+     */
+    public void adRestoreFreeze(String userId, ResultCallback callback) {
+        String token = userPreferences.getAccessToken();
+        if (token == null) {
+            if (callback != null) callback.onResult(false);
+            return;
+        }
+        com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+        params.addProperty("p_user_id", userId);
+        supabase.callRpc("ad_restore_freeze", params, token,
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override public void onSuccess(String result) {
+                        try {
+                            com.google.gson.JsonObject obj =
+                                    JsonParser.parseString(result).getAsJsonObject();
+                            boolean success = obj.get("success").getAsBoolean();
+                            if (success && obj.has("freeze_expires_ms")) {
+                                long expiresMs = obj.get("freeze_expires_ms").getAsLong();
+                                // Update Room so the LiveData refreshes without waiting for sync
+                                executor.execute(() ->
+                                        userStreakDao.applyFreeze(userId, expiresMs, 0));
+                            }
+                            if (callback != null) callback.onResult(success);
+                        } catch (Exception e) {
+                            Log.e(TAG, "adRestoreFreeze parse error", e);
+                            if (callback != null) callback.onResult(false);
+                        }
+                    }
+                    @Override public void onError(String error) {
+                        Log.e(TAG, "adRestoreFreeze error: " + error);
+                        if (callback != null) callback.onResult(false);
+                    }
+                });
+    }
+
+    /**
+     * Calls the {@code ad_recover_streak} RPC and — on success — patches local Room
+     * so the hero card updates immediately without waiting for the next sync cycle.
+     */
+    public void adRecoverStreak(String userId, int recoverTo, ResultCallback callback) {
+        String token = userPreferences.getAccessToken();
+        if (token == null) {
+            if (callback != null) callback.onResult(false);
+            return;
+        }
+        com.google.gson.JsonObject params = new com.google.gson.JsonObject();
+        params.addProperty("p_user_id",    userId);
+        params.addProperty("p_recover_to", recoverTo);
+        supabase.callRpc("ad_recover_streak", params, token,
+                new SupabaseDatabaseService.DatabaseCallback() {
+                    @Override public void onSuccess(String result) {
+                        try {
+                            com.google.gson.JsonObject obj =
+                                    JsonParser.parseString(result).getAsJsonObject();
+                            boolean success = obj.get("success").getAsBoolean();
+                            if (success) {
+                                long nowMs = System.currentTimeMillis();
+                                executor.execute(() -> {
+                                    UserStreakEntity cur = userStreakDao.get(userId);
+                                    if (cur != null) {
+                                        userStreakDao.updateStreak(
+                                                userId,
+                                                recoverTo,
+                                                Math.max(cur.getLongestStreak(), recoverTo),
+                                                nowMs);
+                                    }
+                                });
+                            }
+                            if (callback != null) callback.onResult(success);
+                        } catch (Exception e) {
+                            Log.e(TAG, "adRecoverStreak parse error", e);
+                            if (callback != null) callback.onResult(false);
+                        }
+                    }
+                    @Override public void onError(String error) {
+                        Log.e(TAG, "adRecoverStreak error: " + error);
+                        if (callback != null) callback.onResult(false);
+                    }
+                });
+    }
+
+    // ── Private helpers ───────────────────────────────────────────────────────
+
+    private List<StreakHistoryItem> parseStreakHistory(String json) {
+        List<StreakHistoryItem> list = new ArrayList<>();
+        try {
+            JsonArray arr = JsonParser.parseString(json).getAsJsonArray();
+            for (JsonElement el : arr) {
+                com.google.gson.JsonObject o = el.getAsJsonObject();
+                String id     = o.has("id")     ? o.get("id").getAsString()     : UUID.randomUUID().toString();
+                int    length = o.has("streak_length") ? o.get("streak_length").getAsInt() : 1;
+                long   start  = parseIsoToMs(o.has("started_at") && !o.get("started_at").isJsonNull()
+                        ? o.get("started_at").getAsString() : null);
+                long   end    = parseIsoToMs(o.has("ended_at") && !o.get("ended_at").isJsonNull()
+                        ? o.get("ended_at").getAsString() : null);
+                list.add(new StreakHistoryItem(id, length, start, end));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "parseStreakHistory error", e);
+        }
+        return list;
+    }
+
+    private static long parseIsoToMs(String iso) {
+        if (iso == null || iso.isEmpty()) return 0L;
+        try {
+            // Supabase returns ISO-8601: "2026-04-10T14:23:00+00:00"
+            java.text.SimpleDateFormat sdf =
+                    new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
+            return sdf.parse(iso).getTime();
+        } catch (Exception e) {
+            try {
+                // Fallback without offset
+                java.text.SimpleDateFormat sdf2 =
+                        new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+                return sdf2.parse(iso).getTime();
+            } catch (Exception ignored) {}
+        }
+        return 0L;
+    }
+
+
 
     /**
      * Returns true if an achievement can be unlocked right now (≤10/min limit).

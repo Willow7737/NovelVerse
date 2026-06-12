@@ -102,10 +102,10 @@
             <ImageView
                  android:layout_height="36dp"
                  android:layout_width="36dp"
-                 android:src="@drawable/ic_filter_outline"
+                 android:src="@drawable/ic_filter"
                  android:contentDescription="Filter"
                  android:padding="6dp"
-                 android:tint="?attr/colorOnSurfaceVariant"
+                 app:tint="?attr/colorOnSurfaceVariant"
                  android:id="@+id/btn_search_filter" />
 
             <TextView

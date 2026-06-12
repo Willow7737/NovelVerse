@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +12,6 @@
         android:orientation="vertical"
         android:paddingHorizontal="24dp">
 
-        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,12 +21,12 @@
 
             <ImageButton
                 android:id="@+id/btn_back"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back"
                 android:src="@drawable/ic_arrow_left"
-                android:tint="@color/icon_primary"
-                android:contentDescription="@string/back" />
+                app:tint="@color/icon_primary" />
 
             <View
                 android:layout_width="0dp"
@@ -39,133 +37,171 @@
                 android:id="@+id/btn_header_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/inter_semibold"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="8dp" />
+                android:fontFamily="@font/inter_semibold"
+                android:padding="8dp"
+                android:text="@string/login"
+                android:textColor="@color/button_blue"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
-        <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/create_your_account"
-            android:textSize="28sp"
-            android:textColor="@color/text_primary"
             android:fontFamily="@font/inter_bold"
-            android:letterSpacing="0.05" />
+            android:letterSpacing="0.05"
+            android:text="@string/create_your_account"
+            android:textColor="@color/text_primary"
+            android:textSize="28sp" />
 
-        <!-- Subtitle -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_regular"
             android:text="@string/start_your_reading_journey"
-            android:textSize="16sp"
             android:textColor="@color/text_secondary"
-            android:fontFamily="@font/inter_regular" />
+            android:textSize="16sp" />
 
-        <!-- Email Input -->
+        <!-- ── Email input ─────────────────────────────────────── -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:hint="@string/email_address"
-            app:hintTextColor="@color/text_tertiary"
+            app:boxBackgroundColor="@color/background_opp"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/auth_input_stroke"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
             app:cursorColor="@color/button_blue"
+            app:hintEnabled="false"
             app:startIconDrawable="@drawable/ic_mail"
-            app:startIconTint="@color/icon_secondary"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox">
+            app:startIconTint="@color/auth_input_icon">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_input"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:textSize="16sp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/email_address"
                 android:inputType="textEmailAddress"
-                android:background="@drawable/bg_onboarding_chip_unselected" />
+                android:paddingVertical="-2dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/icon_secondary"
+                android:textSize="16sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Password Input -->
+        <!-- ── Password input ──────────────────────────────────── -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:boxBackgroundColor="@color/background_opp"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/auth_input_stroke"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
             app:cursorColor="@color/button_blue"
-            android:hint="@string/password"
-            app:hintTextColor="@color/text_tertiary"
-            app:startIconTint="@color/icon_secondary"
-            app:startIconDrawable="@drawable/ic_lock"
             app:endIconMode="password_toggle"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox">
+            app:endIconTint="@color/icon_secondary"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:startIconTint="@color/auth_input_icon">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_input"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:textSize="16sp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:background="@drawable/bg_onboarding_chip_unselected" />
+                android:paddingVertical="-2dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/icon_secondary"
+                android:textSize="16sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Confirm Password Input -->
+        <!-- ── Confirm password input ──────────────────────────── -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirm_password_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/confirm_password"
-            app:hintTextColor="@color/text_tertiary"
-            app:endIconMode="password_toggle"
-            app:startIconTint="@color/icon_secondary"
+            app:boxBackgroundColor="@color/background_opp"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeColor="@color/auth_input_stroke"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
             app:cursorColor="@color/button_blue"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/icon_secondary"
+            app:hintEnabled="false"
             app:startIconDrawable="@drawable/ic_lock"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox">
+            app:startIconTint="@color/auth_input_icon">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirm_password_input"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:textSize="16sp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/confirm_password"
                 android:inputType="textPassword"
-                android:background="@drawable/bg_onboarding_chip_unselected" />
+                android:paddingVertical="-2dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/icon_secondary"
+                android:textSize="16sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Create Account Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_create_account"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="49dp"
             android:layout_marginTop="32dp"
-            android:text="@string/create_account"
-            android:textSize="16sp"
-            android:textColor="@color/white"
             android:fontFamily="@font/inter_semibold"
+            android:paddingVertical="-2dp"
+            android:text="@string/create_account"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:backgroundTint="@color/button_blue"
             app:cornerRadius="16dp" />
 
-        <!-- Social divider -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/inter_regular"
             android:text="@string/or_continue_with"
-            android:textSize="14sp"
             android:textColor="@color/onboarding_text_tertiary"
-            android:fontFamily="@font/inter_regular" />
+            android:textSize="14sp" />
 
-        <!-- Social icons row -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <ImageButton
@@ -173,35 +209,40 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_social_button"
-                android:src="@drawable/ic_google"
-                android:scaleType="centerInside"
+                android:contentDescription="@string/google_sign_in"
                 android:padding="8dp"
-                android:contentDescription="@string/google_sign_in" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_google" />
 
-            <View android:layout_width="16dp" android:layout_height="0dp" />
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp" />
 
             <ImageButton
                 android:id="@+id/btn_social_apple"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_social_button"
-                android:tint="@color/icon_primary"
-                android:src="@drawable/ic_apple"
-                android:scaleType="centerInside"
+                android:contentDescription="@string/apple_sign_in"
                 android:padding="8dp"
-                android:contentDescription="@string/apple_sign_in" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_apple"
+                app:tint="@color/icon_primary" />
 
-            <View android:layout_width="16dp" android:layout_height="0dp" />
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp" />
 
             <ImageButton
                 android:id="@+id/btn_social_facebook"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_social_button"
-                android:src="@drawable/ic_facebook"
-                android:scaleType="centerInside"
+                android:contentDescription="@string/facebook_sign_in"
                 android:padding="8dp"
-                android:contentDescription="@string/facebook_sign_in" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_facebook" />
+
         </LinearLayout>
 
     </LinearLayout>

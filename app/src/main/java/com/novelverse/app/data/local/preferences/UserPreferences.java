@@ -240,7 +240,7 @@ public class UserPreferences {
     }
 
     public String getFontFamily() {
-        return getPrefs().getString(KEY_FONT_FAMILY, "inter");
+        return getPrefs().getString(KEY_FONT_FAMILY, "lora");
     }
 
     public void setParagraphSpacing(float sp) {
@@ -316,7 +316,7 @@ public class UserPreferences {
     }
 
     public int getSideMargin() {
-        return getPrefs().getInt(KEY_SIDE_MARGIN, 20);
+        return getPrefs().getInt(KEY_SIDE_MARGIN, 1);
     }
 
     public void setReadingMode(String m) {

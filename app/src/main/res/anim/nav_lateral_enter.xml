@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  nav_lateral_enter.xml
+  Used when navigating laterally between sibling screens (e.g. Login ↔ SignUp).
+  Subtle crossfade + horizontal micro-slide so there's a sense of direction.
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+
+    <translate
+        android:duration="300"
+        android:fromXDelta="12%"
+        android:toXDelta="0%"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <alpha
+        android:duration="280"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+</set>
